@@ -310,7 +310,16 @@ export type TrainingStatusDtoStatus = 'pending' | 'processing' | 'completed' | '
 // ============================================================================
 
 // User/Auth controllers
-export const userControllerGetProfile = async () => ({ data: null });
+export const userControllerGetProfile = async () => ({
+  data: {
+    id: 'mock-user-id',
+    email: 'demo@example.com',
+    firstName: 'Demo',
+    lastName: 'User',
+    role: 'broker',
+    createdAt: new Date().toISOString(),
+  }
+});
 
 // Notification controllers
 export const notificationControllerGetNotifications = async () => ({ data: [] });
@@ -325,11 +334,47 @@ export const documentSummaryControllerGetSummaryByDocument = async () => null;
 
 // Transaction controllers
 export const transactionReportControllerGetTransactionReport = async () => null;
-export const transactionPropertyTypeControllerGetAllTypes = async () => [];
-export const transactionControllerGetAllTransactions = async () => ({ data: [], pagination: { page: 1, limit: 10, total: 0, totalPages: 0 } });
-export const transactionControllerGetTransaction = async (_id: string) => null;
-export const transactionControllerCreateTransaction = async (_data: CreateTransactionDto) => ({ id: '', name: '' });
-export const transactionControllerUpdateTransaction = async (_id: string, _data: UpdateTransactionDto) => ({ id: '', name: '' });
+export const transactionPropertyTypeControllerGetAllTypes = async () => [
+  { id: '1', name: 'Single Family', description: 'Single family home' },
+  { id: '2', name: 'Condo', description: 'Condominium' },
+  { id: '3', name: 'Townhouse', description: 'Townhouse' },
+];
+export const transactionControllerGetAllTransactions = async () => ({
+  data: [
+    {
+      id: 'tx-1',
+      name: '123 Main St',
+      address: '123 Main St, Austin, TX 78701',
+      status: 'in_progress',
+      propertyType: 'Single Family',
+      transactionType: 'Purchase',
+      closingDate: '2026-03-15',
+      createdAt: '2026-01-15T10:00:00Z',
+    },
+    {
+      id: 'tx-2',
+      name: '456 Oak Ave',
+      address: '456 Oak Ave, Austin, TX 78702',
+      status: 'pending',
+      propertyType: 'Condo',
+      transactionType: 'Sale',
+      closingDate: '2026-04-01',
+      createdAt: '2026-01-20T14:30:00Z',
+    },
+  ],
+  pagination: { page: 1, limit: 10, total: 2, totalPages: 1 }
+});
+export const transactionControllerGetTransaction = async (_id: string) => ({
+  id: _id,
+  name: '123 Main St',
+  address: '123 Main St, Austin, TX 78701',
+  status: 'in_progress',
+  propertyType: 'Single Family',
+  transactionType: 'Purchase',
+  closingDate: '2026-03-15',
+});
+export const transactionControllerCreateTransaction = async (_data: CreateTransactionDto) => ({ id: 'new-tx', name: _data.name || '' });
+export const transactionControllerUpdateTransaction = async (_id: string, _data: UpdateTransactionDto) => ({ id: _id, name: _data.name || '' });
 
 // Document type controllers
 export const documentTypeControllerGetAllTypes = async () => [];
