@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Addendum Summary | Contre</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Pacific NW Color Palette */
+            --forest-950: #0a1f1a;
+            --forest-900: #0f2d25;
+            --forest-800: #1a3d32;
+            --forest-700: #2d5a4a;
+            --forest-600: #3d7a63;
+            --forest-500: #4a9477;
+
+            --slate-700: #364152;
+            --slate-600: #4b5563;
+            --slate-500: #6b7280;
+            --slate-400: #9ca3af;
+            --slate-300: #d1d5db;
+            --slate-200: #e5e7eb;
+            --slate-100: #f3f4f6;
+            --slate-50: #f9fafb;
+
+            --river-700: #1e5a7a;
+            --river-100: #d4eaf5;
+
+            --amber-700: #b45309;
+            --amber-600: #d97706;
+            --amber-100: #fef3c7;
+            --amber-50: #fffbeb;
+
+            --red-700: #9f1c1c;
+            --red-600: #c53030;
+            --red-100: #fee2e2;
+            --red-50: #fef2f2;
+
+            --evergreen-700: #166534;
+            --evergreen-100: #dcfce7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--slate-100);
+            color: var(--slate-700);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .report-container {
+            max-width: 850px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 40px rgba(0,0,0,0.04);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .report-header {
+            background: white;
+            padding: 28px 40px 20px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            color: var(--forest-800);
+            letter-spacing: 0.08em;
+        }
+
+        .report-date {
+            font-size: 11px;
+            color: var(--slate-500);
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .report-type {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            color: var(--slate-400);
+            margin-bottom: 2px;
+        }
+
+        .report-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--forest-900);
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+        }
+
+        .property-address {
+            font-size: 15px;
+            color: var(--slate-500);
+            font-weight: 400;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 28px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--slate-200);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-400);
+        }
+
+        .meta-value {
+            font-size: 13px;
+            color: var(--slate-700);
+            font-weight: 600;
+        }
+
+        /* Key Terms Banner */
+        .key-terms-banner {
+            background: var(--amber-700);
+            padding: 20px 32px;
+            margin: 0 -40px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .key-term {
+            text-align: center;
+            padding: 0 8px;
+            border-right: 1px solid var(--amber-600);
+        }
+
+        .key-term:last-child {
+            border-right: none;
+        }
+
+        .key-term-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: white;
+            letter-spacing: 0.02em;
+        }
+
+        .key-term-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--amber-100);
+        }
+
+        /* Content */
+        .report-content {
+            padding: 0 40px 40px;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-top: 24px;
+        }
+
+        .executive-summary h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            color: var(--forest-700);
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .executive-summary p {
+            font-size: 14px;
+            color: var(--slate-600);
+            line-height: 1.6;
+        }
+
+        /* Reference Box */
+        .reference-box {
+            background: var(--river-100);
+            border: 1px solid var(--river-700);
+            border-radius: 4px;
+            padding: 16px 20px;
+            margin-top: 20px;
+        }
+
+        .reference-box h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12px;
+            color: var(--river-700);
+            letter-spacing: 0.08em;
+            margin-bottom: 6px;
+        }
+
+        .reference-box p {
+            font-size: 13px;
+            color: var(--slate-700);
+            line-height: 1.5;
+        }
+
+        /* Alerts Section */
+        .alerts-section {
+            margin-top: 24px;
+        }
+
+        .alert-box {
+            padding: 16px 20px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .alert-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-box.critical {
+            background: var(--red-50);
+            border: 1px solid var(--red-100);
+            border-left: 4px solid var(--red-600);
+        }
+
+        .alert-box.notable {
+            background: var(--amber-50);
+            border: 1px solid var(--amber-100);
+            border-left: 4px solid var(--amber-600);
+        }
+
+        .alert-box-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .alert-box-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .alert-box.critical .alert-box-icon {
+            background: var(--red-600);
+        }
+
+        .alert-box.notable .alert-box-icon {
+            background: var(--amber-600);
+        }
+
+        .alert-box-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.04em;
+        }
+
+        .alert-box.critical .alert-box-title {
+            color: var(--red-700);
+        }
+
+        .alert-box.notable .alert-box-title {
+            color: var(--amber-700);
+        }
+
+        .alert-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .alert-list li {
+            font-size: 13px;
+            color: var(--slate-700);
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .alert-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        .alert-box.critical .alert-list li::before {
+            color: var(--red-600);
+        }
+
+        .alert-box.notable .alert-list li::before {
+            color: var(--amber-600);
+        }
+
+        /* Section */
+        .section {
+            margin-top: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        .section-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12px;
+            color: var(--forest-600);
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--forest-600);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            color: var(--forest-900);
+            letter-spacing: 0.04em;
+        }
+
+        /* Modifications Table */
+        .modifications-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-top: 12px;
+        }
+
+        .modifications-table th {
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--slate-500);
+            padding: 10px 12px;
+            background: var(--slate-50);
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        .modifications-table td {
+            padding: 12px;
+            border-bottom: 1px solid var(--slate-100);
+            vertical-align: top;
+        }
+
+        .modifications-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .modification-type {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .modification-type.addition {
+            background: var(--evergreen-100);
+            color: var(--evergreen-700);
+        }
+
+        .modification-type.change {
+            background: var(--amber-100);
+            color: var(--amber-700);
+        }
+
+        .modification-type.removal {
+            background: var(--red-100);
+            color: var(--red-700);
+        }
+
+        .modification-section {
+            font-weight: 600;
+            color: var(--slate-700);
+            margin-bottom: 4px;
+        }
+
+        .modification-detail {
+            color: var(--slate-600);
+            line-height: 1.6;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--slate-200);
+            border: 1px solid var(--slate-200);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 12px;
+        }
+
+        .comparison-item {
+            padding: 12px 16px;
+            background: white;
+        }
+
+        .comparison-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-400);
+            margin-bottom: 4px;
+        }
+
+        .comparison-value {
+            font-size: 13px;
+            color: var(--slate-700);
+            font-weight: 500;
+        }
+
+        .comparison-item.changed {
+            background: var(--amber-50);
+        }
+
+        .comparison-item.changed .comparison-value {
+            color: var(--amber-700);
+            font-weight: 600;
+        }
+
+        /* Terms List */
+        .terms-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .terms-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--slate-600);
+            padding: 10px 14px;
+            background: var(--slate-50);
+            border-radius: 4px;
+            border-left: 3px solid var(--forest-600);
+        }
+
+        .term-bullet {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--forest-600);
+            flex-shrink: 0;
+            margin-top: 6px;
+        }
+
+        /* Footer */
+        .report-footer {
+            background: var(--slate-50);
+            border-top: 1px solid var(--slate-200);
+            padding: 20px 40px;
+            margin-top: 32px;
+        }
+
+        .disclaimer {
+            font-size: 11px;
+            color: var(--slate-500);
+            line-height: 1.5;
+            max-width: 600px;
+        }
+
+        .footer-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--slate-200);
+        }
+
+        .footer-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            color: var(--forest-700);
+            letter-spacing: 0.08em;
+        }
+
+        .footer-ref {
+            font-size: 10px;
+            color: var(--slate-400);
+            font-family: monospace;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                font-size: 11px;
+            }
+            .report-container {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+            .report-header {
+                padding: 16px 28px 14px;
+            }
+            .report-content {
+                padding: 0 28px 28px;
+            }
+            .key-terms-banner {
+                margin: 0 -28px;
+                padding: 14px 20px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .section {
+                margin-top: 20px;
+            }
+            .report-footer {
+                padding: 14px 28px;
+                margin-top: 24px;
+            }
+            .alert-box, .reference-box, .comparison-item.changed {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @page {
+            margin: 0.4in;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <!-- Header -->
+        <header class="report-header">
+            <div class="header-top">
+                <div class="brand">CONTRE</div>
+                <div class="report-date">
+                    Prepared {{documentDate}}<br>
+                    by {{preparedByName}}
+                </div>
+            </div>
+            <div class="report-type">Addendum Summary</div>
+            <h1 class="report-title">{{addendumTitle}}</h1>
+            <p class="property-address">{{propertyAddress}}</p>
+
+            <div class="header-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Addendum Number</span>
+                    <span class="meta-value">{{addendumNumber}}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Form</span>
+                    <span class="meta-value">{{formIdentifier}}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Effective Date</span>
+                    <span class="meta-value">{{effectiveDate}}</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="report-content">
+            <!-- Key Terms Banner -->
+            <div class="key-terms-banner">
+                <div class="key-term">
+                    <div class="key-term-value">{{modificationType}}</div>
+                    <div class="key-term-label">Type</div>
+                </div>
+                <div class="key-term">
+                    <div class="key-term-value">{{sectionsAffectedCount}}</div>
+                    <div class="key-term-label">Sections Affected</div>
+                </div>
+                <div class="key-term">
+                    <div class="key-term-value">{{signatureStatus}}</div>
+                    <div class="key-term-label">Signatures</div>
+                </div>
+            </div>
+
+            <!-- Original Agreement Reference -->
+            <div class="reference-box">
+                <h3>Modifies Original Agreement</h3>
+                <p>{{originalContractReference}}</p>
+            </div>
+
+            <!-- Executive Summary -->
+            <!-- AI-GENERATED CONTENT -->
+            <div class="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>{{aiExecutiveSummary}}</p>
+            </div>
+
+            <!-- Alerts -->
+            <!-- AI-GENERATED CONTENT -->
+            <div class="alerts-section">
+                {{#hasCriticalIssues}}
+                <div class="alert-box critical">
+                    <div class="alert-box-header">
+                        <span class="alert-box-icon">!</span>
+                        <span class="alert-box-title">Critical Issues</span>
+                    </div>
+                    <ul class="alert-list">
+                        {{#aiCriticalIssues}}
+                        <li>{{.}}</li>
+                        {{/aiCriticalIssues}}
+                    </ul>
+                </div>
+                {{/hasCriticalIssues}}
+                {{#hasKeyNotes}}
+                <div class="alert-box notable">
+                    <div class="alert-box-header">
+                        <span class="alert-box-icon">!</span>
+                        <span class="alert-box-title">Key Notes</span>
+                    </div>
+                    <ul class="alert-list">
+                        {{#aiKeyNotes}}
+                        <li>{{.}}</li>
+                        {{/aiKeyNotes}}
+                    </ul>
+                </div>
+                {{/hasKeyNotes}}
+            </div>
+
+            <!-- Modifications -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">1</span>
+                    <h2 class="section-title">Modifications</h2>
+                </div>
+                <table class="modifications-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 100px;">Type</th>
+                            <th style="width: 150px;">Section</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#modifications}}
+                        <tr>
+                            <td>
+                                <span class="modification-type {{type}}">{{typeLabel}}</span>
+                            </td>
+                            <td>
+                                <div class="modification-section">{{section}}</div>
+                            </td>
+                            <td>
+                                <div class="modification-detail">{{detail}}</div>
+                            </td>
+                        </tr>
+                        {{/modifications}}
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Financial Changes (if applicable) -->
+            {{#hasFinancialChanges}}
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">2</span>
+                    <h2 class="section-title">Financial Changes</h2>
+                </div>
+                <div class="comparison-grid">
+                    {{#financialChanges}}
+                    <div class="comparison-item">
+                        <div class="comparison-label">Original {{item}}</div>
+                        <div class="comparison-value">{{originalValue}}</div>
+                    </div>
+                    <div class="comparison-item changed">
+                        <div class="comparison-label">New {{item}}</div>
+                        <div class="comparison-value">{{newValue}}</div>
+                    </div>
+                    {{/financialChanges}}
+                </div>
+            </section>
+            {{/hasFinancialChanges}}
+
+            <!-- Date Changes (if applicable) -->
+            {{#hasDateChanges}}
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">3</span>
+                    <h2 class="section-title">Date Changes</h2>
+                </div>
+                <div class="comparison-grid">
+                    {{#dateChanges}}
+                    <div class="comparison-item">
+                        <div class="comparison-label">Original {{item}}</div>
+                        <div class="comparison-value">{{originalValue}}</div>
+                    </div>
+                    <div class="comparison-item changed">
+                        <div class="comparison-label">New {{item}}</div>
+                        <div class="comparison-value">{{newValue}}</div>
+                    </div>
+                    {{/dateChanges}}
+                </div>
+            </section>
+            {{/hasDateChanges}}
+
+            <!-- Additional Terms -->
+            {{#hasAdditionalTerms}}
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">4</span>
+                    <h2 class="section-title">Additional Terms</h2>
+                </div>
+                <ul class="terms-list">
+                    {{#additionalTerms}}
+                    <li>
+                        <span class="term-bullet"></span>
+                        <span>{{.}}</span>
+                    </li>
+                    {{/additionalTerms}}
+                </ul>
+            </section>
+            {{/hasAdditionalTerms}}
+
+            <!-- Action Items -->
+            {{#hasActionItems}}
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">5</span>
+                    <h2 class="section-title">Action Items</h2>
+                </div>
+                <ul class="terms-list">
+                    {{#actionItems}}
+                    <li>
+                        <span class="term-bullet"></span>
+                        <span>{{.}}</span>
+                    </li>
+                    {{/actionItems}}
+                </ul>
+            </section>
+            {{/hasActionItems}}
+
+            <!-- Parties & Signatures -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">6</span>
+                    <h2 class="section-title">Parties & Signatures</h2>
+                </div>
+                <div class="comparison-grid">
+                    <div class="comparison-item">
+                        <div class="comparison-label">Buyer</div>
+                        <div class="comparison-value">{{buyerName}}</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-label">Buyer Signed</div>
+                        <div class="comparison-value">{{#buyerSigned}}Yes - {{buyerSignedDate}}{{/buyerSigned}}{{^buyerSigned}}Pending{{/buyerSigned}}</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-label">Seller</div>
+                        <div class="comparison-value">{{sellerName}}</div>
+                    </div>
+                    <div class="comparison-item">
+                        <div class="comparison-label">Seller Signed</div>
+                        <div class="comparison-value">{{#sellerSigned}}Yes - {{sellerSignedDate}}{{/sellerSigned}}{{^sellerSigned}}Pending{{/sellerSigned}}</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="report-footer">
+            <p class="disclaimer">
+                This summary is for informational purposes only and does not constitute legal, financial, or professional advice. Verify all details with original documents and consult appropriate professionals.
+            </p>
+            <div class="footer-meta">
+                <div class="footer-brand">CONTRE</div>
+                <div class="footer-ref">REF: {{documentId}}</div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

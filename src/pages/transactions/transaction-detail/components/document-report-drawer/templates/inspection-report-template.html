@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inspection Report</title>
+  <style>
+    :root {
+      --blue-900: #1e3a8a;
+      --blue-800: #1e40af;
+      --blue-700: #1d4ed8;
+      --blue-600: #2563eb;
+      --blue-500: #3b82f6;
+      --blue-100: #dbeafe;
+      --blue-50: #eff6ff;
+
+      --green-700: #15803d;
+      --green-600: #16a34a;
+      --green-100: #dcfce7;
+
+      --red-700: #b91c1c;
+      --red-600: #dc2626;
+      --red-100: #fee2e2;
+
+      --yellow-700: #a16207;
+      --yellow-600: #ca8a04;
+      --yellow-100: #fef9c3;
+
+      --orange-700: #c2410c;
+      --orange-100: #ffedd5;
+
+      --gray-900: #111827;
+      --gray-800: #1f2937;
+      --gray-700: #374151;
+      --gray-600: #4b5563;
+      --gray-500: #6b7280;
+      --gray-400: #9ca3af;
+      --gray-300: #d1d5db;
+      --gray-200: #e5e7eb;
+      --gray-100: #f3f4f6;
+      --gray-50: #f9fafb;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--gray-900);
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+
+    .document-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    /* Header */
+    .document-header {
+      background: linear-gradient(135deg, var(--blue-700) 0%, var(--blue-600) 100%);
+      color: white;
+      padding: 32px 40px;
+      border-bottom: 4px solid var(--blue-800);
+    }
+
+    .document-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .document-subtitle {
+      font-size: 16px;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .header-meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    .header-meta-value {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Key Terms Banner */
+    .key-terms-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--blue-800);
+      border-bottom: 3px solid var(--blue-800);
+    }
+
+    .key-term {
+      background: var(--blue-50);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .key-term-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--blue-700);
+      margin-bottom: 6px;
+    }
+
+    .key-term-value.good {
+      color: var(--green-700);
+    }
+
+    .key-term-value.warning {
+      color: var(--yellow-700);
+    }
+
+    .key-term-value.critical {
+      color: var(--red-700);
+    }
+
+    .key-term-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    /* Content Area */
+    .document-content {
+      padding: 40px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--blue-200);
+    }
+
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--blue-700);
+      color: white;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-900);
+      flex: 1;
+    }
+
+    /* Executive Summary */
+    .executive-summary {
+      background: var(--gray-50);
+      border-left: 4px solid var(--blue-600);
+      padding: 24px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+      line-height: 1.7;
+    }
+
+    .executive-summary p {
+      margin-bottom: 12px;
+    }
+
+    .executive-summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Overall Rating */
+    .overall-rating {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      background: var(--gray-50);
+      border: 2px solid var(--gray-200);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .rating-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: var(--blue-100);
+      border: 4px solid var(--blue-600);
+    }
+
+    .rating-circle.excellent {
+      background: var(--green-100);
+      border-color: var(--green-600);
+    }
+
+    .rating-circle.good {
+      background: var(--blue-100);
+      border-color: var(--blue-600);
+    }
+
+    .rating-circle.fair {
+      background: var(--yellow-100);
+      border-color: var(--yellow-600);
+    }
+
+    .rating-circle.poor {
+      background: var(--red-100);
+      border-color: var(--red-600);
+    }
+
+    .rating-score {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .rating-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .rating-details {
+      flex: 1;
+    }
+
+    .rating-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 8px;
+    }
+
+    .rating-description {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Finding Card */
+    .finding-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .finding-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px;
+      background: var(--gray-50);
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    .finding-category {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .finding-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      background: var(--blue-100);
+    }
+
+    .finding-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .finding-badge {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .finding-badge.satisfactory {
+      background: var(--green-100);
+      color: var(--green-700);
+    }
+
+    .finding-badge.monitor {
+      background: var(--yellow-100);
+      color: var(--yellow-700);
+    }
+
+    .finding-badge.repair-needed {
+      background: var(--orange-100);
+      color: var(--orange-700);
+    }
+
+    .finding-badge.safety-hazard {
+      background: var(--red-100);
+      color: var(--red-700);
+    }
+
+    .finding-body {
+      padding: 20px;
+    }
+
+    .finding-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .finding-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--gray-100);
+    }
+
+    .finding-item:last-child {
+      border-bottom: none;
+    }
+
+    .finding-item-status {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .finding-item-status.pass {
+      background: var(--green-100);
+      color: var(--green-700);
+    }
+
+    .finding-item-status.fail {
+      background: var(--red-100);
+      color: var(--red-700);
+    }
+
+    .finding-item-status.info {
+      background: var(--blue-100);
+      color: var(--blue-700);
+    }
+
+    .finding-item-content {
+      flex: 1;
+    }
+
+    .finding-item-text {
+      font-size: 14px;
+      color: var(--gray-800);
+      line-height: 1.5;
+    }
+
+    .finding-item-note {
+      font-size: 12px;
+      color: var(--gray-500);
+      margin-top: 4px;
+      font-style: italic;
+    }
+
+    /* Recommendation Card */
+    .recommendation-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-left: 4px solid var(--blue-600);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .recommendation-card.high-priority {
+      border-left-color: var(--red-600);
+      background: var(--red-100);
+    }
+
+    .recommendation-card.medium-priority {
+      border-left-color: var(--yellow-600);
+      background: var(--yellow-100);
+    }
+
+    .recommendation-card.low-priority {
+      border-left-color: var(--green-600);
+    }
+
+    .recommendation-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .recommendation-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .recommendation-priority {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 4px 10px;
+      border-radius: 4px;
+    }
+
+    .recommendation-priority.high {
+      background: var(--red-700);
+      color: white;
+    }
+
+    .recommendation-priority.medium {
+      background: var(--yellow-700);
+      color: white;
+    }
+
+    .recommendation-priority.low {
+      background: var(--green-700);
+      color: white;
+    }
+
+    .recommendation-description {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+
+    .recommendation-meta {
+      display: flex;
+      gap: 24px;
+      padding-top: 12px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .recommendation-meta-item {
+      font-size: 12px;
+    }
+
+    .recommendation-meta-label {
+      color: var(--gray-500);
+      font-weight: 500;
+    }
+
+    .recommendation-meta-value {
+      color: var(--gray-900);
+      font-weight: 600;
+    }
+
+    /* Inspector Info */
+    .inspector-info {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .info-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .info-card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--blue-700);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .info-card-content {
+      font-size: 15px;
+      color: var(--gray-900);
+      line-height: 1.6;
+    }
+
+    /* Notice Box */
+    .notice-box {
+      background: var(--blue-50);
+      border: 2px solid var(--blue-600);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .notice-box.warning {
+      background: var(--yellow-100);
+      border-color: var(--yellow-700);
+    }
+
+    .notice-box.caution {
+      background: var(--red-100);
+      border-color: var(--red-700);
+    }
+
+    .notice-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--blue-700);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .notice-box.warning .notice-title {
+      color: var(--yellow-700);
+    }
+
+    .notice-box.caution .notice-title {
+      color: var(--red-700);
+    }
+
+    .notice-content {
+      font-size: 14px;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      background: var(--gray-50);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      color: var(--gray-600);
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .document-footer {
+      background: var(--gray-100);
+      border-top: 3px solid var(--blue-600);
+      padding: 24px 40px;
+      margin-top: 40px;
+    }
+
+    .footer-disclaimer {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+      }
+
+      .document-container {
+        max-width: 100%;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+
+      .finding-card {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="document-container">
+    <!-- Header -->
+    <div class="document-header">
+      <div class="document-title">{{inspectionType}}</div>
+      <div class="document-subtitle">{{propertyAddress}}</div>
+
+      <div class="header-meta">
+        <div class="header-meta-item">
+          <div class="header-meta-label">Inspection Date</div>
+          <div class="header-meta-value">{{inspectionDate}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Inspector</div>
+          <div class="header-meta-value">{{inspectorName}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Report Number</div>
+          <div class="header-meta-value">{{reportNumber}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Terms Banner -->
+    <div class="key-terms-banner">
+      <div class="key-term">
+        <div class="key-term-value {{overallRatingClass}}">{{overallRating}}</div>
+        <div class="key-term-label">Overall Condition</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{totalFindings}}</div>
+        <div class="key-term-label">Total Findings</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value critical">{{criticalIssues}}</div>
+        <div class="key-term-label">Critical Issues</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{areasInspected}}</div>
+        <div class="key-term-label">Areas Inspected</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="document-content">
+      <!-- Executive Summary -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <div class="section-title">Executive Summary</div>
+        </div>
+
+        {{#overallAssessment}}
+        <div class="overall-rating">
+          <div class="rating-circle {{ratingClass}}">
+            <div class="rating-score">{{score}}</div>
+            <div class="rating-label">Score</div>
+          </div>
+          <div class="rating-details">
+            <div class="rating-title">{{ratingTitle}}</div>
+            <div class="rating-description">{{ratingDescription}}</div>
+          </div>
+        </div>
+        {{/overallAssessment}}
+
+        <div class="executive-summary">
+          {{#summaryParagraphs}}
+          <p>{{.}}</p>
+          {{/summaryParagraphs}}
+          {{^summaryParagraphs}}
+          <p>This inspection report provides a comprehensive assessment of the property located at {{propertyAddress}}. The inspection was conducted on {{inspectionDate}} by {{inspectorName}}.</p>
+          {{/summaryParagraphs}}
+        </div>
+      </div>
+
+      <!-- Critical Issues -->
+      {{#criticalFindings}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">!</div>
+          <div class="section-title">Critical Issues Requiring Immediate Attention</div>
+        </div>
+
+        <div class="notice-box caution">
+          <div class="notice-title">Safety Concerns Identified</div>
+          <div class="notice-content">The following items require immediate attention and may pose safety risks. We recommend addressing these issues before closing.</div>
+        </div>
+
+        {{#items}}
+        <div class="recommendation-card high-priority">
+          <div class="recommendation-header">
+            <div class="recommendation-title">{{title}}</div>
+            <div class="recommendation-priority high">Immediate</div>
+          </div>
+          <div class="recommendation-description">{{description}}</div>
+          {{#meta}}
+          <div class="recommendation-meta">
+            <div class="recommendation-meta-item">
+              <span class="recommendation-meta-label">Location:</span>
+              <span class="recommendation-meta-value">{{location}}</span>
+            </div>
+            <div class="recommendation-meta-item">
+              <span class="recommendation-meta-label">Est. Cost:</span>
+              <span class="recommendation-meta-value">{{estimatedCost}}</span>
+            </div>
+          </div>
+          {{/meta}}
+        </div>
+        {{/items}}
+      </div>
+      {{/criticalFindings}}
+
+      <!-- Inspection Findings by Category -->
+      {{#findingsByCategory}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <div class="section-title">Inspection Findings by Category</div>
+        </div>
+
+        {{#categories}}
+        <div class="finding-card">
+          <div class="finding-header">
+            <div class="finding-category">
+              <div class="finding-icon">{{icon}}</div>
+              <div class="finding-title">{{categoryName}}</div>
+            </div>
+            <span class="finding-badge {{statusClass}}">{{status}}</span>
+          </div>
+          <div class="finding-body">
+            <ul class="finding-items">
+              {{#items}}
+              <li class="finding-item">
+                <div class="finding-item-status {{statusClass}}">{{statusIcon}}</div>
+                <div class="finding-item-content">
+                  <div class="finding-item-text">{{text}}</div>
+                  {{#note}}
+                  <div class="finding-item-note">{{note}}</div>
+                  {{/note}}
+                </div>
+              </li>
+              {{/items}}
+            </ul>
+          </div>
+        </div>
+        {{/categories}}
+      </div>
+      {{/findingsByCategory}}
+
+      <!-- Recommendations -->
+      {{#recommendations}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <div class="section-title">Recommendations</div>
+        </div>
+
+        {{#items}}
+        <div class="recommendation-card {{priorityClass}}-priority">
+          <div class="recommendation-header">
+            <div class="recommendation-title">{{title}}</div>
+            <div class="recommendation-priority {{priorityClass}}">{{priority}}</div>
+          </div>
+          <div class="recommendation-description">{{description}}</div>
+          {{#hasMeta}}
+          <div class="recommendation-meta">
+            {{#timeframe}}
+            <div class="recommendation-meta-item">
+              <span class="recommendation-meta-label">Timeframe:</span>
+              <span class="recommendation-meta-value">{{timeframe}}</span>
+            </div>
+            {{/timeframe}}
+            {{#estimatedCost}}
+            <div class="recommendation-meta-item">
+              <span class="recommendation-meta-label">Est. Cost:</span>
+              <span class="recommendation-meta-value">{{estimatedCost}}</span>
+            </div>
+            {{/estimatedCost}}
+          </div>
+          {{/hasMeta}}
+        </div>
+        {{/items}}
+      </div>
+      {{/recommendations}}
+
+      <!-- Inspector Information -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <div class="section-title">Inspector Information</div>
+        </div>
+
+        <div class="inspector-info">
+          <div class="info-card">
+            <div class="info-card-title">Inspector</div>
+            <div class="info-card-content">
+              {{inspectorName}}<br>
+              {{#inspectorLicense}}License: {{inspectorLicense}}<br>{{/inspectorLicense}}
+              {{#inspectorCompany}}{{inspectorCompany}}{{/inspectorCompany}}
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Contact</div>
+            <div class="info-card-content">
+              {{#inspectorEmail}}{{inspectorEmail}}<br>{{/inspectorEmail}}
+              {{#inspectorPhone}}{{inspectorPhone}}{{/inspectorPhone}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="document-footer">
+      <div class="footer-disclaimer">
+        This document was generated by ContreAI. This inspection report summary is provided for informational purposes only. The original inspection report should be reviewed for complete details. This summary does not constitute a warranty or guarantee of property condition.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

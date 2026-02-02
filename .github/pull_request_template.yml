@@ -1,0 +1,28 @@
+# 🔍 [FEAT-XXXX](https://www.notion.so/XXXX)
+
+## 📝 Description
+<!-- Include a summary of the change -->
+<!-- If this is high impact or high risk please note why &#40;schema changes, environment changes, etc. -->
+
+## 🧪 How Has This Been Tested?
+<!-- Please describe the tests that you ran to verify your changes. -->
+<!-- Provide instructions so we can reproduce. -->
+<!-- List any relevant details for the test configuration / environment -->
+
+- Automated tests
+- Manual tests
+
+## 📸 Screenshots
+<!-- Add screenshots if it helps provide context for this ticket, if not just delete this section  -->
+
+
+## 📌 Reminder List
+- [ ] Ensure the code follows the style guidelines of this project.
+- [ ] The branch is named to reflect the Notion ticket for proper tracking on the board.
+- [ ] Perform a self-review / engineer test of the changes.
+- [ ] Code is commented, particularly in hard-to-understand areas.
+- [ ] Make corresponding changes to the documentation.
+- [ ] Ensure that the changes generate no new warnings.
+- [ ] Add tests that prove the effectiveness of the fix or the functionality of the feature.
+- [ ] Verify that new and existing unit tests pass locally with the changes.
+- [ ] Check if any dependent changes have been merged, published, and communicated.

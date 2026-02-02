@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Loan & Financing Document</title>
+  <style>
+    :root {
+      --navy-900: #1e1b4b;
+      --navy-800: #312e81;
+      --navy-700: #3730a3;
+      --navy-600: #4f46e5;
+      --navy-500: #6366f1;
+      --navy-100: #e0e7ff;
+      --navy-50: #eef2ff;
+
+      --green-700: #15803d;
+      --green-100: #dcfce7;
+
+      --red-700: #b91c1c;
+      --red-100: #fee2e2;
+
+      --yellow-700: #a16207;
+      --yellow-100: #fef9c3;
+
+      --gray-900: #111827;
+      --gray-800: #1f2937;
+      --gray-700: #374151;
+      --gray-600: #4b5563;
+      --gray-500: #6b7280;
+      --gray-400: #9ca3af;
+      --gray-300: #d1d5db;
+      --gray-200: #e5e7eb;
+      --gray-100: #f3f4f6;
+      --gray-50: #f9fafb;
+
+      --blue-700: #1d4ed8;
+      --blue-100: #dbeafe;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--gray-900);
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+
+    .document-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    /* Header */
+    .document-header {
+      background: linear-gradient(135deg, var(--navy-800) 0%, var(--navy-600) 100%);
+      color: white;
+      padding: 32px 40px;
+      border-bottom: 4px solid var(--navy-900);
+    }
+
+    .document-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .document-subtitle {
+      font-size: 16px;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .header-meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    .header-meta-value {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Key Terms Banner */
+    .key-terms-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--navy-900);
+      border-bottom: 3px solid var(--navy-900);
+    }
+
+    .key-term {
+      background: var(--navy-50);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .key-term-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--navy-700);
+      margin-bottom: 6px;
+    }
+
+    .key-term-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    /* Content Area */
+    .document-content {
+      padding: 40px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--navy-100);
+    }
+
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--navy-700);
+      color: white;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-900);
+      flex: 1;
+    }
+
+    /* Executive Summary */
+    .executive-summary {
+      background: var(--gray-50);
+      border-left: 4px solid var(--navy-600);
+      padding: 24px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+      line-height: 1.7;
+    }
+
+    .executive-summary p {
+      margin-bottom: 12px;
+    }
+
+    .executive-summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Loan Summary Card */
+    .loan-summary-card {
+      background: linear-gradient(135deg, var(--navy-50) 0%, white 100%);
+      border: 2px solid var(--navy-200);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 32px;
+    }
+
+    .loan-amount-display {
+      text-align: center;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--navy-200);
+    }
+
+    .loan-amount-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .loan-amount-value {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--navy-700);
+    }
+
+    .loan-details-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .loan-detail-item {
+      text-align: center;
+    }
+
+    .loan-detail-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .loan-detail-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .info-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .info-card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--navy-700);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .info-card-content {
+      font-size: 15px;
+      color: var(--gray-900);
+      line-height: 1.6;
+    }
+
+    /* Payment Table */
+    .payment-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 24px;
+    }
+
+    .payment-table th {
+      background: var(--navy-50);
+      padding: 12px 16px;
+      text-align: left;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--navy-700);
+      font-weight: 600;
+      border-bottom: 2px solid var(--navy-200);
+    }
+
+    .payment-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 14px;
+      color: var(--gray-800);
+    }
+
+    .payment-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .payment-table .total-row {
+      background: var(--gray-50);
+      font-weight: 700;
+    }
+
+    .payment-table .total-row td {
+      border-top: 2px solid var(--navy-200);
+    }
+
+    /* Fee Item */
+    .fee-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .fee-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .fee-name {
+      font-size: 14px;
+      color: var(--gray-800);
+    }
+
+    .fee-amount {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    /* Condition Card */
+    .condition-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-left: 4px solid var(--navy-600);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .condition-card.pending {
+      border-left-color: var(--yellow-700);
+      background: var(--yellow-100);
+    }
+
+    .condition-card.satisfied {
+      border-left-color: var(--green-700);
+    }
+
+    .condition-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .condition-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .condition-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+    }
+
+    .condition-badge.pending {
+      background: var(--yellow-700);
+      color: white;
+    }
+
+    .condition-badge.satisfied {
+      background: var(--green-700);
+      color: white;
+    }
+
+    .condition-description {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* Notice Box */
+    .notice-box {
+      background: var(--navy-50);
+      border: 2px solid var(--navy-600);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .notice-box.warning {
+      background: var(--yellow-100);
+      border-color: var(--yellow-700);
+    }
+
+    .notice-box.caution {
+      background: var(--red-100);
+      border-color: var(--red-700);
+    }
+
+    .notice-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--navy-700);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .notice-box.warning .notice-title {
+      color: var(--yellow-700);
+    }
+
+    .notice-box.caution .notice-title {
+      color: var(--red-700);
+    }
+
+    .notice-content {
+      font-size: 14px;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      background: var(--gray-50);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      color: var(--gray-600);
+    }
+
+    /* Footer */
+    .document-footer {
+      background: var(--gray-100);
+      border-top: 3px solid var(--navy-600);
+      padding: 24px 40px;
+      margin-top: 40px;
+    }
+
+    .footer-disclaimer {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+      }
+
+      .document-container {
+        max-width: 100%;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="document-container">
+    <!-- Header -->
+    <div class="document-header">
+      <div class="document-title">{{documentType}}</div>
+      <div class="document-subtitle">{{propertyAddress}}</div>
+
+      <div class="header-meta">
+        <div class="header-meta-item">
+          <div class="header-meta-label">Lender</div>
+          <div class="header-meta-value">{{lenderName}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Loan Number</div>
+          <div class="header-meta-value">{{loanNumber}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Document Date</div>
+          <div class="header-meta-value">{{documentDate}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Terms Banner -->
+    <div class="key-terms-banner">
+      <div class="key-term">
+        <div class="key-term-value">{{loanAmount}}</div>
+        <div class="key-term-label">Loan Amount</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{interestRate}}</div>
+        <div class="key-term-label">Interest Rate</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{loanTerm}}</div>
+        <div class="key-term-label">Loan Term</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{monthlyPayment}}</div>
+        <div class="key-term-label">Monthly Payment</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="document-content">
+      <!-- Executive Summary -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <div class="section-title">Executive Summary</div>
+        </div>
+
+        <div class="executive-summary">
+          {{#summaryParagraphs}}
+          <p>{{.}}</p>
+          {{/summaryParagraphs}}
+          {{^summaryParagraphs}}
+          <p>This document outlines the terms and conditions of the financing for the property located at {{propertyAddress}}. The loan is provided by {{lenderName}} with a principal amount of {{loanAmount}}.</p>
+          {{/summaryParagraphs}}
+        </div>
+      </div>
+
+      <!-- Loan Summary -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <div class="section-title">Loan Summary</div>
+        </div>
+
+        <div class="loan-summary-card">
+          <div class="loan-amount-display">
+            <div class="loan-amount-label">Principal Loan Amount</div>
+            <div class="loan-amount-value">{{loanAmount}}</div>
+          </div>
+          <div class="loan-details-grid">
+            <div class="loan-detail-item">
+              <div class="loan-detail-value">{{interestRate}}</div>
+              <div class="loan-detail-label">Interest Rate</div>
+            </div>
+            <div class="loan-detail-item">
+              <div class="loan-detail-value">{{apr}}</div>
+              <div class="loan-detail-label">APR</div>
+            </div>
+            <div class="loan-detail-item">
+              <div class="loan-detail-value">{{loanType}}</div>
+              <div class="loan-detail-label">Loan Type</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-title">Borrower</div>
+            <div class="info-card-content">{{borrowerName}}</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Loan Purpose</div>
+            <div class="info-card-content">{{loanPurpose}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Details -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <div class="section-title">Payment Details</div>
+        </div>
+
+        <table class="payment-table">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            {{#paymentBreakdown}}
+            <tr>
+              <td>{{component}}</td>
+              <td>{{amount}}</td>
+            </tr>
+            {{/paymentBreakdown}}
+            <tr class="total-row">
+              <td>Total Monthly Payment</td>
+              <td>{{monthlyPayment}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-title">First Payment Date</div>
+            <div class="info-card-content">{{firstPaymentDate}}</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Maturity Date</div>
+            <div class="info-card-content">{{maturityDate}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Closing Costs & Fees -->
+      {{#closingCosts}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <div class="section-title">Closing Costs & Fees</div>
+        </div>
+
+        {{#fees}}
+        <div class="fee-item">
+          <span class="fee-name">{{name}}</span>
+          <span class="fee-amount">{{amount}}</span>
+        </div>
+        {{/fees}}
+
+        <div class="fee-item" style="background: var(--navy-50); border-color: var(--navy-200);">
+          <span class="fee-name" style="font-weight: 700;">Total Closing Costs</span>
+          <span class="fee-amount" style="color: var(--navy-700);">{{totalClosingCosts}}</span>
+        </div>
+      </div>
+      {{/closingCosts}}
+
+      <!-- Loan Conditions -->
+      {{#conditions}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">5</div>
+          <div class="section-title">Loan Conditions</div>
+        </div>
+
+        {{#outstandingConditions}}
+        <div class="notice-box warning">
+          <div class="notice-title">Outstanding Conditions</div>
+          <div class="notice-content">The following conditions must be satisfied before loan funding can occur.</div>
+        </div>
+        {{/outstandingConditions}}
+
+        {{#items}}
+        <div class="condition-card {{statusClass}}">
+          <div class="condition-header">
+            <div class="condition-title">{{title}}</div>
+            <span class="condition-badge {{statusClass}}">{{status}}</span>
+          </div>
+          <div class="condition-description">{{description}}</div>
+        </div>
+        {{/items}}
+      </div>
+      {{/conditions}}
+
+      <!-- Important Disclosures -->
+      {{#disclosures}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">6</div>
+          <div class="section-title">Important Disclosures</div>
+        </div>
+
+        {{#items}}
+        <div class="notice-box">
+          <div class="notice-title">{{title}}</div>
+          <div class="notice-content">{{content}}</div>
+        </div>
+        {{/items}}
+      </div>
+      {{/disclosures}}
+
+      <!-- Lender Information -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">7</div>
+          <div class="section-title">Lender Information</div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-title">Lender</div>
+            <div class="info-card-content">
+              {{lenderName}}<br>
+              {{#lenderNmls}}NMLS: {{lenderNmls}}{{/lenderNmls}}
+            </div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Loan Officer</div>
+            <div class="info-card-content">
+              {{#loanOfficer}}{{loanOfficer}}<br>{{/loanOfficer}}
+              {{#loanOfficerEmail}}{{loanOfficerEmail}}<br>{{/loanOfficerEmail}}
+              {{#loanOfficerPhone}}{{loanOfficerPhone}}{{/loanOfficerPhone}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="document-footer">
+      <div class="footer-disclaimer">
+        This document was generated by ContreAI. This loan summary is provided for informational purposes only and does not constitute a binding loan commitment. Please refer to the official loan documents for complete terms and conditions.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

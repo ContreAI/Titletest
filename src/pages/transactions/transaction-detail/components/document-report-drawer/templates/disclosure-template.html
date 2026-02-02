@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Disclosure</title>
+  <style>
+    :root {
+      --teal-900: #134e4a;
+      --teal-800: #115e59;
+      --teal-700: #0f766e;
+      --teal-600: #0d9488;
+      --teal-500: #14b8a6;
+      --teal-100: #ccfbf1;
+      --teal-50: #f0fdfa;
+
+      --green-700: #15803d;
+      --green-100: #dcfce7;
+
+      --red-700: #b91c1c;
+      --red-100: #fee2e2;
+
+      --yellow-700: #a16207;
+      --yellow-100: #fef9c3;
+
+      --gray-900: #111827;
+      --gray-800: #1f2937;
+      --gray-700: #374151;
+      --gray-600: #4b5563;
+      --gray-500: #6b7280;
+      --gray-400: #9ca3af;
+      --gray-300: #d1d5db;
+      --gray-200: #e5e7eb;
+      --gray-100: #f3f4f6;
+      --gray-50: #f9fafb;
+
+      --blue-700: #1d4ed8;
+      --blue-100: #dbeafe;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--gray-900);
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+
+    .document-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    /* Header */
+    .document-header {
+      background: linear-gradient(135deg, var(--teal-700) 0%, var(--teal-600) 100%);
+      color: white;
+      padding: 32px 40px;
+      border-bottom: 4px solid var(--teal-800);
+    }
+
+    .document-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .document-subtitle {
+      font-size: 16px;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .header-meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    .header-meta-value {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Key Terms Banner */
+    .key-terms-banner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--teal-800);
+      border-bottom: 3px solid var(--teal-800);
+    }
+
+    .key-term {
+      background: var(--teal-50);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .key-term-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--teal-700);
+      margin-bottom: 6px;
+    }
+
+    .key-term-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    /* Content Area */
+    .document-content {
+      padding: 40px;
+    }
+
+    /* Reference Box */
+    .reference-box {
+      background: var(--blue-100);
+      border-left: 4px solid var(--blue-700);
+      padding: 20px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+    }
+
+    .reference-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--blue-700);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .reference-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      line-height: 1.4;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--teal-200);
+    }
+
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--teal-700);
+      color: white;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-900);
+      flex: 1;
+    }
+
+    /* Executive Summary */
+    .executive-summary {
+      background: var(--gray-50);
+      border-left: 4px solid var(--teal-600);
+      padding: 24px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+      line-height: 1.7;
+    }
+
+    .executive-summary p {
+      margin-bottom: 12px;
+    }
+
+    .executive-summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Disclosure Items */
+    .disclosure-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .disclosure-item {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-left: 4px solid var(--teal-600);
+      border-radius: 6px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .disclosure-item.warning {
+      background: var(--yellow-100);
+      border-left-color: var(--yellow-700);
+    }
+
+    .disclosure-item.caution {
+      background: var(--red-100);
+      border-left-color: var(--red-700);
+    }
+
+    .disclosure-item-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .disclosure-item-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+      flex: 1;
+    }
+
+    .disclosure-item-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      margin-left: 12px;
+    }
+
+    .disclosure-item-badge.required {
+      background: var(--red-700);
+      color: white;
+    }
+
+    .disclosure-item-badge.advisory {
+      background: var(--yellow-700);
+      color: white;
+    }
+
+    .disclosure-item-badge.informational {
+      background: var(--teal-700);
+      color: white;
+    }
+
+    .disclosure-item-content {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .disclosure-item-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .detail-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    /* Acknowledgments */
+    .acknowledgments {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .acknowledgment-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 16px;
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+      margin-bottom: 12px;
+    }
+
+    .acknowledgment-checkbox {
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--teal-600);
+      border-radius: 4px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 2px;
+    }
+
+    .acknowledgment-checkbox.checked {
+      background: var(--teal-600);
+    }
+
+    .acknowledgment-checkbox.checked::after {
+      content: '✓';
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .acknowledgment-text {
+      flex: 1;
+      font-size: 14px;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* Notice Box */
+    .notice-box {
+      background: var(--teal-50);
+      border: 2px solid var(--teal-600);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .notice-box.warning {
+      background: var(--yellow-100);
+      border-color: var(--yellow-700);
+    }
+
+    .notice-box.caution {
+      background: var(--red-100);
+      border-color: var(--red-700);
+    }
+
+    .notice-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--teal-700);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .notice-box.warning .notice-title {
+      color: var(--yellow-700);
+    }
+
+    .notice-box.caution .notice-title {
+      color: var(--red-700);
+    }
+
+    .notice-content {
+      font-size: 14px;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* Signature Section */
+    .signature-section {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+
+    .signature-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .signature-parties {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .signature-party {
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+    }
+
+    .signature-party-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--teal-700);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .signature-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .signature-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .signature-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--teal-600);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      background: var(--gray-50);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      color: var(--gray-600);
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .document-footer {
+      background: var(--gray-100);
+      border-top: 3px solid var(--teal-600);
+      padding: 24px 40px;
+      margin-top: 40px;
+    }
+
+    .footer-disclaimer {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+      }
+
+      .document-container {
+        max-width: 100%;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+
+      .disclosure-item {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="document-container">
+    <!-- Header -->
+    <div class="document-header">
+      <div class="document-title">{{disclosureType}}</div>
+      <div class="document-subtitle">{{propertyAddress}}</div>
+
+      <div class="header-meta">
+        <div class="header-meta-item">
+          <div class="header-meta-label">Disclosure Date</div>
+          <div class="header-meta-value">{{disclosureDate}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Disclosing Party</div>
+          <div class="header-meta-value">{{disclosingParty}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Transaction ID</div>
+          <div class="header-meta-value">{{transactionId}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Terms Banner -->
+    <div class="key-terms-banner">
+      <div class="key-term">
+        <div class="key-term-value">{{disclosureType}}</div>
+        <div class="key-term-label">Disclosure Type</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{disclosureDate}}</div>
+        <div class="key-term-label">Date</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{partiesAcknowledged}}</div>
+        <div class="key-term-label">Parties Acknowledged</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="document-content">
+      <!-- Reference Box -->
+      {{#reference}}
+      <div class="reference-box">
+        <div class="reference-label">{{referenceLabel}}</div>
+        <div class="reference-value">{{referenceValue}}</div>
+      </div>
+      {{/reference}}
+
+      <!-- Executive Summary -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <div class="section-title">Executive Summary</div>
+        </div>
+
+        <div class="executive-summary">
+          {{#summaryParagraphs}}
+          <p>{{.}}</p>
+          {{/summaryParagraphs}}
+          {{^summaryParagraphs}}
+          <p>This disclosure provides important information regarding {{disclosureType}} for the property located at {{propertyAddress}}. All parties are required to review and acknowledge the information contained herein.</p>
+          {{/summaryParagraphs}}
+        </div>
+      </div>
+
+      <!-- Important Notice -->
+      {{#importantNotice}}
+      <div class="notice-box {{noticeType}}">
+        <div class="notice-title">{{noticeIcon}} {{noticeTitle}}</div>
+        <div class="notice-content">{{noticeContent}}</div>
+      </div>
+      {{/importantNotice}}
+
+      <!-- Disclosure Items -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <div class="section-title">Disclosure Items</div>
+        </div>
+
+        {{#disclosureItems}}
+        <ul class="disclosure-items">
+          {{#items}}
+          <li class="disclosure-item {{itemType}}">
+            <div class="disclosure-item-header">
+              <div class="disclosure-item-title">{{title}}</div>
+              <span class="disclosure-item-badge {{badgeType}}">{{badgeLabel}}</span>
+            </div>
+            <div class="disclosure-item-content">{{content}}</div>
+            {{#details}}
+            <div class="disclosure-item-details">
+              {{#detailFields}}
+              <div class="detail-item">
+                <div class="detail-label">{{label}}</div>
+                <div class="detail-value">{{value}}</div>
+              </div>
+              {{/detailFields}}
+            </div>
+            {{/details}}
+          </li>
+          {{/items}}
+        </ul>
+        {{/disclosureItems}}
+        {{^disclosureItems}}
+        <div class="empty-state">
+          <div class="empty-state-icon">📄</div>
+          <div class="empty-state-text">No disclosure items specified</div>
+        </div>
+        {{/disclosureItems}}
+      </div>
+
+      <!-- Additional Information -->
+      {{#additionalSections}}
+      {{#sections}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">{{sectionNumber}}</div>
+          <div class="section-title">{{sectionTitle}}</div>
+        </div>
+
+        {{#sectionContent}}
+        <div class="executive-summary">
+          {{#paragraphs}}
+          <p>{{.}}</p>
+          {{/paragraphs}}
+        </div>
+        {{/sectionContent}}
+
+        {{#sectionNotice}}
+        <div class="notice-box {{type}}">
+          <div class="notice-title">{{icon}} {{title}}</div>
+          <div class="notice-content">{{content}}</div>
+        </div>
+        {{/sectionNotice}}
+      </div>
+      {{/sections}}
+      {{/additionalSections}}
+
+      <!-- Acknowledgments -->
+      {{#acknowledgments}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">{{sectionNumber}}</div>
+          <div class="section-title">Required Acknowledgments</div>
+        </div>
+
+        <ul class="acknowledgments">
+          {{#acknowledgmentItems}}
+          <li class="acknowledgment-item">
+            <div class="acknowledgment-checkbox {{#checked}}checked{{/checked}}"></div>
+            <div class="acknowledgment-text">{{text}}</div>
+          </li>
+          {{/acknowledgmentItems}}
+        </ul>
+      </div>
+      {{/acknowledgments}}
+
+      <!-- Signatures -->
+      <div class="signature-section">
+        <div class="signature-title">Acknowledgment & Signatures</div>
+
+        <div class="notice-box">
+          <div class="notice-content">
+            {{#signatureNotice}}
+            {{signatureNotice}}
+            {{/signatureNotice}}
+            {{^signatureNotice}}
+            By signing below, all parties acknowledge that they have received, reviewed, and understood the information contained in this disclosure. This acknowledgment does not constitute a waiver of any rights or remedies available under law.
+            {{/signatureNotice}}
+          </div>
+        </div>
+
+        <div class="signature-parties">
+          {{#signatureParties}}
+          <div class="signature-party">
+            <div class="signature-party-title">{{partyName}}</div>
+            <div class="signature-grid">
+              <div class="signature-field">
+                <div class="signature-label">Signature</div>
+                <div class="signature-value">{{signature}}</div>
+              </div>
+              <div class="signature-field">
+                <div class="signature-label">Date</div>
+                <div class="signature-value">{{date}}</div>
+              </div>
+              {{#printedName}}
+              <div class="signature-field">
+                <div class="signature-label">Printed Name</div>
+                <div class="signature-value">{{printedName}}</div>
+              </div>
+              {{/printedName}}
+            </div>
+          </div>
+          {{/signatureParties}}
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="document-footer">
+      <div class="footer-disclaimer">
+        This document was generated by ContreAI. This disclosure is provided for informational purposes and does not constitute legal advice. All parties should consult with appropriate legal and professional advisors regarding the information contained herein.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

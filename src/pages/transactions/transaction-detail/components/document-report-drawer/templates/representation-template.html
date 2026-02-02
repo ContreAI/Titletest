@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Representation Agreement</title>
+  <style>
+    :root {
+      --slate-900: #0f172a;
+      --slate-800: #1e293b;
+      --slate-700: #334155;
+      --slate-600: #475569;
+      --slate-500: #64748b;
+      --slate-400: #94a3b8;
+      --slate-100: #f1f5f9;
+      --slate-50: #f8fafc;
+
+      --green-700: #15803d;
+      --green-100: #dcfce7;
+
+      --red-700: #b91c1c;
+      --red-100: #fee2e2;
+
+      --yellow-700: #a16207;
+      --yellow-100: #fef9c3;
+
+      --gray-900: #111827;
+      --gray-800: #1f2937;
+      --gray-700: #374151;
+      --gray-600: #4b5563;
+      --gray-500: #6b7280;
+      --gray-400: #9ca3af;
+      --gray-300: #d1d5db;
+      --gray-200: #e5e7eb;
+      --gray-100: #f3f4f6;
+      --gray-50: #f9fafb;
+
+      --blue-700: #1d4ed8;
+      --blue-100: #dbeafe;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--gray-900);
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+
+    .document-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    /* Header */
+    .document-header {
+      background: linear-gradient(135deg, var(--slate-800) 0%, var(--slate-600) 100%);
+      color: white;
+      padding: 32px 40px;
+      border-bottom: 4px solid var(--slate-900);
+    }
+
+    .document-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .document-subtitle {
+      font-size: 16px;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .header-meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    .header-meta-value {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Key Terms Banner */
+    .key-terms-banner {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: var(--slate-900);
+      border-bottom: 3px solid var(--slate-900);
+    }
+
+    .key-term {
+      background: var(--slate-50);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .key-term-value {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 6px;
+    }
+
+    .key-term-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    /* Content Area */
+    .document-content {
+      padding: 40px;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--slate-200);
+    }
+
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--slate-700);
+      color: white;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-900);
+      flex: 1;
+    }
+
+    /* Executive Summary */
+    .executive-summary {
+      background: var(--gray-50);
+      border-left: 4px solid var(--slate-600);
+      padding: 24px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+      line-height: 1.7;
+    }
+
+    .executive-summary p {
+      margin-bottom: 12px;
+    }
+
+    .executive-summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Agency Type Badge */
+    .agency-type-card {
+      background: var(--slate-50);
+      border: 2px solid var(--slate-300);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .agency-type-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .agency-type-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+
+    .agency-type-description {
+      font-size: 14px;
+      color: var(--gray-600);
+      margin-top: 12px;
+      line-height: 1.6;
+    }
+
+    /* Info Grid */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .info-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 20px;
+    }
+
+    .info-card-title {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--slate-700);
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+
+    .info-card-content {
+      font-size: 15px;
+      color: var(--gray-900);
+      line-height: 1.6;
+    }
+
+    /* Duty Item */
+    .duty-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
+    .duty-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      background: var(--slate-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .duty-content {
+      flex: 1;
+    }
+
+    .duty-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 6px;
+    }
+
+    .duty-description {
+      font-size: 14px;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* Commission Card */
+    .commission-card {
+      background: linear-gradient(135deg, var(--slate-50) 0%, white 100%);
+      border: 2px solid var(--slate-200);
+      border-radius: 12px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+
+    .commission-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--slate-200);
+    }
+
+    .commission-rate {
+      text-align: center;
+    }
+
+    .commission-rate-value {
+      font-size: 42px;
+      font-weight: 700;
+      color: var(--slate-700);
+    }
+
+    .commission-rate-label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .commission-details {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .commission-detail-item {
+      text-align: center;
+    }
+
+    .commission-detail-value {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .commission-detail-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    /* Term Card */
+    .term-card {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-left: 4px solid var(--slate-600);
+      border-radius: 6px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .term-card.important {
+      border-left-color: var(--yellow-700);
+      background: var(--yellow-100);
+    }
+
+    .term-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .term-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+
+    .term-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
+      background: var(--slate-200);
+      color: var(--slate-700);
+    }
+
+    .term-content {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* Notice Box */
+    .notice-box {
+      background: var(--slate-50);
+      border: 2px solid var(--slate-400);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .notice-box.warning {
+      background: var(--yellow-100);
+      border-color: var(--yellow-700);
+    }
+
+    .notice-box.info {
+      background: var(--blue-100);
+      border-color: var(--blue-700);
+    }
+
+    .notice-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .notice-box.warning .notice-title {
+      color: var(--yellow-700);
+    }
+
+    .notice-box.info .notice-title {
+      color: var(--blue-700);
+    }
+
+    .notice-content {
+      font-size: 14px;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* Signature Section */
+    .signature-section {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+
+    .signature-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .signature-parties {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .signature-party {
+      padding: 20px;
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-radius: 6px;
+    }
+
+    .signature-party-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--slate-700);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .signature-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .signature-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .signature-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--slate-600);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      background: var(--gray-50);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      color: var(--gray-600);
+    }
+
+    /* Footer */
+    .document-footer {
+      background: var(--gray-100);
+      border-top: 3px solid var(--slate-600);
+      padding: 24px 40px;
+      margin-top: 40px;
+    }
+
+    .footer-disclaimer {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+      }
+
+      .document-container {
+        max-width: 100%;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="document-container">
+    <!-- Header -->
+    <div class="document-header">
+      <div class="document-title">{{documentType}}</div>
+      <div class="document-subtitle">{{clientName}} - {{representationType}} Representation</div>
+
+      <div class="header-meta">
+        <div class="header-meta-item">
+          <div class="header-meta-label">Agreement Date</div>
+          <div class="header-meta-value">{{agreementDate}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Brokerage</div>
+          <div class="header-meta-value">{{brokerageName}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Agent</div>
+          <div class="header-meta-value">{{agentName}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Terms Banner -->
+    <div class="key-terms-banner">
+      <div class="key-term">
+        <div class="key-term-value">{{representationType}}</div>
+        <div class="key-term-label">Representation</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{agreementType}}</div>
+        <div class="key-term-label">Agreement Type</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{termLength}}</div>
+        <div class="key-term-label">Term Length</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{commissionRate}}</div>
+        <div class="key-term-label">Commission</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="document-content">
+      <!-- Executive Summary -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <div class="section-title">Executive Summary</div>
+        </div>
+
+        <div class="executive-summary">
+          {{#summaryParagraphs}}
+          <p>{{.}}</p>
+          {{/summaryParagraphs}}
+          {{^summaryParagraphs}}
+          <p>This representation agreement establishes the agency relationship between {{clientName}} (Client) and {{agentName}} of {{brokerageName}} (Agent). The Agent agrees to represent the Client as their {{representationType}}'s agent in real estate transactions.</p>
+          {{/summaryParagraphs}}
+        </div>
+      </div>
+
+      <!-- Agency Relationship -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <div class="section-title">Agency Relationship</div>
+        </div>
+
+        <div class="agency-type-card">
+          <div class="agency-type-label">Agency Type</div>
+          <div class="agency-type-value">{{agencyType}}</div>
+          {{#agencyDescription}}
+          <div class="agency-type-description">{{agencyDescription}}</div>
+          {{/agencyDescription}}
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-title">Client</div>
+            <div class="info-card-content">{{clientName}}</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Agent/Broker</div>
+            <div class="info-card-content">
+              {{agentName}}<br>
+              {{brokerageName}}<br>
+              {{#licenseNumber}}License: {{licenseNumber}}{{/licenseNumber}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Agent Duties -->
+      {{#agentDuties}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <div class="section-title">Agent Duties & Obligations</div>
+        </div>
+
+        {{#items}}
+        <div class="duty-item">
+          <div class="duty-icon">{{icon}}</div>
+          <div class="duty-content">
+            <div class="duty-title">{{title}}</div>
+            <div class="duty-description">{{description}}</div>
+          </div>
+        </div>
+        {{/items}}
+      </div>
+      {{/agentDuties}}
+
+      <!-- Commission Terms -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <div class="section-title">Commission Terms</div>
+        </div>
+
+        <div class="commission-card">
+          <div class="commission-header">
+            <div class="commission-rate">
+              <div class="commission-rate-value">{{commissionRate}}</div>
+              <div class="commission-rate-label">Commission Rate</div>
+            </div>
+          </div>
+          <div class="commission-details">
+            <div class="commission-detail-item">
+              <div class="commission-detail-value">{{commissionPayable}}</div>
+              <div class="commission-detail-label">When Payable</div>
+            </div>
+            <div class="commission-detail-item">
+              <div class="commission-detail-value">{{commissionSplit}}</div>
+              <div class="commission-detail-label">Split Arrangement</div>
+            </div>
+          </div>
+        </div>
+
+        {{#commissionNotice}}
+        <div class="notice-box info">
+          <div class="notice-title">Commission Information</div>
+          <div class="notice-content">{{commissionNotice}}</div>
+        </div>
+        {{/commissionNotice}}
+      </div>
+
+      <!-- Agreement Term -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">5</div>
+          <div class="section-title">Agreement Term & Termination</div>
+        </div>
+
+        <div class="info-grid">
+          <div class="info-card">
+            <div class="info-card-title">Start Date</div>
+            <div class="info-card-content">{{startDate}}</div>
+          </div>
+          <div class="info-card">
+            <div class="info-card-title">Expiration Date</div>
+            <div class="info-card-content">{{expirationDate}}</div>
+          </div>
+        </div>
+
+        {{#terminationTerms}}
+        <div class="term-card">
+          <div class="term-header">
+            <div class="term-title">Termination Provisions</div>
+          </div>
+          <div class="term-content">{{terminationTerms}}</div>
+        </div>
+        {{/terminationTerms}}
+
+        {{#protectionPeriod}}
+        <div class="term-card important">
+          <div class="term-header">
+            <div class="term-title">Protection Period</div>
+            <span class="term-badge">Important</span>
+          </div>
+          <div class="term-content">{{protectionPeriod}}</div>
+        </div>
+        {{/protectionPeriod}}
+      </div>
+
+      <!-- Additional Terms -->
+      {{#additionalTerms}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">6</div>
+          <div class="section-title">Additional Terms</div>
+        </div>
+
+        {{#terms}}
+        <div class="term-card">
+          <div class="term-header">
+            <div class="term-title">{{title}}</div>
+          </div>
+          <div class="term-content">{{content}}</div>
+        </div>
+        {{/terms}}
+      </div>
+      {{/additionalTerms}}
+
+      <!-- Signatures -->
+      <div class="signature-section">
+        <div class="signature-title">Acknowledgment & Signatures</div>
+
+        <div class="notice-box">
+          <div class="notice-content">
+            By signing below, all parties acknowledge that they have read and understood the terms of this representation agreement and agree to be bound by its provisions.
+          </div>
+        </div>
+
+        <div class="signature-parties">
+          {{#signatureParties}}
+          <div class="signature-party">
+            <div class="signature-party-title">{{partyType}}</div>
+            <div class="signature-grid">
+              <div class="signature-field">
+                <div class="signature-label">Name</div>
+                <div class="signature-value">{{name}}</div>
+              </div>
+              <div class="signature-field">
+                <div class="signature-label">Date</div>
+                <div class="signature-value">{{date}}</div>
+              </div>
+            </div>
+          </div>
+          {{/signatureParties}}
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="document-footer">
+      <div class="footer-disclaimer">
+        This document was generated by ContreAI. This representation agreement summary is provided for informational purposes only and does not constitute legal advice. Please refer to the original agreement for complete terms and conditions.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

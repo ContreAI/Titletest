@@ -1,0 +1,396 @@
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      push_docker:
+        description: 'Push Docker image to registry'
+        type: boolean
+        default: false
+  push:
+    branches:
+      - 'release/*'
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: write
+  packages: write
+
+concurrency:
+  group: release-${{ github.repository }}-${{ github.ref_name }}
+  cancel-in-progress: false
+
+env:
+  K8S_NAMESPACE: contre-ai-dev
+  K8S_DEPLOYMENT: contre-ai-ui
+  APP_NAME: contre-ai-ui
+  IMAGE_REGISTRY: registry.digitalocean.com/contreai/contre-ai-ui
+  DOCKERFILE: ./Dockerfile
+
+jobs:
+  # ─────────────────────────────────────────────────────────────────────────────
+  # PREPARE: Detect branch type, compute version, determine docker tags
+  # ─────────────────────────────────────────────────────────────────────────────
+  prepare:
+    # Skip if PR not merged (only for pull_request events)
+    if: ${{ github.event_name != 'pull_request' || github.event.pull_request.merged == true }}
+    runs-on: ubuntu-latest
+    outputs:
+      branch_type: ${{ steps.detect.outputs.branch_type }}
+      version: ${{ steps.version.outputs.version }}
+      docker_tags: ${{ steps.tags.outputs.docker_tags }}
+      should_push: ${{ steps.flags.outputs.should_push }}
+      should_deploy: ${{ steps.flags.outputs.should_deploy }}
+      should_tag_git: ${{ steps.flags.outputs.should_tag_git }}
+      should_update_package: ${{ steps.flags.outputs.should_update_package }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.ref }}
+          fetch-depth: 0
+
+      - name: Detect branch type
+        id: detect
+        run: |
+          # Determine the branch we're working with
+          if [[ "${{ github.event_name }}" == "pull_request" ]]; then
+            # For merged PRs to main, we're on main
+            BRANCH="main"
+          else
+            BRANCH="${{ github.ref_name }}"
+          fi
+
+          echo "Working with branch: $BRANCH"
+
+          if [[ "$BRANCH" == "main" ]]; then
+            echo "branch_type=main" >> $GITHUB_OUTPUT
+          elif [[ "$BRANCH" =~ ^release/ ]]; then
+            echo "branch_type=release" >> $GITHUB_OUTPUT
+          elif [[ "$BRANCH" =~ ^feature/ ]]; then
+            echo "branch_type=feature" >> $GITHUB_OUTPUT
+          else
+            echo "branch_type=unknown" >> $GITHUB_OUTPUT
+          fi
+
+          echo "branch_name=$BRANCH" >> $GITHUB_OUTPUT
+
+      - name: Compute version
+        id: version
+        run: |
+          BRANCH_TYPE="${{ steps.detect.outputs.branch_type }}"
+          BRANCH_NAME="${{ steps.detect.outputs.branch_name }}"
+          SHORT_SHA=$(git rev-parse --short HEAD)
+
+          case "$BRANCH_TYPE" in
+            feature)
+              # Extract version from branch name: feature/1.6.0-description -> 1.6.0
+              VERSION_BASE=$(echo "$BRANCH_NAME" | sed -n 's|^feature/\([0-9]*\.[0-9]*\.[0-9]*\).*|\1|p')
+              if [[ -z "$VERSION_BASE" ]]; then
+                echo "::error::Feature branch must follow pattern: feature/{version}-{description}"
+                exit 1
+              fi
+              # Use git hash for unique feature builds
+              VERSION="${VERSION_BASE}-pre.${SHORT_SHA}"
+              ;;
+            release)
+              # Extract version from branch name: release/1.6.x -> 1.6.0
+              VERSION_BASE=$(echo "$BRANCH_NAME" | sed -n 's|^release/\([0-9]*\.[0-9]*\)\.x$|\1.0|p')
+              if [[ -z "$VERSION_BASE" ]]; then
+                echo "::error::Release branch must follow pattern: release/{major}.{minor}.x"
+                exit 1
+              fi
+              # Use git hash for unique RC builds
+              VERSION="${VERSION_BASE}-rc.${SHORT_SHA}"
+              ;;
+            main)
+              # Get version from package.json and strip pre/rc suffix
+              PKG_VERSION=$(node -p "require('./package.json').version")
+              # Extract just the semantic version (X.Y.Z), stripping any suffixes like -pre.X, -rc.X, or accumulated SHAs
+              VERSION_BASE=$(echo "$PKG_VERSION" | grep -oE '^[0-9]+\.[0-9]+\.[0-9]+')
+              # Add git hash for unique builds on main
+              VERSION="${VERSION_BASE}-${SHORT_SHA}"
+              ;;
+            *)
+              echo "::error::Unknown branch type: $BRANCH_TYPE"
+              exit 1
+              ;;
+          esac
+
+          echo "Computed version: $VERSION"
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Determine docker tags
+        id: tags
+        run: |
+          VERSION="${{ steps.version.outputs.version }}"
+          BRANCH_TYPE="${{ steps.detect.outputs.branch_type }}"
+
+          case "$BRANCH_TYPE" in
+            feature)
+              # Only version tag for feature branches
+              DOCKER_TAGS="${{ env.IMAGE_REGISTRY }}:${VERSION}"
+              ;;
+            release)
+              # Version tag + rc-latest for release branches
+              DOCKER_TAGS="${{ env.IMAGE_REGISTRY }}:${VERSION}
+          ${{ env.IMAGE_REGISTRY }}:rc-latest"
+              ;;
+            main)
+              # Version tag + latest + dev-latest for main
+              DOCKER_TAGS="${{ env.IMAGE_REGISTRY }}:${VERSION}
+          ${{ env.IMAGE_REGISTRY }}:latest
+          ${{ env.IMAGE_REGISTRY }}:dev-latest"
+              ;;
+          esac
+
+          # Use heredoc for multiline output
+          echo "docker_tags<<EOF" >> $GITHUB_OUTPUT
+          echo "$DOCKER_TAGS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Determine action flags
+        id: flags
+        run: |
+          BRANCH_TYPE="${{ steps.detect.outputs.branch_type }}"
+          EVENT_NAME="${{ github.event_name }}"
+          MANUAL_PUSH="${{ github.event.inputs.push_docker }}"
+
+          # Default: don't push/deploy for feature branches unless manual
+          case "$BRANCH_TYPE" in
+            feature)
+              if [[ "$EVENT_NAME" == "workflow_dispatch" && "$MANUAL_PUSH" == "true" ]]; then
+                SHOULD_PUSH="true"
+                SHOULD_DEPLOY="true"
+              else
+                SHOULD_PUSH="false"
+                SHOULD_DEPLOY="false"
+              fi
+              SHOULD_TAG_GIT="true"
+              SHOULD_UPDATE_PACKAGE="false"
+              ;;
+            release)
+              SHOULD_PUSH="true"
+              SHOULD_DEPLOY="true"
+              SHOULD_TAG_GIT="true"
+              SHOULD_UPDATE_PACKAGE="false"
+              ;;
+            main)
+              SHOULD_PUSH="true"
+              SHOULD_DEPLOY="true"
+              SHOULD_TAG_GIT="true"
+              SHOULD_UPDATE_PACKAGE="true"
+              ;;
+          esac
+
+          echo "should_push=$SHOULD_PUSH" >> $GITHUB_OUTPUT
+          echo "should_deploy=$SHOULD_DEPLOY" >> $GITHUB_OUTPUT
+          echo "should_tag_git=$SHOULD_TAG_GIT" >> $GITHUB_OUTPUT
+          echo "should_update_package=$SHOULD_UPDATE_PACKAGE" >> $GITHUB_OUTPUT
+
+      - name: Summary
+        run: |
+          echo "### Release Preparation Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Setting | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Branch Type | ${{ steps.detect.outputs.branch_type }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | ${{ steps.version.outputs.version }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Push Docker | ${{ steps.flags.outputs.should_push }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deploy | ${{ steps.flags.outputs.should_deploy }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Git Tag | ${{ steps.flags.outputs.should_tag_git }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Update package.json | ${{ steps.flags.outputs.should_update_package }} |" >> $GITHUB_STEP_SUMMARY
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # BUILD: Docker build with conditional push
+  # ─────────────────────────────────────────────────────────────────────────────
+  build:
+    needs: prepare
+    runs-on: ubuntu-latest
+    outputs:
+      digest: ${{ steps.build.outputs.digest }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.ref }}
+
+      - name: Set up Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to DigitalOcean Container Registry
+        if: ${{ needs.prepare.outputs.should_push == 'true' }}
+        uses: docker/login-action@v3
+        with:
+          registry: registry.digitalocean.com
+          username: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+          password: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+
+      - name: Build & push Docker image
+        id: build
+        uses: docker/build-push-action@v6
+        env:
+          BUILDKIT_PROGRESS: plain
+        with:
+          context: .
+          file: ${{ env.DOCKERFILE }}
+          push: ${{ needs.prepare.outputs.should_push == 'true' }}
+          tags: ${{ needs.prepare.outputs.docker_tags }}
+          provenance: false
+          sbom: false
+          build-args: |
+            NODE_AUTH_TOKEN=${{ secrets.GITHUB_TOKEN }}
+            VITE_API_URL=${{ vars.VITE_API_URL }}
+            VITE_AUTH_URL=${{ vars.VITE_AUTH_URL }}
+            VITE_SOCKET_URL=${{ vars.VITE_SOCKET_URL }}
+            VITE_SUPABASE_URL=${{ vars.VITE_SUPABASE_URL }}
+            VITE_SUPABASE_ANON_KEY=${{ vars.VITE_SUPABASE_ANON_KEY }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+          labels: |
+            org.opencontainers.image.title=${{ env.APP_NAME }}
+            org.opencontainers.image.version=${{ needs.prepare.outputs.version }}
+            org.opencontainers.image.source=${{ github.repository }}
+
+      - name: Build summary
+        run: |
+          echo "### Docker Build Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Setting | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | ${{ needs.prepare.outputs.version }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Pushed | ${{ needs.prepare.outputs.should_push }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Digest | ${{ steps.build.outputs.digest }} |" >> $GITHUB_STEP_SUMMARY
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # DEPLOY: K8s deployment (conditional)
+  # ─────────────────────────────────────────────────────────────────────────────
+  deploy:
+    needs: [prepare, build]
+    if: ${{ needs.prepare.outputs.should_deploy == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: kubectl CLI
+        uses: azure/setup-kubectl@v4
+
+      - name: Write kubeconfig from secret
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
+          chmod 600 $HOME/.kube/config
+
+      - name: Cancel stuck rollout if needed
+        run: |
+          ROLLOUT_STATUS=$(kubectl -n $K8S_NAMESPACE rollout status deploy/${K8S_DEPLOYMENT} --timeout=5s 2>&1 || true)
+          if echo "$ROLLOUT_STATUS" | grep -q "exceeded its progress deadline"; then
+            echo "Deployment is stuck, canceling failed rollout..."
+            kubectl -n $K8S_NAMESPACE rollout undo deploy/${K8S_DEPLOYMENT}
+            kubectl -n $K8S_NAMESPACE rollout status deploy/${K8S_DEPLOYMENT} --timeout=2m
+          fi
+
+      - name: Update image and wait for rollout
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          kubectl -n $K8S_NAMESPACE set image deploy/${K8S_DEPLOYMENT} \
+            ${APP_NAME}=${IMAGE_REGISTRY}:${VERSION}
+
+          kubectl -n $K8S_NAMESPACE rollout status deploy/${K8S_DEPLOYMENT} --timeout=5m
+
+      - name: Stamp deployment with version & digest metadata
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+          IMAGE_DIGEST: ${{ needs.build.outputs.digest }}
+        run: |
+          kubectl -n $K8S_NAMESPACE label deploy/${K8S_DEPLOYMENT} \
+            app.kubernetes.io/version=${VERSION} --overwrite
+
+          kubectl -n $K8S_NAMESPACE annotate deploy/${K8S_DEPLOYMENT} \
+            contre.ai/image-digest=${IMAGE_DIGEST} --overwrite
+
+      - name: Deploy summary
+        run: |
+          echo "### Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Setting | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Namespace | ${{ env.K8S_NAMESPACE }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Deployment | ${{ env.K8S_DEPLOYMENT }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Version | ${{ needs.prepare.outputs.version }} |" >> $GITHUB_STEP_SUMMARY
+
+  # ─────────────────────────────────────────────────────────────────────────────
+  # TAG: Create git tag and update package.json (main only)
+  # ─────────────────────────────────────────────────────────────────────────────
+  tag:
+    needs: [prepare, build, deploy]
+    # Run after deploy succeeds, or after build if deploy was skipped
+    if: |
+      always() &&
+      needs.prepare.outputs.should_tag_git == 'true' &&
+      needs.build.result == 'success' &&
+      (needs.deploy.result == 'success' || needs.deploy.result == 'skipped')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || github.ref }}
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Configure git author
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create and push git tag
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          TAG="v${VERSION}"
+
+          # Check if tag already exists
+          if git rev-parse "$TAG" >/dev/null 2>&1; then
+            echo "Tag $TAG already exists, skipping"
+          else
+            git tag -a "$TAG" -m "Release $TAG"
+            git push origin "refs/tags/$TAG"
+            echo "Created and pushed tag: $TAG"
+          fi
+
+      - name: Compute next pre-release version
+        if: ${{ needs.prepare.outputs.should_update_package == 'true' }}
+        id: next
+        env:
+          VERSION: ${{ needs.prepare.outputs.version }}
+        run: |
+          # For main branch, bump to next pre-release
+          # e.g., 0.1.0 -> 0.1.0-pre.0 (or increment existing)
+          NEXT_VERSION="${VERSION}-pre.0"
+          echo "next_version=$NEXT_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Update package.json on main
+        if: ${{ needs.prepare.outputs.should_update_package == 'true' }}
+        env:
+          NEXT_VERSION: ${{ steps.next.outputs.next_version }}
+        run: |
+          git fetch origin main
+          git checkout main
+          git pull --ff-only
+
+          npm pkg set version=${NEXT_VERSION}
+
+          git add package.json package-lock.json || true
+          git commit -m "chore(${{ env.APP_NAME }}): bump to ${NEXT_VERSION} [ci-skip]" || echo "No changes to commit"
+          git push origin HEAD:main
+
+      - name: Tag summary
+        run: |
+          echo "### Git Tag Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Setting | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---------|-------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Tag | v${{ needs.prepare.outputs.version }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Updated package.json | ${{ needs.prepare.outputs.should_update_package }} |" >> $GITHUB_STEP_SUMMARY

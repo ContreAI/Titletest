@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contingency Removal</title>
+  <style>
+    :root {
+      --purple-900: #581c87;
+      --purple-800: #6b21a8;
+      --purple-700: #7e22ce;
+      --purple-600: #9333ea;
+      --purple-500: #a855f7;
+      --purple-100: #f3e8ff;
+      --purple-50: #faf5ff;
+
+      --green-700: #15803d;
+      --green-100: #dcfce7;
+
+      --red-700: #b91c1c;
+      --red-100: #fee2e2;
+
+      --gray-900: #111827;
+      --gray-800: #1f2937;
+      --gray-700: #374151;
+      --gray-600: #4b5563;
+      --gray-500: #6b7280;
+      --gray-400: #9ca3af;
+      --gray-300: #d1d5db;
+      --gray-200: #e5e7eb;
+      --gray-100: #f3f4f6;
+      --gray-50: #f9fafb;
+
+      --blue-700: #1d4ed8;
+      --blue-100: #dbeafe;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: var(--gray-900);
+      background: white;
+      padding: 0;
+      margin: 0;
+    }
+
+    .document-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: white;
+    }
+
+    /* Header */
+    .document-header {
+      background: linear-gradient(135deg, var(--purple-700) 0%, var(--purple-600) 100%);
+      color: white;
+      padding: 32px 40px;
+      border-bottom: 4px solid var(--purple-800);
+    }
+
+    .document-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .document-subtitle {
+      font-size: 16px;
+      opacity: 0.95;
+      font-weight: 500;
+    }
+
+    .header-meta {
+      display: flex;
+      gap: 32px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .header-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .header-meta-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      opacity: 0.8;
+      font-weight: 600;
+    }
+
+    .header-meta-value {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    /* Key Terms Banner */
+    .key-terms-banner {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--purple-800);
+      border-bottom: 3px solid var(--purple-800);
+    }
+
+    .key-term {
+      background: var(--purple-50);
+      padding: 24px;
+      text-align: center;
+    }
+
+    .key-term-value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--purple-700);
+      margin-bottom: 6px;
+    }
+
+    .key-term-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    /* Content Area */
+    .document-content {
+      padding: 40px;
+    }
+
+    /* Reference Box */
+    .reference-box {
+      background: var(--blue-100);
+      border-left: 4px solid var(--blue-700);
+      padding: 20px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+    }
+
+    .reference-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--blue-700);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .reference-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      line-height: 1.4;
+    }
+
+    /* Section */
+    .section {
+      margin-bottom: 40px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid var(--purple-200);
+    }
+
+    .section-number {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--purple-700);
+      color: white;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--gray-900);
+      flex: 1;
+    }
+
+    /* Executive Summary */
+    .executive-summary {
+      background: var(--gray-50);
+      border-left: 4px solid var(--purple-600);
+      padding: 24px;
+      margin-bottom: 32px;
+      border-radius: 4px;
+      line-height: 1.7;
+    }
+
+    .executive-summary p {
+      margin-bottom: 12px;
+    }
+
+    .executive-summary p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Contingencies List */
+    .contingencies-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .contingency-item {
+      background: white;
+      border: 1px solid var(--gray-200);
+      border-left: 4px solid var(--purple-600);
+      border-radius: 6px;
+      padding: 24px;
+      margin-bottom: 20px;
+    }
+
+    .contingency-item.removed {
+      border-left-color: var(--green-700);
+      background: var(--green-100);
+    }
+
+    .contingency-item.remaining {
+      border-left-color: var(--red-700);
+      background: var(--red-100);
+    }
+
+    .contingency-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .contingency-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+      flex: 1;
+    }
+
+    .contingency-status {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 16px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-left: 12px;
+    }
+
+    .contingency-status.removed {
+      background: var(--green-700);
+      color: white;
+    }
+
+    .contingency-status.remaining {
+      background: var(--red-700);
+      color: white;
+    }
+
+    .contingency-description {
+      font-size: 14px;
+      color: var(--gray-700);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .contingency-details {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    .contingency-item.removed .contingency-details {
+      border-top-color: rgba(21, 128, 61, 0.2);
+    }
+
+    .contingency-item.remaining .contingency-details {
+      border-top-color: rgba(185, 28, 28, 0.2);
+    }
+
+    .detail-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .detail-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .detail-value {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+
+    /* Timeline */
+    .timeline {
+      position: relative;
+      padding-left: 40px;
+      margin: 32px 0;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--purple-300);
+    }
+
+    .timeline-item {
+      position: relative;
+      padding-bottom: 24px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -32px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--purple-600);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--purple-300);
+    }
+
+    .timeline-item.completed::before {
+      background: var(--green-700);
+      box-shadow: 0 0 0 2px var(--green-300);
+    }
+
+    .timeline-date {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--purple-700);
+      margin-bottom: 4px;
+    }
+
+    .timeline-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      margin-bottom: 4px;
+    }
+
+    .timeline-description {
+      font-size: 13px;
+      color: var(--gray-700);
+    }
+
+    /* Summary Grid */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+
+    .summary-card {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-200);
+      border-radius: 8px;
+      padding: 24px;
+      text-align: center;
+    }
+
+    .summary-card.removed {
+      background: var(--green-100);
+      border-color: var(--green-700);
+    }
+
+    .summary-card.remaining {
+      background: var(--red-100);
+      border-color: var(--red-700);
+    }
+
+    .summary-number {
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .summary-card.removed .summary-number {
+      color: var(--green-700);
+    }
+
+    .summary-card.remaining .summary-number {
+      color: var(--red-700);
+    }
+
+    .summary-label {
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      color: var(--gray-700);
+    }
+
+    /* Notice Box */
+    .notice-box {
+      background: var(--purple-50);
+      border: 2px solid var(--purple-600);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 24px 0;
+    }
+
+    .notice-title {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--purple-700);
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .notice-content {
+      font-size: 14px;
+      color: var(--gray-800);
+      line-height: 1.6;
+    }
+
+    /* Signature Section */
+    .signature-section {
+      background: var(--gray-50);
+      border: 1px solid var(--gray-300);
+      border-radius: 8px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+
+    .signature-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--gray-900);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    .signature-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .signature-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-600);
+      font-weight: 600;
+    }
+
+    .signature-value {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--gray-900);
+      padding-bottom: 8px;
+      border-bottom: 2px solid var(--purple-600);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 40px;
+      background: var(--gray-50);
+      border: 2px dashed var(--gray-300);
+      border-radius: 8px;
+      color: var(--gray-600);
+    }
+
+    .empty-state-icon {
+      font-size: 48px;
+      margin-bottom: 12px;
+      opacity: 0.5;
+    }
+
+    .empty-state-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Footer */
+    .document-footer {
+      background: var(--gray-100);
+      border-top: 3px solid var(--purple-600);
+      padding: 24px 40px;
+      margin-top: 40px;
+    }
+
+    .footer-disclaimer {
+      font-size: 12px;
+      color: var(--gray-600);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Print Styles */
+    @media print {
+      body {
+        background: white;
+      }
+
+      .document-container {
+        max-width: 100%;
+      }
+
+      .section {
+        page-break-inside: avoid;
+      }
+
+      .contingency-item {
+        page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="document-container">
+    <!-- Header -->
+    <div class="document-header">
+      <div class="document-title">Contingency Removal</div>
+      <div class="document-subtitle">{{propertyAddress}}</div>
+
+      <div class="header-meta">
+        <div class="header-meta-item">
+          <div class="header-meta-label">Removal Date</div>
+          <div class="header-meta-value">{{removalDate}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Party</div>
+          <div class="header-meta-value">{{party}}</div>
+        </div>
+        <div class="header-meta-item">
+          <div class="header-meta-label">Transaction ID</div>
+          <div class="header-meta-value">{{transactionId}}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Key Terms Banner -->
+    <div class="key-terms-banner">
+      <div class="key-term">
+        <div class="key-term-value">{{contingenciesRemoved}}</div>
+        <div class="key-term-label">Removed</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{contingenciesRemaining}}</div>
+        <div class="key-term-label">Remaining</div>
+      </div>
+      <div class="key-term">
+        <div class="key-term-value">{{removalDate}}</div>
+        <div class="key-term-label">Effective Date</div>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="document-content">
+      <!-- Reference Box -->
+      <div class="reference-box">
+        <div class="reference-label">Original Purchase Agreement</div>
+        <div class="reference-value">
+          Purchase and Sale Agreement dated {{psaDate}}<br>
+          {{propertyAddress}}
+        </div>
+      </div>
+
+      <!-- Executive Summary -->
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <div class="section-title">Executive Summary</div>
+        </div>
+
+        <div class="executive-summary">
+          {{#summaryParagraphs}}
+          <p>{{.}}</p>
+          {{/summaryParagraphs}}
+          {{^summaryParagraphs}}
+          <p>This document formally removes certain contingencies from the Purchase and Sale Agreement dated {{psaDate}} for the property located at {{propertyAddress}}. By removing these contingencies, the {{party}} affirms their commitment to proceed with the transaction.</p>
+          {{/summaryParagraphs}}
+        </div>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="summary-grid">
+        <div class="summary-card removed">
+          <div class="summary-number">{{contingenciesRemoved}}</div>
+          <div class="summary-label">Contingencies Removed</div>
+        </div>
+        <div class="summary-card remaining">
+          <div class="summary-number">{{contingenciesRemaining}}</div>
+          <div class="summary-label">Contingencies Remaining</div>
+        </div>
+      </div>
+
+      <!-- Removed Contingencies -->
+      {{#removedContingencies}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <div class="section-title">Contingencies Being Removed</div>
+        </div>
+
+        <ul class="contingencies-list">
+          {{#items}}
+          <li class="contingency-item removed">
+            <div class="contingency-header">
+              <div class="contingency-title">{{title}}</div>
+              <span class="contingency-status removed">Removed</span>
+            </div>
+            <div class="contingency-description">{{description}}</div>
+            <div class="contingency-details">
+              {{#originalDeadline}}
+              <div class="detail-item">
+                <div class="detail-label">Original Deadline</div>
+                <div class="detail-value">{{originalDeadline}}</div>
+              </div>
+              {{/originalDeadline}}
+              {{#removalDate}}
+              <div class="detail-item">
+                <div class="detail-label">Removal Date</div>
+                <div class="detail-value">{{removalDate}}</div>
+              </div>
+              {{/removalDate}}
+              {{#satisfiedBy}}
+              <div class="detail-item">
+                <div class="detail-label">Satisfied By</div>
+                <div class="detail-value">{{satisfiedBy}}</div>
+              </div>
+              {{/satisfiedBy}}
+            </div>
+          </li>
+          {{/items}}
+        </ul>
+      </div>
+      {{/removedContingencies}}
+      {{^removedContingencies}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <div class="section-title">Contingencies Being Removed</div>
+        </div>
+        <div class="empty-state">
+          <div class="empty-state-icon">📋</div>
+          <div class="empty-state-text">No contingencies are being removed</div>
+        </div>
+      </div>
+      {{/removedContingencies}}
+
+      <!-- Remaining Contingencies -->
+      {{#remainingContingencies}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <div class="section-title">Remaining Active Contingencies</div>
+        </div>
+
+        {{#items}}
+        <ul class="contingencies-list">
+          {{#contingencyItems}}
+          <li class="contingency-item remaining">
+            <div class="contingency-header">
+              <div class="contingency-title">{{title}}</div>
+              <span class="contingency-status remaining">Active</span>
+            </div>
+            <div class="contingency-description">{{description}}</div>
+            <div class="contingency-details">
+              {{#deadline}}
+              <div class="detail-item">
+                <div class="detail-label">Deadline</div>
+                <div class="detail-value">{{deadline}}</div>
+              </div>
+              {{/deadline}}
+              {{#daysRemaining}}
+              <div class="detail-item">
+                <div class="detail-label">Days Remaining</div>
+                <div class="detail-value">{{daysRemaining}}</div>
+              </div>
+              {{/daysRemaining}}
+            </div>
+          </li>
+          {{/contingencyItems}}
+        </ul>
+        {{/items}}
+
+        <div class="notice-box">
+          <div class="notice-title">⚠️ Important Notice</div>
+          <div class="notice-content">
+            The remaining contingencies listed above must be satisfied or removed by their respective deadlines. Failure to do so may give either party the right to terminate the agreement according to the terms of the Purchase and Sale Agreement.
+          </div>
+        </div>
+      </div>
+      {{/remainingContingencies}}
+
+      <!-- Timeline -->
+      {{#timeline}}
+      <div class="section">
+        <div class="section-header">
+          <div class="section-number">{{#remainingContingencies}}4{{/remainingContingencies}}{{^remainingContingencies}}3{{/remainingContingencies}}</div>
+          <div class="section-title">Contingency Timeline</div>
+        </div>
+
+        <div class="timeline">
+          {{#events}}
+          <div class="timeline-item {{status}}">
+            <div class="timeline-date">{{date}}</div>
+            <div class="timeline-title">{{title}}</div>
+            <div class="timeline-description">{{description}}</div>
+          </div>
+          {{/events}}
+        </div>
+      </div>
+      {{/timeline}}
+
+      <!-- Buyer/Seller Acknowledgment -->
+      <div class="signature-section">
+        <div class="signature-title">{{party}} Acknowledgment</div>
+
+        <div class="notice-box">
+          <div class="notice-content">
+            {{#acknowledgmentText}}
+            {{acknowledgmentText}}
+            {{/acknowledgmentText}}
+            {{^acknowledgmentText}}
+            By signing below, the {{party}} acknowledges that the contingencies listed in Section 2 are hereby removed and waived. The {{party}} understands that this action may result in the forfeiture of earnest money or other deposits if the transaction does not close, except as otherwise provided in the Purchase and Sale Agreement.
+            {{/acknowledgmentText}}
+          </div>
+        </div>
+
+        <div class="signature-grid">
+          <div class="signature-field">
+            <div class="signature-label">{{party}} Signature</div>
+            <div class="signature-value">{{signature}}</div>
+          </div>
+          <div class="signature-field">
+            <div class="signature-label">Date Signed</div>
+            <div class="signature-value">{{signatureDate}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="document-footer">
+      <div class="footer-disclaimer">
+        This document was generated by ContreAI. This contingency removal is a legally binding modification to the original Purchase and Sale Agreement. Both parties should review this document carefully and consult with legal counsel if needed before signing.
+      </div>
+    </div>
+  </div>
+</body>
+</html>

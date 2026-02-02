@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase & Sale Summary | Contre</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Pacific NW Color Palette */
+            --forest-950: #0a1f1a;
+            --forest-900: #0f2d25;
+            --forest-800: #1a3d32;
+            --forest-700: #2d5a4a;
+            --forest-600: #3d7a63;
+            --forest-500: #4a9477;
+            
+            --slate-700: #364152;
+            --slate-600: #4b5563;
+            --slate-500: #6b7280;
+            --slate-400: #9ca3af;
+            --slate-300: #d1d5db;
+            --slate-200: #e5e7eb;
+            --slate-100: #f3f4f6;
+            --slate-50: #f9fafb;
+            
+            --river-700: #1e5a7a;
+            --river-100: #d4eaf5;
+            
+            --amber-700: #b45309;
+            --amber-600: #d97706;
+            --amber-100: #fef3c7;
+            --amber-50: #fffbeb;
+            
+            --red-700: #9f1c1c;
+            --red-600: #c53030;
+            --red-100: #fee2e2;
+            --red-50: #fef2f2;
+            
+            --evergreen-700: #166534;
+            --evergreen-100: #dcfce7;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Manrope', sans-serif;
+            background: var(--slate-100);
+            color: var(--slate-700);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .report-container {
+            max-width: 850px;
+            margin: 40px auto;
+            background: white;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08), 0 8px 40px rgba(0,0,0,0.04);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        /* Header */
+        .report-header {
+            background: white;
+            padding: 28px 40px 20px;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+
+        .brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 20px;
+            color: var(--forest-800);
+            letter-spacing: 0.08em;
+        }
+
+        .report-date {
+            font-size: 11px;
+            color: var(--slate-500);
+            text-align: right;
+            line-height: 1.4;
+        }
+
+        .report-type {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 11px;
+            letter-spacing: 0.15em;
+            color: var(--slate-400);
+            margin-bottom: 2px;
+        }
+
+        .report-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 32px;
+            font-weight: 400;
+            color: var(--forest-900);
+            letter-spacing: 0.02em;
+            line-height: 1.1;
+        }
+
+        .property-address {
+            font-size: 15px;
+            color: var(--slate-500);
+            font-weight: 400;
+        }
+
+        .header-meta {
+            display: flex;
+            gap: 28px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px solid var(--slate-200);
+        }
+
+        .meta-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .meta-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--slate-400);
+        }
+
+        .meta-value {
+            font-size: 13px;
+            color: var(--slate-700);
+            font-weight: 600;
+        }
+
+        /* Key Terms Banner */
+        .key-terms-banner {
+            background: var(--forest-900);
+            padding: 20px 32px;
+            margin: 0 -40px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .key-term {
+            text-align: center;
+            padding: 0 8px;
+            border-right: 1px solid var(--forest-700);
+        }
+
+        .key-term:last-child {
+            border-right: none;
+        }
+
+        .key-term-value {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 24px;
+            color: white;
+            letter-spacing: 0.02em;
+        }
+
+        .key-term-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--forest-500);
+        }
+
+        /* Content */
+        .report-content {
+            padding: 0 40px 40px;
+        }
+
+        /* Executive Summary */
+        .executive-summary {
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: 4px;
+            padding: 20px 24px;
+            margin-top: 24px;
+        }
+
+        .executive-summary h2 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            color: var(--forest-700);
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .executive-summary p {
+            font-size: 14px;
+            color: var(--slate-600);
+            line-height: 1.6;
+        }
+
+        /* Document Verification Bar */
+        .doc-verification {
+            display: flex;
+            gap: 24px;
+            margin-top: 20px;
+            padding: 14px 20px;
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: 4px;
+        }
+
+        .verification-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+        }
+
+        .verification-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+        }
+
+        .verification-icon.complete {
+            background: var(--evergreen-100);
+            color: var(--evergreen-700);
+        }
+
+        .verification-icon.warning {
+            background: var(--amber-100);
+            color: var(--amber-700);
+        }
+
+        .verification-icon.error {
+            background: var(--red-100);
+            color: var(--red-600);
+        }
+
+        .verification-label {
+            color: var(--slate-600);
+        }
+
+        /* Alerts Section */
+        .alerts-section {
+            margin-top: 24px;
+        }
+
+        .alert-box {
+            padding: 16px 20px;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+
+        .alert-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .alert-box.critical {
+            background: var(--red-50);
+            border: 1px solid var(--red-100);
+            border-left: 4px solid var(--red-600);
+        }
+
+        .alert-box.notable {
+            background: var(--amber-50);
+            border: 1px solid var(--amber-100);
+            border-left: 4px solid var(--amber-600);
+        }
+
+        .alert-box-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .alert-box-icon {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .alert-box.critical .alert-box-icon {
+            background: var(--red-600);
+        }
+
+        .alert-box.notable .alert-box-icon {
+            background: var(--amber-600);
+        }
+
+        .alert-box-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            letter-spacing: 0.04em;
+        }
+
+        .alert-box.critical .alert-box-title {
+            color: var(--red-700);
+        }
+
+        .alert-box.notable .alert-box-title {
+            color: var(--amber-700);
+        }
+
+        .alert-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .alert-list li {
+            font-size: 13px;
+            color: var(--slate-700);
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.5;
+        }
+
+        .alert-list li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            font-weight: 700;
+        }
+
+        .alert-box.critical .alert-list li::before {
+            color: var(--red-600);
+        }
+
+        .alert-box.notable .alert-list li::before {
+            color: var(--amber-600);
+        }
+
+        /* Section */
+        .section {
+            margin-top: 28px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        .section-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 12px;
+            color: var(--forest-600);
+            width: 22px;
+            height: 22px;
+            border: 2px solid var(--forest-600);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .section-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 18px;
+            color: var(--forest-900);
+            letter-spacing: 0.04em;
+        }
+
+        /* Key Dates Grid */
+        .dates-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1px;
+            background: var(--slate-200);
+            border: 1px solid var(--slate-200);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .date-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 16px;
+            background: white;
+        }
+
+        .date-item.highlight {
+            background: var(--forest-900);
+        }
+
+        .date-label {
+            font-size: 13px;
+            color: var(--slate-600);
+        }
+
+        .date-item.highlight .date-label {
+            color: var(--forest-500);
+        }
+
+        .date-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--slate-700);
+        }
+
+        .date-item.highlight .date-value {
+            color: white;
+        }
+
+        .date-tag {
+            font-size: 9px;
+            font-weight: 600;
+            padding: 2px 6px;
+            border-radius: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            margin-left: 8px;
+        }
+
+        .date-tag.day0 {
+            background: var(--river-100);
+            color: var(--river-700);
+        }
+
+        .date-tag.day1 {
+            background: var(--evergreen-100);
+            color: var(--evergreen-700);
+        }
+
+        /* Financial Who Pays What */
+        .financial-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .financial-table th {
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--slate-500);
+            padding: 10px 12px;
+            background: var(--slate-50);
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        .financial-table th:not(:first-child) {
+            text-align: center;
+            width: 90px;
+        }
+
+        .financial-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--slate-100);
+            color: var(--slate-600);
+        }
+
+        .financial-table td:not(:first-child) {
+            text-align: center;
+        }
+
+        .financial-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .pay-marker {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--forest-600);
+        }
+
+        .pay-marker.split {
+            background: var(--amber-600);
+        }
+
+        /* Contingency Table */
+        .contingency-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        .contingency-table th {
+            text-align: left;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--slate-500);
+            padding: 10px 12px;
+            background: var(--slate-50);
+            border-bottom: 2px solid var(--slate-200);
+        }
+
+        .contingency-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid var(--slate-100);
+            vertical-align: top;
+        }
+
+        .contingency-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .contingency-name {
+            font-weight: 600;
+            color: var(--slate-700);
+        }
+
+        .contingency-status {
+            font-size: 10px;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 3px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .contingency-waived {
+            background: var(--amber-100);
+            color: var(--amber-700);
+        }
+
+        .contingency-na {
+            background: var(--slate-100);
+            color: var(--slate-500);
+        }
+
+        .contingency-active {
+            background: var(--river-100);
+            color: var(--river-700);
+        }
+
+        /* Included/Excluded */
+        .inclusions-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .inclusions-column h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.06em;
+            color: var(--slate-500);
+            margin-bottom: 10px;
+            padding-bottom: 6px;
+            border-bottom: 1px solid var(--slate-200);
+        }
+
+        .inclusions-column.included h3 {
+            color: var(--evergreen-700);
+        }
+
+        .inclusions-column.excluded h3 {
+            color: var(--red-700);
+        }
+
+        .inclusions-list {
+            font-size: 13px;
+            color: var(--slate-600);
+            line-height: 1.6;
+        }
+
+        .inclusions-list.none {
+            color: var(--slate-400);
+            font-style: italic;
+        }
+
+        /* Responsibilities */
+        .responsibilities-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .responsibilities-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--slate-600);
+            padding: 10px 14px;
+            background: var(--slate-50);
+            border-radius: 4px;
+            border-left: 3px solid var(--forest-600);
+        }
+
+        .responsibility-checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--slate-300);
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 1px;
+        }
+
+        /* Parties Grid */
+        .parties-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        .party-card {
+            padding: 14px 16px;
+            background: var(--slate-50);
+            border: 1px solid var(--slate-200);
+            border-radius: 4px;
+        }
+
+        .party-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .party-role {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--forest-600);
+            margin-bottom: 4px;
+            font-weight: 600;
+        }
+
+        .party-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--slate-700);
+            margin-bottom: 2px;
+        }
+
+        .party-contact {
+            font-size: 12px;
+            color: var(--slate-500);
+            word-break: break-all;
+        }
+
+        /* Footer */
+        .report-footer {
+            background: var(--slate-50);
+            border-top: 1px solid var(--slate-200);
+            padding: 20px 40px;
+            margin-top: 32px;
+        }
+
+        .disclaimer {
+            font-size: 11px;
+            color: var(--slate-500);
+            line-height: 1.5;
+            max-width: 600px;
+        }
+
+        .footer-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--slate-200);
+        }
+
+        .footer-brand {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 14px;
+            color: var(--forest-700);
+            letter-spacing: 0.08em;
+        }
+
+        .footer-ref {
+            font-size: 10px;
+            color: var(--slate-400);
+            font-family: monospace;
+        }
+
+        /* Print Styles */
+        @media print {
+            body {
+                background: white;
+                font-size: 11px;
+            }
+            .report-container {
+                box-shadow: none;
+                margin: 0;
+                max-width: 100%;
+            }
+            .report-header {
+                padding: 16px 28px 14px;
+            }
+            .report-content {
+                padding: 0 28px 28px;
+            }
+            .key-terms-banner {
+                margin: 0 -28px;
+                padding: 14px 20px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .section {
+                margin-top: 20px;
+            }
+            .report-footer {
+                padding: 14px 28px;
+                margin-top: 24px;
+            }
+            .alert-box, .date-item.highlight {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .contingency-waived, .contingency-na, .contingency-active,
+            .verification-icon, .pay-marker {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+        }
+
+        @page {
+            margin: 0.4in;
+        }
+    </style>
+</head>
+<body>
+    <div class="report-container">
+        <!-- Header -->
+        <header class="report-header">
+            <div class="header-top">
+                <div class="brand">CONTRE</div>
+                <div class="report-date">
+                    Prepared {{documentDate}}<br>
+                    by {{preparedByName}}
+                </div>
+            </div>
+            <div class="report-type">Purchase & Sale Summary</div>
+            <h1 class="report-title">{{propertyAddressStreet}}</h1>
+            <p class="property-address">{{propertyAddressCity}}, {{propertyAddressState}} {{propertyAddressZip}}</p>
+            
+            <div class="header-meta">
+                <div class="meta-item">
+                    <span class="meta-label">Buyer</span>
+                    <span class="meta-value">{{buyerName1}}{{#buyerName2}} & {{buyerName2}}{{/buyerName2}}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Seller</span>
+                    <span class="meta-value">{{sellerName1}}{{#sellerName2}} & {{sellerName2}}{{/sellerName2}}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Closing</span>
+                    <span class="meta-value">{{closingDate}}</span>
+                </div>
+                <div class="meta-item">
+                    <span class="meta-label">Possession</span>
+                    <span class="meta-value">{{possessionTime}}</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="report-content">
+            <!-- Key Terms Banner -->
+            <div class="key-terms-banner">
+                <div class="key-term">
+                    <div class="key-term-value">{{purchasePrice}}</div>
+                    <div class="key-term-label">Purchase Price</div>
+                </div>
+                <div class="key-term">
+                    <div class="key-term-value">{{earnestMoneyAmount}}</div>
+                    <div class="key-term-label">Earnest Money</div>
+                </div>
+                <div class="key-term">
+                    <div class="key-term-value">{{financingType}}</div>
+                    <div class="key-term-label">Financing</div>
+                </div>
+                <div class="key-term">
+                    <div class="key-term-value">{{closingDateShort}}</div>
+                    <div class="key-term-label">Closing Date</div>
+                </div>
+            </div>
+
+            <!-- Executive Summary -->
+            <!-- AI-GENERATED CONTENT -->
+            <div class="executive-summary">
+                <h2>Executive Summary</h2>
+                <p>{{aiExecutiveSummary}}</p>
+            </div>
+
+            <!-- Document Verification -->
+            <div class="doc-verification">
+                <div class="verification-item">
+                    <span class="verification-icon {{#allBuyersSigned}}complete{{/allBuyersSigned}}{{^allBuyersSigned}}error{{/allBuyersSigned}}">{{#allBuyersSigned}}✓{{/allBuyersSigned}}{{^allBuyersSigned}}!{{/allBuyersSigned}}</span>
+                    <span class="verification-label">Buyer Signatures</span>
+                </div>
+                <div class="verification-item">
+                    <span class="verification-icon {{#allSellersSigned}}complete{{/allSellersSigned}}{{^allSellersSigned}}error{{/allSellersSigned}}">{{#allSellersSigned}}✓{{/allSellersSigned}}{{^allSellersSigned}}!{{/allSellersSigned}}</span>
+                    <span class="verification-label">Seller Signatures</span>
+                </div>
+                <div class="verification-item">
+                    <span class="verification-icon {{#allPagesInitialedBuyers}}{{#allPagesInitialedSellers}}complete{{/allPagesInitialedSellers}}{{^allPagesInitialedSellers}}warning{{/allPagesInitialedSellers}}{{/allPagesInitialedBuyers}}{{^allPagesInitialedBuyers}}warning{{/allPagesInitialedBuyers}}">{{#allPagesInitialedBuyers}}{{#allPagesInitialedSellers}}✓{{/allPagesInitialedSellers}}{{^allPagesInitialedSellers}}!{{/allPagesInitialedSellers}}{{/allPagesInitialedBuyers}}{{^allPagesInitialedBuyers}}!{{/allPagesInitialedBuyers}}</span>
+                    <span class="verification-label">All Initials</span>
+                </div>
+                <div class="verification-item">
+                    <span class="verification-icon {{#verificationDatesStatus}}complete{{/verificationDatesStatus}}{{^verificationDatesStatus}}error{{/verificationDatesStatus}}">{{#verificationDatesStatus}}✓{{/verificationDatesStatus}}{{^verificationDatesStatus}}!{{/verificationDatesStatus}}</span>
+                    <span class="verification-label">Document Status</span>
+                </div>
+            </div>
+
+            <!-- Alerts -->
+            <!-- AI-GENERATED CONTENT -->
+            <div class="alerts-section">
+                {{#hasCriticalIssues}}
+                <div class="alert-box critical">
+                    <div class="alert-box-header">
+                        <span class="alert-box-icon">!</span>
+                        <span class="alert-box-title">Critical Issues</span>
+                    </div>
+                    <ul class="alert-list">
+                        {{#aiCriticalIssues}}
+                        <li>{{.}}</li>
+                        {{/aiCriticalIssues}}
+                    </ul>
+                </div>
+                {{/hasCriticalIssues}}
+                {{#hasKeyNotes}}
+                <div class="alert-box notable">
+                    <div class="alert-box-header">
+                        <span class="alert-box-icon">!</span>
+                        <span class="alert-box-title">Key Notes</span>
+                    </div>
+                    <ul class="alert-list">
+                        {{#aiKeyNotes}}
+                        <li>{{.}}</li>
+                        {{/aiKeyNotes}}
+                    </ul>
+                </div>
+                {{/hasKeyNotes}}
+            </div>
+
+            <!-- Key Dates -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">1</span>
+                    <h2 class="section-title">Key Dates</h2>
+                </div>
+                <div class="dates-grid">
+                    <div class="date-item">
+                        <span class="date-label">Contract Executed</span>
+                        <span class="date-value">{{contractAcceptanceDate}} <span class="date-tag day0">Day 0</span></span>
+                    </div>
+                    <div class="date-item highlight">
+                        <span class="date-label">Contract Begins</span>
+                        <span class="date-value">{{contractEffectiveDate}} <span class="date-tag day1">Day 1</span></span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date-label">Earnest Money Due</span>
+                        <span class="date-value">{{earnestMoneyDueDate}}</span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date-label">Finance Deadline</span>
+                        <span class="date-value">{{#allCashOffer}}N/A (Cash){{/allCashOffer}}{{^allCashOffer}}{{loanApprovalDeadline}}{{/allCashOffer}}</span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date-label">Inspection / Due Diligence</span>
+                        <span class="date-value">{{#buyerConductsInspections}}{{primaryInspectionDeadline}}{{/buyerConductsInspections}}{{^buyerConductsInspections}}Waived{{/buyerConductsInspections}}</span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date-label">Seller Disclosure Deadline</span>
+                        <span class="date-value">{{sellerDisclosureDeadline}}</span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date-label">Title Commitment Deadline</span>
+                        <span class="date-value">{{titleCommitmentDeadline}}</span>
+                    </div>
+                    <div class="date-item">
+                        <span class="date-label">Closing Date</span>
+                        <span class="date-value">{{closingDate}}</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Who Pays What -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">2</span>
+                    <h2 class="section-title">Who Pays What</h2>
+                </div>
+                <table class="financial-table">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Buyer</th>
+                            <th>Seller</th>
+                            <th>Split</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Title Insurance (Owner's Policy)</td>
+                            <td>{{#titleStandardPaidByBuyer}}<span class="pay-marker"></span>{{/titleStandardPaidByBuyer}}</td>
+                            <td>{{#titleStandardPaidBySeller}}<span class="pay-marker"></span>{{/titleStandardPaidBySeller}}</td>
+                            <td>{{#titleStandardPaidBySplit}}<span class="pay-marker split"></span>{{/titleStandardPaidBySplit}}</td>
+                        </tr>
+                        <tr>
+                            <td>Title Insurance (Lender's Policy)</td>
+                            <td>{{#allCashOffer}}N/A{{/allCashOffer}}{{^allCashOffer}}{{#titleExtendedPaidByBuyer}}<span class="pay-marker"></span>{{/titleExtendedPaidByBuyer}}{{/allCashOffer}}</td>
+                            <td>{{^allCashOffer}}{{#titleExtendedPaidBySeller}}<span class="pay-marker"></span>{{/titleExtendedPaidBySeller}}{{/allCashOffer}}</td>
+                            <td>{{^allCashOffer}}{{#titleExtendedPaidBySplit}}<span class="pay-marker split"></span>{{/titleExtendedPaidBySplit}}{{/allCashOffer}}</td>
+                        </tr>
+                        <tr>
+                            <td>Escrow Fee</td>
+                            <td>{{#closingEscrowFeePaidByBuyer}}<span class="pay-marker"></span>{{/closingEscrowFeePaidByBuyer}}</td>
+                            <td>{{#closingEscrowFeePaidBySeller}}<span class="pay-marker"></span>{{/closingEscrowFeePaidBySeller}}</td>
+                            <td>{{#closingEscrowFeePaidBySplit}}<span class="pay-marker split"></span>{{/closingEscrowFeePaidBySplit}}</td>
+                        </tr>
+                        <tr>
+                            <td>Property Taxes (Prorated)</td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="pay-marker split"></span></td>
+                        </tr>
+                        <tr>
+                            <td>Home Warranty</td>
+                            <td>{{#homeWarrantyPaidByBuyer}}<span class="pay-marker"></span>{{/homeWarrantyPaidByBuyer}}{{^homeWarrantyExists}}N/A{{/homeWarrantyExists}}</td>
+                            <td>{{#homeWarrantyPaidBySeller}}<span class="pay-marker"></span>{{/homeWarrantyPaidBySeller}}</td>
+                            <td>{{#homeWarrantyPaidBySplit}}<span class="pay-marker split"></span>{{/homeWarrantyPaidBySplit}}</td>
+                        </tr>
+                        <tr>
+                            <td>HOA Transfer Fee</td>
+                            <td>{{#hoaExists}}{{#hoaTransferFeePaidByBuyer}}<span class="pay-marker"></span>{{/hoaTransferFeePaidByBuyer}}{{/hoaExists}}{{^hoaExists}}N/A (No HOA){{/hoaExists}}</td>
+                            <td>{{#hoaExists}}{{#hoaTransferFeePaidBySeller}}<span class="pay-marker"></span>{{/hoaTransferFeePaidBySeller}}{{/hoaExists}}</td>
+                            <td>{{#hoaExists}}{{#hoaTransferFeePaidBySplit}}<span class="pay-marker split"></span>{{/hoaTransferFeePaidBySplit}}{{/hoaExists}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Contingencies -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">3</span>
+                    <h2 class="section-title">Contingencies</h2>
+                </div>
+                <table class="contingency-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 120px;">Contingency</th>
+                            <th style="width: 80px;">Status</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="contingency-name">Inspection</td>
+                            <td>
+                                {{#buyerConductsInspections}}
+                                <span class="contingency-status contingency-active">Active</span>
+                                {{/buyerConductsInspections}}
+                                {{^buyerConductsInspections}}
+                                <span class="contingency-status contingency-waived">Waived</span>
+                                {{/buyerConductsInspections}}
+                            </td>
+                            <td>{{#buyerConductsInspections}}{{primaryInspectionDays}} business days to complete inspections.{{/buyerConductsInspections}}{{^buyerConductsInspections}}Buyer elected not to conduct inspections.{{/buyerConductsInspections}}</td>
+                        </tr>
+                        <tr>
+                            <td class="contingency-name">Financing</td>
+                            <td>
+                                {{#allCashOffer}}
+                                <span class="contingency-status contingency-na">N/A</span>
+                                {{/allCashOffer}}
+                                {{^allCashOffer}}
+                                <span class="contingency-status contingency-active">Active</span>
+                                {{/allCashOffer}}
+                            </td>
+                            <td>{{#allCashOffer}}All-cash offer.{{/allCashOffer}}{{^allCashOffer}}{{firstLoanType}} loan, {{loanApprovalDays}} business days to confirm approval.{{/allCashOffer}}</td>
+                        </tr>
+                        <tr>
+                            <td class="contingency-name">Appraisal</td>
+                            <td>
+                                {{#appraisalContingency}}
+                                <span class="contingency-status contingency-active">Active</span>
+                                {{/appraisalContingency}}
+                                {{^appraisalContingency}}
+                                <span class="contingency-status contingency-na">N/A</span>
+                                {{/appraisalContingency}}
+                            </td>
+                            <td>{{#appraisalContingency}}Buyer may renegotiate or cancel if appraisal comes in low.{{/appraisalContingency}}{{^appraisalContingency}}Not applicable.{{/appraisalContingency}}</td>
+                        </tr>
+                        <tr>
+                            <td class="contingency-name">Title</td>
+                            <td><span class="contingency-status contingency-active">Active</span></td>
+                            <td>{{titleReviewDays}} business days to object after commitment; silence = acceptance.</td>
+                        </tr>
+                        <tr>
+                            <td class="contingency-name">Lead Paint</td>
+                            <td>
+                                {{#leadPaintTargetHousing}}
+                                    {{#leadPaintTestingWaived}}
+                                    <span class="contingency-status contingency-waived">Waived</span>
+                                    {{/leadPaintTestingWaived}}
+                                    {{^leadPaintTestingWaived}}
+                                    <span class="contingency-status contingency-active">Active</span>
+                                    {{/leadPaintTestingWaived}}
+                                {{/leadPaintTargetHousing}}
+                                {{^leadPaintTargetHousing}}
+                                <span class="contingency-status contingency-na">N/A</span>
+                                {{/leadPaintTargetHousing}}
+                            </td>
+                            <td>{{#leadPaintTargetHousing}}{{#leadPaintTestingWaived}}Buyer waived testing rights.{{/leadPaintTestingWaived}}{{^leadPaintTestingWaived}}Testing deadline: {{leadPaintTestingDeadline}}.{{/leadPaintTestingWaived}}{{/leadPaintTargetHousing}}{{^leadPaintTargetHousing}}Property built after 1978.{{/leadPaintTargetHousing}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Included & Excluded -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">4</span>
+                    <h2 class="section-title">Included & Excluded Items</h2>
+                </div>
+                <div class="inclusions-grid">
+                    <div class="inclusions-column included">
+                        <h3>Included</h3>
+                        <p class="inclusions-list">{{defaultInclusions}}{{#additionalItemsIncluded}} {{additionalItemsIncluded}}{{/additionalItemsIncluded}}{{#mineralRightsIncluded}} All mineral rights owned by seller.{{/mineralRightsIncluded}}{{#waterRightsIncluded}} All water rights owned by seller.{{/waterRightsIncluded}}</p>
+                    </div>
+                    <div class="inclusions-column excluded">
+                        <h3>Excluded</h3>
+                        <p class="inclusions-list {{^itemsExcluded}}none{{/itemsExcluded}}">{{#itemsExcluded}}{{itemsExcluded}}{{/itemsExcluded}}{{^itemsExcluded}}No items specifically excluded.{{/itemsExcluded}}{{#farmCropsRightsIncluded}} Annual crops planted prior to closing will be harvested by seller.{{/farmCropsRightsIncluded}}</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Buyer Responsibilities -->
+            <!-- AI-GENERATED CONTENT -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">5</span>
+                    <h2 class="section-title">Buyer Responsibilities</h2>
+                </div>
+                <ul class="responsibilities-list">
+                    {{#aiBuyerResponsibilities}}
+                    <li>
+                        <span class="responsibility-checkbox"></span>
+                        <span>{{.}}</span>
+                    </li>
+                    {{/aiBuyerResponsibilities}}
+                </ul>
+            </section>
+
+            <!-- Transaction Parties -->
+            <section class="section">
+                <div class="section-header">
+                    <span class="section-number">6</span>
+                    <h2 class="section-title">Transaction Parties</h2>
+                </div>
+                <div class="parties-grid">
+                    <div class="party-card">
+                        <div class="party-role">Buyer</div>
+                        <div class="party-name">{{buyerName1}}{{#buyerName2}} & {{buyerName2}}{{/buyerName2}}</div>
+                        <div class="party-contact">{{buyerEmail}}{{#buyerPhone}} • {{buyerPhone}}{{/buyerPhone}}</div>
+                    </div>
+                    <div class="party-card">
+                        <div class="party-role">Seller</div>
+                        <div class="party-name">{{sellerName1}}{{#sellerName2}} & {{sellerName2}}{{/sellerName2}}</div>
+                        <div class="party-contact">{{sellerEmail}}{{#sellerPhone}} • {{sellerPhone}}{{/sellerPhone}}</div>
+                    </div>
+                    <div class="party-card">
+                        <div class="party-role">Buyer's Agent</div>
+                        <div class="party-name">{{sellingAgentName}}</div>
+                        <div class="party-contact">{{sellingBrokerageName}}{{#sellingAgentPhone}} • {{sellingAgentPhone}}{{/sellingAgentPhone}}</div>
+                    </div>
+                    <div class="party-card">
+                        <div class="party-role">Seller's Agent</div>
+                        <div class="party-name">{{listingAgentName}}</div>
+                        <div class="party-contact">{{listingBrokerageName}}{{#listingAgentPhone}} • {{listingAgentPhone}}{{/listingAgentPhone}}</div>
+                    </div>
+                    <div class="party-card full-width">
+                        <div class="party-role">Escrow / Title</div>
+                        <div class="party-name">{{titleCompanyName}}</div>
+                        <div class="party-contact">{{titleCompanyAddress}}</div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="report-footer">
+            <p class="disclaimer">
+                This summary is for informational purposes only and does not constitute legal, financial, or professional advice. Verify all details with original documents and consult appropriate professionals.
+            </p>
+            <div class="footer-meta">
+                <div class="footer-brand">CONTRE</div>
+                <div class="footer-ref">REF: {{documentId}}</div>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>
+
