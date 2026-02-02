@@ -66,6 +66,38 @@ export const useAuthStore = create<AuthStore>()(
           return;
         }
 
+        // Demo mode bypass: skip cookie validation and use mock user
+        // Enable by setting VITE_DEMO_MODE=true in environment
+        const isDemoMode = import.meta.env.VITE_DEMO_MODE === 'true';
+        if (isDemoMode) {
+          console.log('[Auth] Demo mode: using mock authentication');
+          isInitializing = true;
+          try {
+            const mockUser = await userControllerGetProfile();
+            if (mockUser?.userId) {
+              set({
+                isAuthenticated: true,
+                user: {
+                  id: mockUser.userId,
+                  email: mockUser.email || 'demo@example.com',
+                  firstName: mockUser.firstName || 'Demo',
+                  lastName: mockUser.lastName || 'User',
+                  role: mockUser.role || 'broker',
+                  name: `${mockUser.firstName || 'Demo'} ${mockUser.lastName || 'User'}`,
+                  avatar: mockUser.profileImage || null,
+                  createdAt: mockUser.createdAt,
+                },
+                isLoading: false,
+              });
+              isInitializing = false;
+              return;
+            }
+          } catch (err) {
+            console.warn('[Auth] Demo mode user fetch failed:', err);
+          }
+          isInitializing = false;
+        }
+
         // If already authenticated, verify the cookie still exists before skipping
         if (state.isAuthenticated && state.user) {
           const cookies = document.cookie;

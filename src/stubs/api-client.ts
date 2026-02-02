@@ -310,15 +310,17 @@ export type TrainingStatusDtoStatus = 'pending' | 'processing' | 'completed' | '
 // ============================================================================
 
 // User/Auth controllers
+// Note: axios interceptor returns response.data directly, so we return the user object directly
 export const userControllerGetProfile = async () => ({
-  data: {
-    id: 'mock-user-id',
-    email: 'demo@example.com',
-    firstName: 'Demo',
-    lastName: 'User',
-    role: 'broker',
-    createdAt: new Date().toISOString(),
-  }
+  userId: 'mock-user-id',
+  email: 'demo@example.com',
+  firstName: 'Demo',
+  lastName: 'User',
+  role: 'broker',
+  profileImage: null,
+  phone: null,
+  createdAt: new Date().toISOString(),
+  updatedAt: new Date().toISOString(),
 });
 
 // Notification controllers
