@@ -80,6 +80,35 @@ export interface TransactionPropertyTypeDto {
   description?: string;
 }
 
+export interface TransactionDto {
+  id: string;
+  name?: string;
+  address?: string;
+  status?: string;
+  propertyType?: string;
+  transactionType?: string;
+  closingDate?: string;
+  createdAt?: string;
+  updatedAt?: string;
+}
+
+export interface CreateTransactionDto {
+  name?: string;
+  address?: string;
+  propertyType?: string;
+  transactionType?: string;
+  closingDate?: string;
+}
+
+export interface UpdateTransactionDto {
+  name?: string;
+  address?: string;
+  status?: string;
+  propertyType?: string;
+  transactionType?: string;
+  closingDate?: string;
+}
+
 // User settings types
 export interface UserSettingsDto {
   id: string;
@@ -120,6 +149,35 @@ export interface UserPreferencesDto {
 }
 
 export type UserPreferencesDtoTheme = 'light' | 'dark' | 'system';
+
+// Update DTOs for user settings
+export interface UpdateNotificationPreferencesDto {
+  emailMarketing?: boolean;
+  emailUpdates?: boolean;
+  emailAlerts?: boolean;
+  pushEnabled?: boolean;
+  pushTransactions?: boolean;
+  pushDocuments?: boolean;
+  pushTeam?: boolean;
+  digestFrequency?: NotificationPreferencesDtoDigestFrequency;
+}
+
+export interface UpdateAccessibilitySettingsDto {
+  reduceMotion?: boolean;
+  highContrast?: boolean;
+  largeText?: boolean;
+  fontSize?: number;
+  screenReaderOptimized?: boolean;
+  keyboardNavigation?: boolean;
+}
+
+export interface UpdateUserPreferencesDto {
+  theme?: UserPreferencesDtoTheme;
+  language?: string;
+  timezone?: string;
+  dateFormat?: string;
+  currency?: string;
+}
 
 // Billing types
 export interface InvoiceDto {
@@ -278,16 +336,20 @@ export const documentSummaryControllerGetSummaryByDocument = async () => null;
 export const transactionReportControllerGetTransactionReport = async () => null;
 export const transactionPropertyTypeControllerGetAllTypes = async () => [];
 export const transactionControllerGetAllTransactions = async () => ({ data: [], pagination: { page: 1, limit: 10, total: 0, totalPages: 0 } });
+export const transactionControllerGetTransaction = async (_id: string) => null;
+export const transactionControllerCreateTransaction = async (_data: CreateTransactionDto) => ({ id: '', name: '' });
+export const transactionControllerUpdateTransaction = async (_id: string, _data: UpdateTransactionDto) => ({ id: '', name: '' });
 
 // Document type controllers
 export const documentTypeControllerGetAllTypes = async () => [];
 
 // Billing controllers
-export const billingControllerGetInvoices = async () => ({ data: [], pagination: { page: 1, limit: 10, total: 0, totalPages: 0 } });
+export const billingControllerGetInvoices = async (_params?: BillingControllerGetInvoicesParams) => ({ data: [], pagination: { page: 1, limit: 10, total: 0, totalPages: 0 } });
 export const billingControllerGetPaymentMethods = async () => [];
 
 // Subscription controllers
 export const subscriptionControllerGetSubscription = async () => null;
+export const subscriptionControllerGetCurrentSubscription = async () => null;
 export const subscriptionControllerGetAvailablePlans = async () => [];
 
 // Team controllers
@@ -309,9 +371,10 @@ export const noteControllerDeleteNote = async (_noteId: string) => {};
 
 // User settings controllers
 export const userSettingsControllerGetSettings = async () => null;
-export const userSettingsControllerUpdateNotificationPreferences = async () => ({});
-export const userSettingsControllerUpdateAccessibilitySettings = async () => ({});
-export const userSettingsControllerUpdateUserPreferences = async () => ({});
+export const userSettingsControllerGetUserSettings = async () => null;
+export const userSettingsControllerUpdateNotificationPreferences = async (_data?: UpdateNotificationPreferencesDto) => ({});
+export const userSettingsControllerUpdateAccessibilitySettings = async (_data?: UpdateAccessibilitySettingsDto) => ({});
+export const userSettingsControllerUpdateUserPreferences = async (_data?: UpdateUserPreferencesDto) => ({});
 
 // ============================================================================
 // STUB HOOKS - Return mutation/query objects with mock implementations
@@ -352,8 +415,22 @@ export const useDocumentControllerGetTransactionDocuments = (_transactionId: str
 export const useDocumentControllerDeleteDocument = () => ({
   mutate: async () => {},
   mutateAsync: async () => {},
+  trigger: async () => {},
   isPending: false,
   isLoading: false,
+  isMutating: false,
+  isError: false,
+  error: null,
+});
+
+// Document summary hooks
+export const useDocumentSummaryControllerGenerateSummary = () => ({
+  mutate: async () => {},
+  mutateAsync: async () => {},
+  trigger: async () => {},
+  isPending: false,
+  isLoading: false,
+  isMutating: false,
   isError: false,
   error: null,
 });
@@ -370,8 +447,10 @@ export const useOcrTemplatesControllerGetCompletedTrainingJobs = () => ({
 export const useOcrTemplatesControllerTrainTemplate = () => ({
   mutate: async () => {},
   mutateAsync: async () => ({ jobId: '' }),
+  trigger: async () => ({ jobId: '' }),
   isPending: false,
   isLoading: false,
+  isMutating: false,
   isError: false,
   error: null,
 });
