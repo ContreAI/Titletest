@@ -5,19 +5,10 @@ const axiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3001',
 });
 
-export const configureApiClient = (config: { baseUrl?: string; getToken?: () => Promise<string | null> }) => {
-  if (config.baseUrl) {
-    axiosInstance.defaults.baseURL = config.baseUrl;
-  }
-  if (config.getToken) {
-    axiosInstance.interceptors.request.use(async (reqConfig) => {
-      const token = await config.getToken?.();
-      if (token) {
-        reqConfig.headers.Authorization = `Bearer ${token}`;
-      }
-      return reqConfig;
-    });
-  }
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const configureApiClient = (_configOrAxiosInstance: any) => {
+  // Stub - accepts either a config object or an axios instance
+  // In real implementation, this configures the API client with the provided axios instance
 };
 
 export const getAxiosInstance = () => axiosInstance;
