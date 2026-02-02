@@ -266,6 +266,7 @@ export const userControllerGetProfile = async () => ({ data: null });
 // Notification controllers
 export const notificationControllerGetNotifications = async () => ({ data: [] });
 export const notificationControllerMarkAsRead = async () => ({});
+export const notificationControllerMarkAllAsRead = async () => ({});
 export const notificationControllerDeleteNotification = async () => ({});
 export const notificationControllerDeleteAll = async () => ({});
 
