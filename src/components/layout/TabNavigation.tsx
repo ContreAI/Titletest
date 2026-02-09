@@ -23,11 +23,12 @@ export interface TabConfig {
 export interface TabNavigationProps {
   activeTab: TabId;
   onTabChange: (tabId: TabId) => void;
+  tabs?: TabConfig[];
   pendingCounts?: Partial<Record<TabId, number>>;
   signingNeeded?: boolean;
 }
 
-const tabs: TabConfig[] = [
+const DEFAULT_TABS: TabConfig[] = [
   { id: "dashboard", label: "Dashboard", icon: <LayoutDashboard className="w-4 h-4" /> },
   { id: "contract", label: "Contract", icon: <FileSignature className="w-4 h-4" /> },
   { id: "title", label: "Title", icon: <Building2 className="w-4 h-4" /> },
@@ -38,6 +39,7 @@ const tabs: TabConfig[] = [
 export default function TabNavigation({
   activeTab,
   onTabChange,
+  tabs = DEFAULT_TABS,
   pendingCounts = {},
   signingNeeded = false,
 }: TabNavigationProps) {

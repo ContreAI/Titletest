@@ -49,6 +49,7 @@ const categoryLabels: Record<DocumentCategory, string> = {
   title: "Title",
   financial: "Financial",
   closing: "Closing",
+  due_diligence: "Due Diligence",
 };
 
 export default function StatusBoardCard({

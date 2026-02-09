@@ -1,34 +1,320 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { useParams } from "next/navigation";
 import {
   Header,
   TabNavigation,
   PageContainer,
 } from "@/components/layout";
-import { TabId } from "@/types";
+import { TabId, TransactionTask, NetProceedsEstimate } from "@/types";
 import {
   mockTransaction,
   mockTitleCompany,
   mockDocuments,
   mockBuyerSide,
   mockSellerSide,
-  mockChecklistItems,
 } from "@/data/mockData";
 import { useAuth, logout } from "@/hooks";
 import { Loader2 } from "lucide-react";
 import { NotificationSettings } from "@/components/settings";
-import { enrichDocuments, getDocumentsByCategory } from "@/lib/documentCategories";
+import { BUYER_TABS, SELLER_TABS } from "@/lib/tabConfigs";
 
-// Tab content components - new structure
-import DashboardTab from "@/components/tabs/DashboardTab";
-import ContractTab from "@/components/tabs/ContractTab";
-import TitleTab from "@/components/tabs/TitleTab";
-import FinancialTab from "@/components/tabs/FinancialTab";
-import ClosingTab from "@/components/tabs/ClosingTab";
+// New buyer tab components
+import BuyerDashboardTab from "@/components/tabs/BuyerDashboardTab";
+import BuyerTasksTab from "@/components/tabs/BuyerTasksTab";
+import BuyerMoneyTab from "@/components/tabs/BuyerMoneyTab";
+import BuyerDocumentsTab from "@/components/tabs/BuyerDocumentsTab";
+import BuyerClosingTab from "@/components/tabs/BuyerClosingTab";
+import NewHomeTab from "@/components/tabs/NewHomeTab";
+
+// New seller tab components
+import SellerDashboardTab from "@/components/tabs/SellerDashboardTab";
+import DisclosuresTab from "@/components/tabs/DisclosuresTab";
+import SellerMoneyTab from "@/components/tabs/SellerMoneyTab";
+import SellerClosingTab from "@/components/tabs/SellerClosingTab";
+
 import { MiniJourneyTracker } from "@/components/journey";
 import { TransactionPhase } from "@/types";
+import { getTaskCounts } from "@/stores/taskStore";
+
+// ============================================
+// Inline mock task data — will be replaced by
+// imports from mock data files once agents finish
+// ============================================
+
+const MOCK_BUYER_TASKS: TransactionTask[] = [
+  {
+    id: "B-01", side: "buyer", phase: 1, phaseName: "Escrow Opening",
+    title: "Acknowledge receipt of escrow opening letter",
+    description: "Review and acknowledge receipt of the escrow opening letter from the title company.",
+    whoActs: "Buyer", documentRequired: "Escrow Letter (from Escrow)", portalAction: "acknowledge",
+    dueExpression: "Day 1", status: "completed", dependsOn: [], blocks: ["B-02"],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "escrow_letter",
+    completedDate: "2024-12-04", order: 1,
+  },
+  {
+    id: "B-02", side: "buyer", phase: 1, phaseName: "Escrow Opening",
+    title: "Download wire instructions for earnest money deposit",
+    description: "Download the secure wire instructions from the portal for your earnest money deposit.",
+    whoActs: "Buyer", documentRequired: "Wire Instructions (from Escrow)", portalAction: "download",
+    dueExpression: "Day 1", status: "completed", dependsOn: ["B-01"], blocks: ["B-03"],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "wire_instructions",
+    completedDate: "2024-12-04", order: 2,
+  },
+  {
+    id: "B-03", side: "buyer", phase: 1, phaseName: "Escrow Opening",
+    title: "Upload earnest money wire confirmation",
+    description: "Upload the wire confirmation receipt showing your earnest money has been sent.",
+    whoActs: "Buyer", documentRequired: "Wire Confirmation (upload)", portalAction: "upload_pay",
+    dueExpression: "Day 1-3", status: "completed", dependsOn: ["B-02"], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "earnest_money_receipt",
+    completedDate: "2024-12-05", order: 3,
+  },
+  {
+    id: "B-04", side: "buyer", phase: 1, phaseName: "Escrow Opening",
+    title: "Acknowledge wire fraud advisory",
+    description: "Read and acknowledge the wire fraud advisory provided by the title company.",
+    whoActs: "Buyer", documentRequired: "Wire Fraud Advisory (from Escrow)", portalAction: "acknowledge",
+    dueExpression: "Day 1", status: "completed", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "wire_fraud_advisory",
+    completedDate: "2024-12-04", order: 4,
+  },
+  {
+    id: "B-05", side: "buyer", phase: 1, phaseName: "Escrow Opening",
+    title: "Upload vesting instructions",
+    description: "Submit your vesting instructions indicating how you want to hold title to the property.",
+    whoActs: "Buyer", documentRequired: "Vesting Instructions (upload/form)", portalAction: "upload_form",
+    dueExpression: "Day 1-5", status: "completed", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "vesting_instructions",
+    completedDate: "2024-12-06", order: 5,
+  },
+  {
+    id: "B-09", side: "buyer", phase: 2, phaseName: "Inspections & Due Diligence",
+    title: "Download and review title commitment",
+    description: "Review the title commitment report showing liens, easements, and exceptions.",
+    whoActs: "Buyer", documentRequired: "Title Commitment (from Escrow)", portalAction: "download",
+    dueExpression: "Day 5-12", status: "action_required", dependsOn: [], blocks: ["B-10"],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "title_commitment", order: 1,
+  },
+  {
+    id: "B-10", side: "buyer", phase: 2, phaseName: "Inspections & Due Diligence",
+    title: "Upload inspection report",
+    description: "Upload the home inspection report after the inspection is completed.",
+    whoActs: "Buyer", documentRequired: "Inspection Report (upload)", portalAction: "upload",
+    dueExpression: "Day 7-15", status: "action_required", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "inspection_report", order: 2,
+  },
+  {
+    id: "B-11", side: "buyer", phase: 2, phaseName: "Inspections & Due Diligence",
+    title: "Review seller disclosures",
+    description: "Review and acknowledge the seller's property disclosure statements.",
+    whoActs: "Buyer", documentRequired: "Seller Disclosures (from Seller)", portalAction: "review_approve",
+    dueExpression: "Day 5-10", status: "not_started", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "sellers_disclosure", order: 3,
+  },
+  {
+    id: "B-15", side: "buyer", phase: 3, phaseName: "Financing & Insurance",
+    title: "Upload homeowners insurance binder",
+    description: "Upload your homeowners insurance binder showing coverage effective on or before closing.",
+    whoActs: "Buyer", documentRequired: "Insurance Binder (upload)", portalAction: "upload",
+    dueExpression: "Pre-close", status: "not_started", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "insurance_binder", order: 1,
+  },
+  {
+    id: "B-16", side: "buyer", phase: 3, phaseName: "Financing & Insurance",
+    title: "Review owner's title insurance quote",
+    description: "Review the owner's title insurance quote and coverage details.",
+    whoActs: "Buyer", documentRequired: "Title Insurance Quote (from Escrow)", portalAction: "review_approve",
+    dueExpression: "Day 10-20", status: "not_started", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "owners_title_insurance_quote", order: 2,
+  },
+  {
+    id: "B-20", side: "buyer", phase: 4, phaseName: "Pre-Closing",
+    title: "Review and e-sign closing disclosure",
+    description: "Review and electronically sign the Closing Disclosure. TRID requires 3 business days before closing.",
+    whoActs: "Buyer", documentRequired: "Closing Disclosure (from Escrow)", portalAction: "e_sign",
+    dueExpression: "3+ biz days pre-close", status: "locked", dependsOn: ["B-15"], blocks: ["B-21"],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "closing_disclosure", order: 1,
+  },
+  {
+    id: "B-21", side: "buyer", phase: 4, phaseName: "Pre-Closing",
+    title: "Download final wire instructions for closing funds",
+    description: "Download the secure wire instructions for your closing funds.",
+    whoActs: "Buyer", documentRequired: "Wire Instructions (from Escrow)", portalAction: "download",
+    dueExpression: "Pre-close", status: "locked", dependsOn: ["B-20"], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "wire_instructions", order: 2,
+  },
+  {
+    id: "B-23", side: "buyer", phase: 5, phaseName: "Closing Day",
+    title: "Confirm final walkthrough completed",
+    description: "Confirm that the final walkthrough of the property has been completed satisfactorily.",
+    whoActs: "Buyer", documentRequired: "Walkthrough Confirmation (from Agent)", portalAction: "acknowledge",
+    dueExpression: "Closing Day", status: "locked", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "walkthrough_confirmation", order: 1,
+  },
+  {
+    id: "B-24", side: "buyer", phase: 5, phaseName: "Closing Day",
+    title: "e-Sign closing documents",
+    description: "Review and electronically sign all closing documents.",
+    whoActs: "Buyer", documentRequired: "Closing Package (from Escrow)", portalAction: "e_sign",
+    dueExpression: "Closing Day", status: "locked", dependsOn: ["B-23"], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "signed_closing_package", order: 2,
+  },
+  {
+    id: "B-30", side: "buyer", phase: 6, phaseName: "Post-Closing",
+    title: "Download recorded deed",
+    description: "Download your recorded deed once it's been returned from the county recorder.",
+    whoActs: "Buyer", documentRequired: "Recorded Deed (from Escrow)", portalAction: "download",
+    dueExpression: "7-60 days post", status: "locked", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "recorded_deed", order: 1,
+  },
+  {
+    id: "B-31", side: "buyer", phase: 6, phaseName: "Post-Closing",
+    title: "Download owner's title insurance policy",
+    description: "Download your owner's title insurance policy once it has been issued.",
+    whoActs: "Buyer", documentRequired: "Title Policy (from Escrow)", portalAction: "download",
+    dueExpression: "30-90 days post", status: "locked", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "owners_title_policy", order: 2,
+  },
+];
+
+const MOCK_SELLER_TASKS: TransactionTask[] = [
+  {
+    id: "S-01", side: "seller", phase: 1, phaseName: "Escrow Opening",
+    title: "Acknowledge receipt of escrow opening letter",
+    description: "Review and acknowledge receipt of the escrow opening letter.",
+    whoActs: "Seller", documentRequired: "Escrow Letter (from Escrow)", portalAction: "acknowledge",
+    dueExpression: "Day 1", status: "completed", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "escrow_letter",
+    completedDate: "2024-12-04", order: 1,
+  },
+  {
+    id: "S-02", side: "seller", phase: 1, phaseName: "Escrow Opening",
+    title: "Provide mortgage/lien information",
+    description: "Provide your mortgage lender name, loan number, and contact information for payoff processing.",
+    whoActs: "Seller", documentRequired: "Lender Info (form)", portalAction: "upload_form",
+    dueExpression: "Day 1-3", status: "action_required", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, order: 2,
+  },
+  {
+    id: "S-05", side: "seller", phase: 1, phaseName: "Escrow Opening",
+    title: "Upload completed seller information sheet",
+    description: "Complete and upload the seller information sheet with your contact and forwarding details.",
+    whoActs: "Seller", documentRequired: "Seller Info Sheet (upload)", portalAction: "upload",
+    dueExpression: "Day 1-5", status: "action_required", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "seller_info_sheet", order: 3,
+  },
+  {
+    id: "S-06", side: "seller", phase: 2, phaseName: "Disclosures & Compliance",
+    title: "Upload completed seller's disclosure statement",
+    description: "Complete and upload the Seller's Real Property Disclosure Statement.",
+    whoActs: "Seller", documentRequired: "Seller Disclosure (upload)", portalAction: "upload",
+    dueExpression: "Day 3-7", status: "action_required", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "sellers_disclosure", order: 1,
+  },
+  {
+    id: "S-07", side: "seller", phase: 2, phaseName: "Disclosures & Compliance",
+    title: "Upload lead-based paint disclosure (pre-1978 homes)",
+    description: "Complete and upload the lead-based paint disclosure form required for homes built before 1978.",
+    whoActs: "Seller", documentRequired: "Lead Paint Disclosure (upload)", portalAction: "upload",
+    dueExpression: "Day 3-7", status: "not_started", dependsOn: [], blocks: [],
+    isConditional: true, conditionKey: "yearBuilt", isCommercialOnly: false,
+    linkedDocumentType: "lead_paint_disclosure", order: 2,
+  },
+  {
+    id: "S-08", side: "seller", phase: 2, phaseName: "Disclosures & Compliance",
+    title: "Upload HOA documents (if applicable)",
+    description: "Provide HOA documents including CC&Rs, bylaws, financials, and meeting minutes.",
+    whoActs: "Seller", documentRequired: "HOA Docs (upload)", portalAction: "upload",
+    dueExpression: "Day 3-10", status: "not_started", dependsOn: [], blocks: [],
+    isConditional: true, conditionKey: "hasHOA", isCommercialOnly: false,
+    linkedDocumentType: "hoa_documents", order: 3,
+  },
+  {
+    id: "S-11", side: "seller", phase: 3, phaseName: "Inspections",
+    title: "Review buyer's repair request and respond",
+    description: "Review the buyer's repair request from their inspection and respond to each item.",
+    whoActs: "Seller", documentRequired: "Repair Request (from Buyer Agent)", portalAction: "review_approve",
+    dueExpression: "Per contract", status: "action_required", dependsOn: [], blocks: ["S-12"],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "repair_addendum", order: 1,
+  },
+  {
+    id: "S-12", side: "seller", phase: 3, phaseName: "Inspections",
+    title: "Upload repair receipts (if applicable)",
+    description: "Upload receipts for completed repairs as agreed in the repair addendum.",
+    whoActs: "Seller", documentRequired: "Repair Receipts (upload)", portalAction: "upload",
+    dueExpression: "Pre-close", status: "locked", dependsOn: ["S-11"], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "repair_receipts", order: 2,
+  },
+  {
+    id: "S-13", side: "seller", phase: 3, phaseName: "Inspections",
+    title: "Review title commitment Schedule B-I obligations",
+    description: "Review the title commitment's Schedule B-I items that require seller action before closing.",
+    whoActs: "Seller", documentRequired: "Title Commitment (from Escrow)", portalAction: "review_approve",
+    dueExpression: "Day 10-20", status: "not_started", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "title_commitment", order: 3,
+  },
+  {
+    id: "S-17", side: "seller", phase: 4, phaseName: "Pre-Closing",
+    title: "Review and e-sign seller closing disclosure",
+    description: "Review your side of the Closing Disclosure and sign electronically.",
+    whoActs: "Seller", documentRequired: "Seller CD (from Escrow)", portalAction: "e_sign",
+    dueExpression: "Pre-close", status: "locked", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "settlement_statement_seller", order: 1,
+  },
+  {
+    id: "S-19", side: "seller", phase: 5, phaseName: "Closing Day",
+    title: "e-Sign closing documents",
+    description: "Review and sign all seller closing documents.",
+    whoActs: "Seller", documentRequired: "Closing Package (from Escrow)", portalAction: "e_sign",
+    dueExpression: "Closing Day", status: "locked", dependsOn: ["S-17"], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "signed_closing_package", order: 1,
+  },
+  {
+    id: "S-22", side: "seller", phase: 5, phaseName: "Closing Day",
+    title: "Deliver keys, garage openers, access codes",
+    description: "Deliver all keys, garage door openers, gate remotes, and access codes at closing.",
+    whoActs: "Seller", documentRequired: "Acknowledgment", portalAction: "acknowledge",
+    dueExpression: "Closing Day", status: "locked", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, order: 2,
+  },
+  {
+    id: "S-23", side: "seller", phase: 6, phaseName: "Post-Closing",
+    title: "Confirm net proceeds wire received",
+    description: "Confirm that your net proceeds wire has been received in your bank account.",
+    whoActs: "Seller", documentRequired: "Wire Confirmation (from bank)", portalAction: "acknowledge",
+    dueExpression: "1-2 days post", status: "locked", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "proceeds_wire_confirmation", order: 1,
+  },
+  {
+    id: "S-25", side: "seller", phase: 6, phaseName: "Post-Closing",
+    title: "Download 1099-S tax form",
+    description: "Download your 1099-S tax form reporting the sale proceeds for tax purposes.",
+    whoActs: "Seller", documentRequired: "1099-S (from Escrow)", portalAction: "download",
+    dueExpression: "By Jan 31", status: "locked", dependsOn: [], blocks: [],
+    isConditional: false, isCommercialOnly: false, linkedDocumentType: "form_1099s", order: 2,
+  },
+];
+
+// Mock net proceeds for seller
+const MOCK_NET_PROCEEDS: NetProceedsEstimate = {
+  purchasePrice: 425000,
+  deductions: [
+    { id: "payoff-1", label: "First Mortgage Payoff", amount: 198500, isEstimate: false, category: "payoff", tooltip: "Payoff amount as of estimated closing date, including per-diem interest." },
+    { id: "comm-buyer", label: "Buyer Agent Commission (3%)", amount: 12750, isEstimate: false, category: "commission" },
+    { id: "comm-seller", label: "Seller Agent Commission (3%)", amount: 12750, isEstimate: false, category: "commission" },
+    { id: "title-ins", label: "Owner's Title Insurance", amount: 1850, isEstimate: true, category: "fee" },
+    { id: "escrow-fee", label: "Escrow Fee", amount: 1200, isEstimate: true, category: "fee" },
+    { id: "recording", label: "Recording Fees", amount: 150, isEstimate: true, category: "fee" },
+    { id: "tax-prorate", label: "Property Tax Proration", amount: 1800, isEstimate: true, category: "proration", tooltip: "Prorated property taxes from Jan 1 to closing date." },
+    { id: "hoa-prorate", label: "HOA Proration", amount: 450, isEstimate: true, category: "proration" },
+  ],
+  totalDeductions: 229450,
+  estimatedNet: 195550,
+  disclaimer: "This is a preliminary estimate. Actual amounts may vary based on the final closing date, payoff amounts, and other factors. Final figures will be on your Closing Disclosure.",
+  lastUpdated: new Date().toISOString(),
+};
 
 export default function PortalPage() {
   const params = useParams();
@@ -43,35 +329,27 @@ export default function PortalPage() {
   const transaction = mockTransaction;
   const titleCompany = mockTitleCompany;
   const transactionSide = side === "buyer" ? mockBuyerSide : mockSellerSide;
+  const tasks = side === "buyer" ? MOCK_BUYER_TASKS : MOCK_SELLER_TASKS;
 
-  // Calculate pending counts per category
-  const enrichedDocs = enrichDocuments(mockDocuments);
-  const pendingCounts: Record<TabId, number> = {
-    dashboard: 0,
-    contract: enrichedDocs.filter(
-      (d) => d.category === "contract" && d.actionStatus !== "complete"
-    ).length,
-    title: enrichedDocs.filter(
-      (d) => d.category === "title" && d.actionStatus !== "complete"
-    ).length,
-    financial: enrichedDocs.filter(
-      (d) => d.category === "financial" && d.actionStatus !== "complete"
-    ).length,
-    closing: enrichedDocs.filter(
-      (d) => d.category === "closing" && d.actionStatus !== "complete"
-    ).length,
-  };
+  // Tab configuration based on side
+  const tabs = side === "buyer" ? BUYER_TABS : SELLER_TABS;
+
+  // Calculate pending counts from tasks
+  const taskCounts = useMemo(() => getTaskCounts(tasks), [tasks]);
+  const pendingCounts: Partial<Record<TabId, number>> = useMemo(() => ({
+    tasks: taskCounts.actionRequired + taskCounts.overdue,
+    documents: 0,
+    money: 0,
+    disclosures: side === "seller" ? taskCounts.actionRequired : 0,
+  }), [taskCounts, side]);
 
   const signingNeeded = transactionSide.signing.status === "awaiting_selection";
 
-  const fullAddress = `${transaction.property.address}, ${transaction.property.city} ${transaction.property.state} ${transaction.property.zip}`;
-
-  // Journey tracker data - in production, this would come from API
+  // Journey tracker data — in production from API
   const journeyData = {
     currentPhase: "financing" as TransactionPhase,
     percentComplete: 68,
     isFinanced: transaction.financials.isFinanced,
-    // Demo alert: lender docs not received with 5 days to close
     phaseAlerts: {
       financing: {
         level: "error" as const,
@@ -81,12 +359,11 @@ export default function PortalPage() {
     },
   };
 
-  // Handle phase click from mini tracker
   const handlePhaseClick = (phase: TransactionPhase) => {
     const phaseToTab: Record<TransactionPhase, TabId> = {
-      contract: "contract",
-      title: "title",
-      financing: "financial",
+      contract: side === "buyer" ? "tasks" : "disclosures",
+      title: side === "buyer" ? "tasks" : "disclosures",
+      financing: "money",
       clear_to_close: "closing",
       closed: "closing",
     };
@@ -101,33 +378,111 @@ export default function PortalPage() {
     setActiveTab(tabId);
   };
 
-  const renderTabContent = () => {
+  const handleTaskAction = (task: TransactionTask) => {
+    console.log("Task action:", task.id, task.portalAction);
+  };
+
+  // Render buyer-specific tabs
+  const renderBuyerContent = () => {
     switch (activeTab) {
       case "dashboard":
         return (
-          <DashboardTab
+          <BuyerDashboardTab
             transaction={transaction}
-            side={side}
+            tasks={tasks}
+            onTabChange={handleTabChange}
+            onTaskAction={handleTaskAction}
+          />
+        );
+      case "tasks":
+        return <BuyerTasksTab tasks={tasks} onTaskAction={handleTaskAction} />;
+      case "documents":
+        return <BuyerDocumentsTab documents={mockDocuments} />;
+      case "money":
+        return <BuyerMoneyTab transaction={transaction} />;
+      case "closing":
+        return (
+          <BuyerClosingTab
+            transaction={transaction}
+            tasks={tasks}
+            onTaskAction={handleTaskAction}
             onTabChange={handleTabChange}
           />
         );
-      case "contract":
-        return <ContractTab transaction={transaction} side={side} />;
-      case "title":
-        return <TitleTab transaction={transaction} side={side} />;
-      case "financial":
-        return <FinancialTab transaction={transaction} side={side} />;
-      case "closing":
-        return <ClosingTab transaction={transaction} side={side} />;
+      case "new_home":
+        return (
+          <NewHomeTab
+            transaction={transaction}
+            tasks={tasks}
+            onTaskAction={handleTaskAction}
+          />
+        );
       default:
         return (
-          <DashboardTab
+          <BuyerDashboardTab
             transaction={transaction}
-            side={side}
+            tasks={tasks}
             onTabChange={handleTabChange}
+            onTaskAction={handleTaskAction}
           />
         );
     }
+  };
+
+  // Render seller-specific tabs
+  const renderSellerContent = () => {
+    switch (activeTab) {
+      case "dashboard":
+        return (
+          <SellerDashboardTab
+            transaction={transaction}
+            tasks={tasks}
+            netProceeds={MOCK_NET_PROCEEDS}
+            onTabChange={handleTabChange}
+            onTaskAction={handleTaskAction}
+          />
+        );
+      case "disclosures":
+        return (
+          <DisclosuresTab
+            transaction={transaction}
+            tasks={tasks}
+            onTaskAction={handleTaskAction}
+          />
+        );
+      case "money":
+        return (
+          <SellerMoneyTab
+            transaction={transaction}
+            netProceeds={MOCK_NET_PROCEEDS}
+            tasks={tasks}
+            onTaskAction={handleTaskAction}
+          />
+        );
+      case "closing":
+        return (
+          <SellerClosingTab
+            transaction={transaction}
+            tasks={tasks}
+            onTaskAction={handleTaskAction}
+            onTabChange={handleTabChange}
+          />
+        );
+      default:
+        return (
+          <SellerDashboardTab
+            transaction={transaction}
+            tasks={tasks}
+            netProceeds={MOCK_NET_PROCEEDS}
+            onTabChange={handleTabChange}
+            onTaskAction={handleTaskAction}
+          />
+        );
+    }
+  };
+
+  const renderTabContent = () => {
+    return side === "buyer" ? renderBuyerContent() : renderSellerContent();
   };
 
   // Show loading state while checking auth
@@ -172,6 +527,7 @@ export default function PortalPage() {
       <TabNavigation
         activeTab={activeTab}
         onTabChange={handleTabChange}
+        tabs={tabs}
         pendingCounts={pendingCounts}
         signingNeeded={signingNeeded}
       />

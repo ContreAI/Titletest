@@ -6,8 +6,12 @@ import {
   LayoutDashboard,
   FolderKanban,
   FileText,
+  PackageCheck,
+  CalendarDays,
   Users,
   Clock,
+  ShieldCheck,
+  Bell,
   MessageSquare,
   Settings,
   LogOut,
@@ -29,9 +33,17 @@ interface NavItem {
 }
 
 const mainNavItems: NavItem[] = [
+  { label: "Command Center", href: "/admin/command-center", icon: LayoutDashboard },
   { label: "Pipeline", href: "/admin/pipeline", icon: FolderKanban },
   { label: "Transactions", href: "/admin/transactions", icon: FileText },
+  { label: "Post-Closing", href: "/admin/post-closing", icon: PackageCheck },
+  { label: "Calendar", href: "/admin/calendar", icon: CalendarDays },
+];
+
+const operationsNavItems: NavItem[] = [
   { label: "Templates", href: "/admin/templates", icon: Clock },
+  { label: "Wire Security", href: "/admin/wire-security", icon: ShieldCheck },
+  { label: "Notifications", href: "/admin/notifications", icon: Bell },
 ];
 
 const secondaryNavItems: NavItem[] = [
@@ -46,7 +58,7 @@ export function AdminSidebar() {
   const { theme, toggleTheme } = useThemeContext();
 
   const isActive = (href: string) => {
-    if (href === "/admin/pipeline" && pathname === "/admin") return true;
+    if (href === "/admin/command-center" && pathname === "/admin") return true;
     return pathname.startsWith(href);
   };
 
@@ -138,7 +150,49 @@ export function AdminSidebar() {
         <div className="px-3 mt-6 mb-2">
           {!collapsed && (
             <span className="text-[10px] font-semibold text-white/30 uppercase tracking-widest">
-              Settings
+              Operations
+            </span>
+          )}
+        </div>
+        <ul className="space-y-0.5 px-2">
+          {operationsNavItems.map((item) => (
+            <li key={item.href}>
+              <Link
+                href={item.href}
+                className={`
+                  flex items-center gap-3 px-3 py-2.5 rounded-lg
+                  transition-all duration-200 ease-out
+                  ${
+                    isActive(item.href)
+                      ? "bg-white/[0.12] text-white border-l-2 border-spruce shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                      : "text-white/60 hover:bg-white/[0.08] hover:text-white border-l-2 border-transparent"
+                  }
+                  ${collapsed ? "justify-center !border-l-0" : ""}
+                `}
+                title={collapsed ? item.label : undefined}
+              >
+                <item.icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-200 ${
+                  isActive(item.href) ? 'text-spruce-300' : ''
+                }`} />
+                {!collapsed && (
+                  <>
+                    <span className="flex-1 truncate text-sm font-medium">{item.label}</span>
+                    {item.badge !== undefined && item.badge > 0 && (
+                      <span className="bg-signal-red text-white text-[10px] font-semibold px-1.5 py-0.5 rounded-full min-w-[20px] text-center">
+                        {item.badge}
+                      </span>
+                    )}
+                  </>
+                )}
+              </Link>
+            </li>
+          ))}
+        </ul>
+
+        <div className="px-3 mt-6 mb-2">
+          {!collapsed && (
+            <span className="text-[10px] font-semibold text-white/30 uppercase tracking-widest">
+              Management
             </span>
           )}
         </div>

@@ -10,6 +10,12 @@ export interface Transaction {
     state: string;
     zip: string;
     legalDescription?: string;
+    // Property flags for conditional tasks
+    yearBuilt?: number;
+    hasPool?: boolean;
+    hasHOA?: boolean;
+    leasedEquipment?: string[]; // solar, propane, security, etc.
+    complianceState?: string; // US state code for state-specific rules
   };
 
   financials: {
@@ -153,6 +159,40 @@ export type DocumentType =
   | "loan_approval"
   | "insurance_binder"
   | "hoa_documents"
+  // Escrow/shared document types
+  | "escrow_letter"
+  | "escrow_instructions"
+  | "wire_fraud_advisory"
+  | "closing_appointment"
+  | "recording_confirmation"
+  // Seller-specific document types
+  | "sellers_disclosure"
+  | "lead_paint_disclosure"
+  | "seller_info_sheet"
+  | "leased_equipment_disclosure"
+  | "compliance_confirmation"
+  | "repair_receipts"
+  | "repair_addendum"
+  | "affidavit"
+  | "firpta_certification"
+  | "bill_of_sale"
+  | "disbursement_authorization"
+  | "form_1099s"
+  | "proceeds_wire_confirmation"
+  // Buyer-specific document types
+  | "vesting_instructions"
+  | "specialty_inspection_report"
+  | "credit_agreement"
+  | "owners_title_insurance_quote"
+  | "clear_to_close_notice"
+  | "closing_funds_wire_confirmation"
+  | "funds_receipt_confirmation"
+  | "walkthrough_confirmation"
+  | "signed_closing_package"
+  | "recorded_deed"
+  | "owners_title_policy"
+  | "home_warranty"
+  | "lender_welcome_package"
   // Commercial-specific document types
   | "lease"
   | "rent_roll"
@@ -162,6 +202,12 @@ export type DocumentType =
   | "zoning_letter"
   | "tenant_financials"
   | "operating_agreement"
+  | "ucc_search"
+  | "entity_docs"
+  | "proration_true_up"
+  | "tenant_notification_letter"
+  | "service_contract"
+  | "security_deposit_schedule"
   | "other";
 
 export type DocumentSource =
@@ -313,7 +359,14 @@ export type TabId =
   | "title"
   | "financial"
   | "closing"
-  | "due_diligence"; // Commercial transactions only
+  | "due_diligence" // Commercial transactions only
+  // Buyer-specific tabs
+  | "tasks"
+  | "documents"
+  | "money"
+  | "new_home"
+  // Seller-specific tabs
+  | "disclosures";
 
 export interface Tab {
   id: TabId;
@@ -494,4 +547,180 @@ export interface PhaseConfig {
   description: string;
   typicalDuration: string;
   keyMilestones: string[];
+}
+
+// ============================================
+// Portal Task & Workflow Types (from PDF spec)
+// ============================================
+
+// The 6 portal action types that drive task UI
+export type PortalActionType =
+  | "acknowledge"
+  | "download"
+  | "upload"
+  | "upload_pay"
+  | "e_sign"
+  | "review_approve"
+  | "upload_form";
+
+// Task lifecycle status
+export type TaskStatus =
+  | "not_started"
+  | "action_required"
+  | "in_review"
+  | "completed"
+  | "overdue"
+  | "locked"; // Blocked by dependency
+
+// A single task in the buyer or seller portal
+export interface TransactionTask {
+  id: string; // "B-01", "S-06", "CB-03"
+  side: "buyer" | "seller";
+  phase: number; // 1-6
+  phaseName: string; // "Escrow Opening", "Inspections & Due Diligence", etc.
+  title: string; // Action-oriented label from PDF
+  description: string; // Detailed explanation
+  whoActs: string; // "Buyer", "Seller", "Buyer's Agent", "Seller's Agent", "Escrow"
+  documentRequired: string; // What to upload or what will be delivered
+  portalAction: PortalActionType;
+  dueExpression: string; // "Day 1", "Day 5-12", "3+ biz days pre-close"
+  status: TaskStatus;
+  dependsOn: string[]; // IDs of tasks this depends on
+  blocks: string[]; // IDs of tasks this blocks
+  isConditional: boolean; // S-07 (pre-1978), S-10 (pool), etc.
+  conditionKey?: string; // property flag that controls visibility
+  isCommercialOnly: boolean;
+  linkedDocumentType?: DocumentType;
+  linkedDocumentId?: string;
+  completedDate?: string;
+  overdueDate?: string;
+  order: number; // Sort order within phase
+}
+
+// Seller-specific journey phases (6 phases, different from buyer's 5)
+export type SellerTransactionPhase =
+  | "escrow_opening"
+  | "disclosures"
+  | "inspections"
+  | "pre_closing"
+  | "closing_day"
+  | "post_closing";
+
+// Buyer-specific journey phases (6 phases from PDF)
+export type BuyerTransactionPhase =
+  | "escrow_opening"
+  | "inspections_due_diligence"
+  | "financing_insurance"
+  | "pre_closing"
+  | "closing_day"
+  | "post_closing";
+
+// Phase progress for journey trackers
+export interface TaskPhaseProgress {
+  phase: number;
+  phaseName: string;
+  total: number;
+  completed: number;
+  overdue: number;
+  inReview: number;
+  status: "complete" | "in_progress" | "upcoming" | "locked";
+}
+
+// ============================================
+// Repair Negotiation Types (Seller Portal)
+// ============================================
+
+export interface RepairRequest {
+  id: string;
+  transactionId: string;
+  items: RepairItem[];
+  creditRequest?: {
+    amount: number;
+    description: string;
+    sellerResponse: "pending" | "accept" | "counter" | "decline";
+    counterAmount?: number;
+  };
+  receivedDate: string;
+  responseDueDate: string;
+  status: "pending" | "responded" | "accepted" | "countered" | "declined";
+  respondedDate?: string;
+}
+
+export interface RepairItem {
+  id: string;
+  description: string;
+  estimatedCostMin?: number;
+  estimatedCostMax?: number;
+  sellerResponse: "pending" | "accept" | "counter" | "decline";
+  counterProposal?: string;
+}
+
+// ============================================
+// Net Proceeds Types (Seller Portal)
+// ============================================
+
+export interface NetProceedsEstimate {
+  purchasePrice: number;
+  deductions: NetProceedsLineItem[];
+  totalDeductions: number;
+  estimatedNet: number;
+  disclaimer: string;
+  lastUpdated: string;
+}
+
+export interface NetProceedsLineItem {
+  id: string;
+  label: string;
+  amount: number;
+  isEstimate: boolean;
+  tooltip?: string; // Educational explainer
+  category: "payoff" | "commission" | "fee" | "proration" | "credit";
+}
+
+// ============================================
+// Document Vault Types
+// ============================================
+
+export type BuyerVaultFolder =
+  | "escrow_opening"
+  | "title_survey"
+  | "inspections"
+  | "disclosures"
+  | "financing_insurance"
+  | "closing_documents"
+  | "post_closing";
+
+export type SellerVaultFolder =
+  | "escrow_opening"
+  | "title_payoffs"
+  | "disclosures"
+  | "inspection_response"
+  | "closing_documents"
+  | "post_closing";
+
+export interface VaultFolder {
+  id: string;
+  label: string;
+  description: string;
+  documentTypes: DocumentType[];
+  documentCount: number;
+}
+
+// ============================================
+// Wire Safety Types
+// ============================================
+
+export interface WireStep {
+  id: string;
+  label: string;
+  status: "pending" | "active" | "completed";
+  completedDate?: string;
+  documentId?: string;
+}
+
+export interface WireTracker {
+  type: "earnest_money" | "closing_funds";
+  steps: WireStep[];
+  totalAmount?: number;
+  fraudWarningAcknowledged: boolean;
 }

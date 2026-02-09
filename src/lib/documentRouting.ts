@@ -102,6 +102,167 @@ export const defaultRoutingRules: Record<DocumentType, DocumentRoutingRule> = {
     description: "HOA info relevant to both parties",
   },
 
+  // Escrow / Shared Documents
+  escrow_letter: {
+    documentType: "escrow_letter",
+    defaultRouting: "both",
+    description: "Escrow opening letter sent to both parties",
+  },
+  escrow_instructions: {
+    documentType: "escrow_instructions",
+    defaultRouting: "both",
+    description: "Escrow instructions for both parties to sign",
+  },
+  wire_fraud_advisory: {
+    documentType: "wire_fraud_advisory",
+    defaultRouting: "both",
+    description: "Wire fraud prevention advisory for both parties",
+  },
+  closing_appointment: {
+    documentType: "closing_appointment",
+    defaultRouting: "both",
+    description: "Closing appointment confirmation for both parties",
+  },
+  recording_confirmation: {
+    documentType: "recording_confirmation",
+    defaultRouting: "both",
+    description: "Recording confirmation sent to both parties",
+  },
+
+  // Seller-specific Documents
+  sellers_disclosure: {
+    documentType: "sellers_disclosure",
+    defaultRouting: "both",
+    description: "Seller disclosure statement reviewed by both parties",
+  },
+  lead_paint_disclosure: {
+    documentType: "lead_paint_disclosure",
+    defaultRouting: "both",
+    description: "Lead paint disclosure for pre-1978 properties",
+  },
+  seller_info_sheet: {
+    documentType: "seller_info_sheet",
+    defaultRouting: "seller_only",
+    description: "Seller information and contact details",
+  },
+  leased_equipment_disclosure: {
+    documentType: "leased_equipment_disclosure",
+    defaultRouting: "both",
+    description: "Disclosure of leased equipment on property",
+  },
+  compliance_confirmation: {
+    documentType: "compliance_confirmation",
+    defaultRouting: "seller_only",
+    description: "Safety and compliance confirmation",
+  },
+  repair_receipts: {
+    documentType: "repair_receipts",
+    defaultRouting: "buyer_only",
+    description: "Repair completion receipts for buyer verification",
+  },
+  repair_addendum: {
+    documentType: "repair_addendum",
+    defaultRouting: "both",
+    description: "Repair negotiation addendum for both parties",
+  },
+  affidavit: {
+    documentType: "affidavit",
+    defaultRouting: "seller_only",
+    description: "Seller affidavit",
+  },
+  firpta_certification: {
+    documentType: "firpta_certification",
+    defaultRouting: "internal",
+    description: "FIRPTA certification - internal processing",
+  },
+  bill_of_sale: {
+    documentType: "bill_of_sale",
+    defaultRouting: "both",
+    description: "Bill of sale for personal property",
+  },
+  disbursement_authorization: {
+    documentType: "disbursement_authorization",
+    defaultRouting: "seller_only",
+    description: "Seller disbursement authorization",
+  },
+  form_1099s: {
+    documentType: "form_1099s",
+    defaultRouting: "seller_only",
+    description: "1099-S tax form for seller",
+  },
+  proceeds_wire_confirmation: {
+    documentType: "proceeds_wire_confirmation",
+    defaultRouting: "seller_only",
+    description: "Confirmation of seller proceeds wire",
+  },
+
+  // Buyer-specific Documents
+  vesting_instructions: {
+    documentType: "vesting_instructions",
+    defaultRouting: "buyer_only",
+    description: "Buyer vesting/title-holding instructions",
+  },
+  specialty_inspection_report: {
+    documentType: "specialty_inspection_report",
+    defaultRouting: "buyer_only",
+    description: "Specialized inspection (pest, radon, etc.)",
+  },
+  credit_agreement: {
+    documentType: "credit_agreement",
+    defaultRouting: "buyer_only",
+    description: "Repair credit agreement for buyer",
+  },
+  owners_title_insurance_quote: {
+    documentType: "owners_title_insurance_quote",
+    defaultRouting: "buyer_only",
+    description: "Owner's title insurance quote",
+  },
+  clear_to_close_notice: {
+    documentType: "clear_to_close_notice",
+    defaultRouting: "buyer_only",
+    description: "Lender clear-to-close notification",
+  },
+  closing_funds_wire_confirmation: {
+    documentType: "closing_funds_wire_confirmation",
+    defaultRouting: "buyer_only",
+    description: "Buyer closing funds wire confirmation",
+  },
+  funds_receipt_confirmation: {
+    documentType: "funds_receipt_confirmation",
+    defaultRouting: "buyer_only",
+    description: "Confirmation of funds received by escrow",
+  },
+  walkthrough_confirmation: {
+    documentType: "walkthrough_confirmation",
+    defaultRouting: "buyer_only",
+    description: "Final walkthrough confirmation",
+  },
+  signed_closing_package: {
+    documentType: "signed_closing_package",
+    defaultRouting: "both",
+    description: "Signed closing package for both parties",
+  },
+  recorded_deed: {
+    documentType: "recorded_deed",
+    defaultRouting: "buyer_only",
+    description: "Recorded deed sent to buyer post-closing",
+  },
+  owners_title_policy: {
+    documentType: "owners_title_policy",
+    defaultRouting: "buyer_only",
+    description: "Owner's title insurance policy for buyer",
+  },
+  home_warranty: {
+    documentType: "home_warranty",
+    defaultRouting: "buyer_only",
+    description: "Home warranty documentation",
+  },
+  lender_welcome_package: {
+    documentType: "lender_welcome_package",
+    defaultRouting: "buyer_only",
+    description: "Lender welcome package for buyer",
+  },
+
   // Commercial Documents (Due Diligence)
   lease: {
     documentType: "lease",
@@ -143,6 +304,36 @@ export const defaultRoutingRules: Record<DocumentType, DocumentRoutingRule> = {
     documentType: "operating_agreement",
     defaultRouting: "internal",
     description: "Entity operating agreements - internal by default",
+  },
+  ucc_search: {
+    documentType: "ucc_search",
+    defaultRouting: "both",
+    description: "UCC lien search results",
+  },
+  entity_docs: {
+    documentType: "entity_docs",
+    defaultRouting: "internal",
+    description: "Entity formation and authorization documents",
+  },
+  proration_true_up: {
+    documentType: "proration_true_up",
+    defaultRouting: "both",
+    description: "Post-closing proration adjustment",
+  },
+  tenant_notification_letter: {
+    documentType: "tenant_notification_letter",
+    defaultRouting: "both",
+    description: "Tenant notification of ownership change",
+  },
+  service_contract: {
+    documentType: "service_contract",
+    defaultRouting: "both",
+    description: "Property service contracts for review",
+  },
+  security_deposit_schedule: {
+    documentType: "security_deposit_schedule",
+    defaultRouting: "both",
+    description: "Security deposit schedule for tenant accounts",
   },
 
   // Other
@@ -325,7 +516,7 @@ export function validateRouting(
  * Get human-readable document type label.
  */
 export function getDocumentTypeLabel(type: DocumentType): string {
-  const labels: Record<DocumentType, string> = {
+  const labels: Partial<Record<DocumentType, string>> = {
     purchase_agreement: "Purchase Agreement",
     addendum: "Addendum",
     earnest_money_receipt: "Earnest Money Receipt",
@@ -343,6 +534,37 @@ export function getDocumentTypeLabel(type: DocumentType): string {
     loan_approval: "Loan Approval",
     insurance_binder: "Insurance Binder",
     hoa_documents: "HOA Documents",
+    escrow_letter: "Escrow Opening Letter",
+    escrow_instructions: "Escrow Instructions",
+    wire_fraud_advisory: "Wire Fraud Advisory",
+    closing_appointment: "Closing Appointment",
+    recording_confirmation: "Recording Confirmation",
+    sellers_disclosure: "Seller's Disclosure",
+    lead_paint_disclosure: "Lead Paint Disclosure",
+    seller_info_sheet: "Seller Information Sheet",
+    leased_equipment_disclosure: "Leased Equipment Disclosure",
+    compliance_confirmation: "Compliance Confirmation",
+    repair_receipts: "Repair Receipts",
+    repair_addendum: "Repair Addendum",
+    affidavit: "Affidavit",
+    firpta_certification: "FIRPTA Certification",
+    bill_of_sale: "Bill of Sale",
+    disbursement_authorization: "Disbursement Authorization",
+    form_1099s: "1099-S Tax Form",
+    proceeds_wire_confirmation: "Proceeds Wire Confirmation",
+    vesting_instructions: "Vesting Instructions",
+    specialty_inspection_report: "Specialty Inspection Report",
+    credit_agreement: "Repair Credit Agreement",
+    owners_title_insurance_quote: "Owner's Title Insurance Quote",
+    clear_to_close_notice: "Clear to Close Notice",
+    closing_funds_wire_confirmation: "Closing Funds Wire Confirmation",
+    funds_receipt_confirmation: "Funds Receipt Confirmation",
+    walkthrough_confirmation: "Walkthrough Confirmation",
+    signed_closing_package: "Signed Closing Package",
+    recorded_deed: "Recorded Deed",
+    owners_title_policy: "Owner's Title Policy",
+    home_warranty: "Home Warranty",
+    lender_welcome_package: "Lender Welcome Package",
     lease: "Lease",
     rent_roll: "Rent Roll",
     estoppel_certificate: "Estoppel Certificate",
@@ -351,6 +573,12 @@ export function getDocumentTypeLabel(type: DocumentType): string {
     zoning_letter: "Zoning Letter",
     tenant_financials: "Tenant Financials",
     operating_agreement: "Operating Agreement",
+    ucc_search: "UCC Search",
+    entity_docs: "Entity Documents",
+    proration_true_up: "Proration True-Up",
+    tenant_notification_letter: "Tenant Notification Letter",
+    service_contract: "Service Contract",
+    security_deposit_schedule: "Security Deposit Schedule",
     other: "Other",
   };
   return labels[type] || type;

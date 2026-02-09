@@ -166,6 +166,7 @@ export function populateTransactionFromOCR(
       purchasePrice: fields.purchasePrice?.value || 0,
       earnestMoney: fields.earnestMoney?.value || 0,
       loanType: fields.loanType?.value,
+      isFinanced: !!fields.loanType?.value,
     },
     dates: {
       contractDate: fields.contractDate?.value || "",

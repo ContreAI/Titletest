@@ -1,6 +1,6 @@
 // Admin/Title Company Backend Types
 
-import { PartyRole, DocumentType, ChecklistCategory } from "./index";
+import { PartyRole, DocumentType, ChecklistCategory, TaskStatus } from "./index";
 
 // Transaction types for different workflows
 export type TransactionType =
@@ -268,6 +268,44 @@ export interface AdminTransaction {
 
   ocrData?: OCRExtractedData;
 
+  // Task progress tracking (from PDF spec)
+  buyerTaskProgress?: {
+    total: number;
+    completed: number;
+    overdue: number;
+    inReview: number;
+  };
+  sellerTaskProgress?: {
+    total: number;
+    completed: number;
+    overdue: number;
+    inReview: number;
+  };
+
+  // Shared deliverable tracking (X-01 through X-17)
+  deliverables?: DeliverableStatus[];
+
+  // Post-closing item tracking
+  postClosingItems?: PostClosingItem[];
+
+  // TRID compliance tracking
+  tridCompliance?: {
+    closingDisclosureSentDate?: string;
+    closingDisclosureDueDate: string; // computed: 3 business days before closing
+    isCompliant: boolean;
+    daysRemaining: number;
+    buyerCDStatus: "not_generated" | "generated" | "sent" | "delivered" | "viewed" | "approved";
+    sellerCDStatus: "not_generated" | "generated" | "sent" | "delivered" | "viewed" | "approved";
+  };
+
+  // Wire security tracking
+  wireInstructionsSent?: boolean;
+  wireInstructionsVerified?: boolean;
+  wireAuditTrail?: WireAuditEntry[];
+
+  // Transaction flags
+  isCommercial?: boolean;
+
   createdAt: string;
   updatedAt: string;
   lastActivityAt: string;
@@ -329,6 +367,116 @@ export const TRANSACTION_TYPES: Record<TransactionType, { label: string; descrip
   commercial: { label: "Commercial", description: "Commercial real estate" },
   exchange_1031: { label: "1031 Exchange", description: "Tax-deferred exchange" },
 };
+
+// ============================================
+// Deliverable & Post-Closing Types (Admin)
+// ============================================
+
+// Shared deliverables the escrow officer pushes to portals (X-01 through X-17)
+export interface DeliverableStatus {
+  code: string; // "X-01" through "X-17"
+  name: string;
+  description: string;
+  expectedWindow: string; // "Day 1", "Day 7-10", etc.
+  status: "not_started" | "draft" | "sent" | "delivered" | "viewed" | "n_a";
+  sentDate?: string;
+  buyerPortalStatus: "not_sent" | "sent" | "delivered" | "viewed" | "n_a";
+  sellerPortalStatus: "not_sent" | "sent" | "delivered" | "viewed" | "n_a";
+  documentId?: string;
+  documentType?: DocumentType;
+}
+
+// Post-closing items that arrive weeks/months after closing
+export interface PostClosingItem {
+  id: string;
+  type: "recorded_deed" | "owner_title_policy" | "lender_title_policy" | "1099s";
+  deliverableCode: string; // "X-13", "X-14", "X-15", "X-16"
+  label: string;
+  expectedDays: { min: number; max: number }; // from closing
+  closingDate: string;
+  receivedDate?: string;
+  pushedToPortalDate?: string;
+  status: "pending" | "received" | "pushed" | "late";
+  routing: DocumentRouting;
+}
+
+// Wire fraud audit trail
+export interface WireAuditEntry {
+  id: string;
+  transactionId: string;
+  action: "generated" | "sent" | "delivered" | "viewed" | "verified" | "flagged";
+  timestamp: string;
+  channel: "portal" | "email";
+  actorId: string;
+  actorName: string;
+  details?: string;
+  ipAddress?: string;
+}
+
+// ============================================
+// Command Center Types (Admin)
+// ============================================
+
+// Fire list item (aggregated across all transactions)
+export type FireListPriority = "critical" | "overdue" | "due_today" | "due_this_week";
+
+export interface FireListItem {
+  id: string;
+  transactionId: string;
+  propertyAddress: string;
+  issue: string;
+  priority: FireListPriority;
+  blockingParty?: "buyer" | "seller" | "title" | "lender";
+  assignedCloserName?: string;
+  dueDate?: string;
+  daysOverdue?: number;
+  taskId?: string;
+  deliverableCode?: string;
+}
+
+// Workload summary per team member
+export interface TeamWorkload {
+  employeeId: string;
+  employeeName: string;
+  role: TitleEmployeeRole;
+  activeCount: number;
+  closingThisWeek: number;
+  overdueCount: number;
+  stageBreakdown: Record<PipelineStage, number>;
+}
+
+// Closing calendar day
+export interface ClosingCalendarDay {
+  date: string;
+  dayOfWeek: string;
+  isToday: boolean;
+  isWeekend: boolean;
+  transactions: Array<{
+    id: string;
+    propertyAddress: string;
+    closerName?: string;
+    hasTRIDRisk: boolean;
+    buyerProgress: number;
+    sellerProgress: number;
+  }>;
+}
+
+// ============================================
+// Extended Activity Actions
+// ============================================
+
+export type ExtendedActivityAction =
+  | ActivityAction
+  | "task_completed"
+  | "task_overdue"
+  | "deliverable_pushed"
+  | "wire_instructions_sent"
+  | "wire_verified"
+  | "trid_warning"
+  | "closing_confirmed"
+  | "proceeds_wired"
+  | "repair_request_sent"
+  | "repair_response_received";
 
 // Standard template variables
 export const TEMPLATE_VARIABLES: TemplateVariable[] = [

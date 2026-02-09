@@ -13,12 +13,27 @@ export const documentCategoryMap: Record<DocumentType, DocumentCategory> = {
   purchase_agreement: "contract",
   addendum: "contract",
   earnest_money_receipt: "contract",
+  escrow_letter: "contract",
+  escrow_instructions: "contract",
+  sellers_disclosure: "contract",
+  lead_paint_disclosure: "contract",
+  seller_info_sheet: "contract",
+  leased_equipment_disclosure: "contract",
+  repair_receipts: "contract",
+  repair_addendum: "contract",
+  bill_of_sale: "contract",
 
   // Title tab
   title_commitment: "title",
   preliminary_title_report: "title",
   deed: "title",
   title_policy: "title",
+  recorded_deed: "title",
+  owners_title_policy: "title",
+  vesting_instructions: "title",
+  owners_title_insurance_quote: "title",
+  affidavit: "title",
+  survey: "title",
 
   // Financial tab
   settlement_statement_buyer: "financial",
@@ -28,11 +43,28 @@ export const documentCategoryMap: Record<DocumentType, DocumentCategory> = {
   payoff_statement: "financial",
   loan_approval: "financial",
   appraisal: "financial",
+  wire_fraud_advisory: "financial",
+  firpta_certification: "financial",
+  disbursement_authorization: "financial",
+  form_1099s: "financial",
+  proceeds_wire_confirmation: "financial",
+  credit_agreement: "financial",
+  clear_to_close_notice: "financial",
+  closing_funds_wire_confirmation: "financial",
+  funds_receipt_confirmation: "financial",
+  lender_welcome_package: "financial",
 
   // Closing tab
   inspection_report: "closing",
   insurance_binder: "closing",
   hoa_documents: "closing",
+  closing_appointment: "closing",
+  recording_confirmation: "closing",
+  compliance_confirmation: "closing",
+  specialty_inspection_report: "closing",
+  walkthrough_confirmation: "closing",
+  signed_closing_package: "closing",
+  home_warranty: "closing",
   other: "closing",
 
   // Due Diligence tab (Commercial)
@@ -40,10 +72,15 @@ export const documentCategoryMap: Record<DocumentType, DocumentCategory> = {
   rent_roll: "due_diligence",
   estoppel_certificate: "due_diligence",
   environmental_report: "due_diligence",
-  survey: "due_diligence",
   zoning_letter: "due_diligence",
   tenant_financials: "due_diligence",
   operating_agreement: "due_diligence",
+  ucc_search: "due_diligence",
+  entity_docs: "due_diligence",
+  proration_true_up: "due_diligence",
+  tenant_notification_letter: "due_diligence",
+  service_contract: "due_diligence",
+  security_deposit_schedule: "due_diligence",
 };
 
 // Documents that typically require signing
