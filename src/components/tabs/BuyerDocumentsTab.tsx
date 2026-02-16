@@ -20,6 +20,7 @@ gsap.registerPlugin(useGSAP);
 
 export interface BuyerDocumentsTabProps {
   documents: Document[];
+  side?: "buyer" | "seller";
   onUpload?: () => void;
   onDownload?: (doc: Document) => void;
 }
@@ -73,6 +74,52 @@ const BUYER_VAULT_FOLDERS: VaultFolder[] = [
     label: "Post-Closing",
     description: "Recorded deed, title policy, home warranty",
     documentTypes: ["recorded_deed", "owners_title_policy", "deed", "title_policy", "home_warranty", "lender_welcome_package"],
+    documentCount: 0,
+  },
+];
+
+// 6 seller vault folders
+const SELLER_VAULT_FOLDERS: VaultFolder[] = [
+  {
+    id: "escrow_opening",
+    label: "Escrow & Opening",
+    description: "Escrow letter, seller information sheet",
+    documentTypes: ["escrow_letter", "escrow_instructions", "seller_info_sheet"],
+    documentCount: 0,
+  },
+  {
+    id: "title_payoffs",
+    label: "Title & Payoffs",
+    description: "Title commitment, payoff statements",
+    documentTypes: ["title_commitment", "payoff_statement"],
+    documentCount: 0,
+  },
+  {
+    id: "disclosures",
+    label: "Disclosures",
+    description: "Seller disclosures, lead paint, HOA documents",
+    documentTypes: ["sellers_disclosure", "lead_paint_disclosure", "hoa_documents", "leased_equipment_disclosure"],
+    documentCount: 0,
+  },
+  {
+    id: "inspection_response",
+    label: "Inspection Response",
+    description: "Repair addendum, repair receipts, credit agreements",
+    documentTypes: ["repair_addendum", "repair_receipts", "credit_agreement"],
+    documentCount: 0,
+  },
+  {
+    id: "closing_documents",
+    label: "Closing Documents",
+    description: "Settlement statement, closing disclosure, closing package",
+    documentTypes: ["settlement_statement_seller", "closing_disclosure", "signed_closing_package"],
+    documentCount: 0,
+  },
+  {
+    id: "post_closing",
+    label: "Post-Closing",
+    description: "Wire confirmation, 1099-S, insurance cancellation",
+    documentTypes: ["proceeds_wire_confirmation", "form_1099s"],
     documentCount: 0,
   },
 ];
@@ -179,11 +226,13 @@ function FolderCard({
 
 export default function BuyerDocumentsTab({
   documents,
+  side = "buyer",
   onUpload,
   onDownload,
 }: BuyerDocumentsTabProps) {
   const [searchQuery, setSearchQuery] = useState("");
   const containerRef = useRef<HTMLDivElement>(null);
+  const vaultFolders = side === "seller" ? SELLER_VAULT_FOLDERS : BUYER_VAULT_FOLDERS;
 
   useGSAP(() => {
     if (!containerRef.current) return;
@@ -209,13 +258,13 @@ export default function BuyerDocumentsTab({
       );
     }
 
-    return BUYER_VAULT_FOLDERS.map((folder) => ({
+    return vaultFolders.map((folder) => ({
       folder,
       documents: filteredDocs.filter((doc) =>
         folder.documentTypes.includes(doc.type)
       ),
     }));
-  }, [documents, searchQuery]);
+  }, [documents, searchQuery, vaultFolders]);
 
   const totalDocs = documents.length;
 
@@ -228,7 +277,7 @@ export default function BuyerDocumentsTab({
             Document Vault
           </h2>
           <p className="text-sm text-[var(--text-tertiary)] mt-0.5">
-            {totalDocs} {totalDocs === 1 ? "document" : "documents"} across 7 folders
+            {totalDocs} {totalDocs === 1 ? "document" : "documents"} across {vaultFolders.length} folders
           </p>
         </div>
 

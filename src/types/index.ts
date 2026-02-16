@@ -366,7 +366,9 @@ export type TabId =
   | "money"
   | "new_home"
   // Seller-specific tabs
-  | "disclosures";
+  | "disclosures"
+  // Agent-specific tabs
+  | "automation";
 
 export interface Tab {
   id: TabId;

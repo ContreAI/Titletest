@@ -19,30 +19,25 @@ import { useAuth, logout } from "@/hooks";
 import { Loader2 } from "lucide-react";
 import { NotificationSettings } from "@/components/settings";
 import { BUYER_TABS, SELLER_TABS } from "@/lib/tabConfigs";
+import { ChatProvider } from "@/components/chat";
+import { BUYER_TASKS } from "@/data/buyerTasksMockData";
+import { sellerTasks as SELLER_TASKS_DATA } from "@/data/sellerTasksMockData";
 
-// New buyer tab components
+// Buyer tab components
 import BuyerDashboardTab from "@/components/tabs/BuyerDashboardTab";
 import BuyerTasksTab from "@/components/tabs/BuyerTasksTab";
-import BuyerMoneyTab from "@/components/tabs/BuyerMoneyTab";
 import BuyerDocumentsTab from "@/components/tabs/BuyerDocumentsTab";
 import BuyerClosingTab from "@/components/tabs/BuyerClosingTab";
-import NewHomeTab from "@/components/tabs/NewHomeTab";
 
-// New seller tab components
+// Seller tab components
 import SellerDashboardTab from "@/components/tabs/SellerDashboardTab";
-import DisclosuresTab from "@/components/tabs/DisclosuresTab";
-import SellerMoneyTab from "@/components/tabs/SellerMoneyTab";
 import SellerClosingTab from "@/components/tabs/SellerClosingTab";
 
 import { MiniJourneyTracker } from "@/components/journey";
 import { TransactionPhase } from "@/types";
 import { getTaskCounts } from "@/stores/taskStore";
 
-// ============================================
-// Inline mock task data — will be replaced by
-// imports from mock data files once agents finish
-// ============================================
-
+// Inline subsets below are kept for reference but overridden by full spec data
 const MOCK_BUYER_TASKS: TransactionTask[] = [
   {
     id: "B-01", side: "buyer", phase: 1, phaseName: "Escrow Opening",
@@ -329,7 +324,8 @@ export default function PortalPage() {
   const transaction = mockTransaction;
   const titleCompany = mockTitleCompany;
   const transactionSide = side === "buyer" ? mockBuyerSide : mockSellerSide;
-  const tasks = side === "buyer" ? MOCK_BUYER_TASKS : MOCK_SELLER_TASKS;
+  // Use full spec-aligned data (B-01 to B-35, S-01 to S-27) from data files
+  const tasks = side === "buyer" ? BUYER_TASKS : SELLER_TASKS_DATA;
 
   // Tab configuration based on side
   const tabs = side === "buyer" ? BUYER_TABS : SELLER_TABS;
@@ -339,9 +335,7 @@ export default function PortalPage() {
   const pendingCounts: Partial<Record<TabId, number>> = useMemo(() => ({
     tasks: taskCounts.actionRequired + taskCounts.overdue,
     documents: 0,
-    money: 0,
-    disclosures: side === "seller" ? taskCounts.actionRequired : 0,
-  }), [taskCounts, side]);
+  }), [taskCounts]);
 
   const signingNeeded = transactionSide.signing.status === "awaiting_selection";
 
@@ -361,9 +355,9 @@ export default function PortalPage() {
 
   const handlePhaseClick = (phase: TransactionPhase) => {
     const phaseToTab: Record<TransactionPhase, TabId> = {
-      contract: side === "buyer" ? "tasks" : "disclosures",
-      title: side === "buyer" ? "tasks" : "disclosures",
-      financing: "money",
+      contract: "tasks",
+      title: "tasks",
+      financing: "tasks",
       clear_to_close: "closing",
       closed: "closing",
     };
@@ -382,58 +376,18 @@ export default function PortalPage() {
     console.log("Task action:", task.id, task.portalAction);
   };
 
-  // Render buyer-specific tabs
-  const renderBuyerContent = () => {
+  // Unified tab rendering — both buyer and seller share the same 4-tab structure
+  const renderTabContent = () => {
     switch (activeTab) {
       case "dashboard":
-        return (
+        return side === "buyer" ? (
           <BuyerDashboardTab
             transaction={transaction}
             tasks={tasks}
             onTabChange={handleTabChange}
             onTaskAction={handleTaskAction}
           />
-        );
-      case "tasks":
-        return <BuyerTasksTab tasks={tasks} onTaskAction={handleTaskAction} />;
-      case "documents":
-        return <BuyerDocumentsTab documents={mockDocuments} />;
-      case "money":
-        return <BuyerMoneyTab transaction={transaction} />;
-      case "closing":
-        return (
-          <BuyerClosingTab
-            transaction={transaction}
-            tasks={tasks}
-            onTaskAction={handleTaskAction}
-            onTabChange={handleTabChange}
-          />
-        );
-      case "new_home":
-        return (
-          <NewHomeTab
-            transaction={transaction}
-            tasks={tasks}
-            onTaskAction={handleTaskAction}
-          />
-        );
-      default:
-        return (
-          <BuyerDashboardTab
-            transaction={transaction}
-            tasks={tasks}
-            onTabChange={handleTabChange}
-            onTaskAction={handleTaskAction}
-          />
-        );
-    }
-  };
-
-  // Render seller-specific tabs
-  const renderSellerContent = () => {
-    switch (activeTab) {
-      case "dashboard":
-        return (
+        ) : (
           <SellerDashboardTab
             transaction={transaction}
             tasks={tasks}
@@ -442,25 +396,19 @@ export default function PortalPage() {
             onTaskAction={handleTaskAction}
           />
         );
-      case "disclosures":
-        return (
-          <DisclosuresTab
-            transaction={transaction}
-            tasks={tasks}
-            onTaskAction={handleTaskAction}
-          />
-        );
-      case "money":
-        return (
-          <SellerMoneyTab
-            transaction={transaction}
-            netProceeds={MOCK_NET_PROCEEDS}
-            tasks={tasks}
-            onTaskAction={handleTaskAction}
-          />
-        );
+      case "tasks":
+        return <BuyerTasksTab tasks={tasks} onTaskAction={handleTaskAction} />;
+      case "documents":
+        return <BuyerDocumentsTab documents={mockDocuments} side={side} />;
       case "closing":
-        return (
+        return side === "buyer" ? (
+          <BuyerClosingTab
+            transaction={transaction}
+            tasks={tasks}
+            onTaskAction={handleTaskAction}
+            onTabChange={handleTabChange}
+          />
+        ) : (
           <SellerClosingTab
             transaction={transaction}
             tasks={tasks}
@@ -469,7 +417,14 @@ export default function PortalPage() {
           />
         );
       default:
-        return (
+        return side === "buyer" ? (
+          <BuyerDashboardTab
+            transaction={transaction}
+            tasks={tasks}
+            onTabChange={handleTabChange}
+            onTaskAction={handleTaskAction}
+          />
+        ) : (
           <SellerDashboardTab
             transaction={transaction}
             tasks={tasks}
@@ -479,10 +434,6 @@ export default function PortalPage() {
           />
         );
     }
-  };
-
-  const renderTabContent = () => {
-    return side === "buyer" ? renderBuyerContent() : renderSellerContent();
   };
 
   // Show loading state while checking auth
@@ -503,6 +454,7 @@ export default function PortalPage() {
   }
 
   return (
+    <ChatProvider persona="client" transactionId={transactionId} side={side}>
     <div className="min-h-screen bg-mist">
       <Header
         logo={titleCompany.logo}
@@ -546,5 +498,6 @@ export default function PortalPage() {
         onClose={() => setShowNotificationSettings(false)}
       />
     </div>
+    </ChatProvider>
   );
 }

@@ -99,11 +99,6 @@ export default function BuyerTaskRow({
       {/* Status icon */}
       <StatusIcon status={task.status} />
 
-      {/* Task ID */}
-      <span className="text-xs font-[family-name:var(--font-mono)] text-[var(--text-disabled)] w-8 flex-shrink-0">
-        {task.id}
-      </span>
-
       {/* Task info */}
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">

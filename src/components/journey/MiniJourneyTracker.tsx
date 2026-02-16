@@ -154,6 +154,7 @@ interface MiniJourneyTrackerProps {
   phaseAlerts?: Partial<Record<TransactionPhase, PhaseAlert>>;
   onPhaseClick?: (phase: TransactionPhase) => void;
   className?: string;
+  embedded?: boolean;
 }
 
 const PHASES: Array<{
@@ -192,6 +193,7 @@ export default function MiniJourneyTracker({
   phaseAlerts = {},
   onPhaseClick,
   className = '',
+  embedded = false,
 }: MiniJourneyTrackerProps) {
   const barRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -216,8 +218,8 @@ export default function MiniJourneyTracker({
   }, []);
 
   return (
-    <div ref={containerRef} className={`bg-paper border-b border-divider ${className}`}>
-      <div className="max-w-7xl mx-auto px-4 py-3">
+    <div ref={containerRef} className={`${embedded ? '' : 'bg-paper border-b border-divider'} ${className}`}>
+      <div className={`${embedded ? '' : 'max-w-7xl mx-auto px-4 py-3'}`}>
         {/* Desktop/Tablet Layout */}
         <div className="hidden sm:flex items-center justify-between gap-4">
           {/* Phase indicators */}
@@ -237,22 +239,25 @@ export default function MiniJourneyTracker({
             ))}
           </div>
 
-          {/* Progress bar and closing date */}
+          {/* Progress info and closing date */}
           <div className="flex items-center gap-4 shrink-0">
-            <div className="flex items-center gap-2">
-              <div className="w-24 lg:w-32 h-2 bg-elevation3 rounded-full overflow-hidden">
-                <div
-                  ref={barRef}
-                  className="h-full bg-spruce rounded-full"
-                  style={{ width: `${percentComplete}%` }}
-                />
-              </div>
-              <span className="text-xs font-semibold font-[family-name:var(--font-mono)] text-[var(--text-tertiary)]">
-                {percentComplete}%
-              </span>
-            </div>
-
-            <div className="w-px h-6 bg-divider" />
+            {!embedded && (
+              <>
+                <div className="flex items-center gap-2">
+                  <div className="w-24 lg:w-32 h-2 bg-elevation3 rounded-full overflow-hidden">
+                    <div
+                      ref={barRef}
+                      className="h-full bg-spruce rounded-full"
+                      style={{ width: `${percentComplete}%` }}
+                    />
+                  </div>
+                  <span className="text-xs font-semibold font-[family-name:var(--font-mono)] text-[var(--text-tertiary)]">
+                    {percentComplete}%
+                  </span>
+                </div>
+                <div className="w-px h-6 bg-divider" />
+              </>
+            )}
 
             <div className="text-right">
               <div className="text-xs text-[var(--text-tertiary)]">Closing</div>
