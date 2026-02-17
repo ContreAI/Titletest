@@ -32,20 +32,20 @@ const SEVERITY_CONFIG: Record<
 > = {
   info: {
     icon: Info,
-    color: "text-spruce",
-    bg: "bg-spruce/10",
+    color: "text-royal",
+    bg: "bg-royal/10",
     label: "Info",
   },
   warning: {
     icon: AlertTriangle,
-    color: "text-amber-600",
-    bg: "bg-amber-50",
+    color: "text-amber-400",
+    bg: "bg-amber/10",
     label: "Attention",
   },
   critical: {
     icon: AlertCircle,
     color: "text-signal-red",
-    bg: "bg-signal-red-50",
+    bg: "bg-signal-red/10",
     label: "Critical",
   },
 };
@@ -168,10 +168,10 @@ export default function ReportModal({
     >
       <div className="min-h-[400px] space-y-6">
         {/* AI Summary Hero */}
-        <div className="bg-spruce/5 border border-spruce/20 rounded-xl p-5">
+        <div className="bg-royal/5 border border-royal/20 rounded-xl p-5">
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-spruce/10">
-              <Sparkles className="w-5 h-5 text-spruce" />
+            <div className="p-2 rounded-lg bg-royal/10">
+              <Sparkles className="w-5 h-5 text-royal" />
             </div>
             <div className="flex-1">
               <h3 className="text-base font-semibold text-[var(--text-primary)] mb-2">
@@ -200,13 +200,13 @@ export default function ReportModal({
           <div
             className={`rounded-lg p-4 flex items-start gap-3 ${
               critical.length > 0
-                ? "bg-signal-red-50 border border-signal-red/20"
-                : "bg-amber-50 border border-amber-200"
+                ? "bg-signal-red/10 border border-signal-red/20"
+                : "bg-amber/10 border border-amber/20"
             }`}
           >
             <AlertTriangle
               className={`w-5 h-5 flex-shrink-0 ${
-                critical.length > 0 ? "text-signal-red" : "text-amber-600"
+                critical.length > 0 ? "text-signal-red" : "text-amber-400"
               }`}
             />
             <div>
@@ -226,7 +226,7 @@ export default function ReportModal({
         {report.actionItems.length > 0 && (
           <section>
             <h4 className="font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-2">
-              <CheckCircle2 className="w-4 h-4 text-spruce" />
+              <CheckCircle2 className="w-4 h-4 text-royal" />
               Action Items
             </h4>
             <div className="space-y-2">
@@ -235,13 +235,13 @@ export default function ReportModal({
                   key={item.id}
                   className={`flex items-start gap-3 p-3 rounded-lg border ${
                     item.urgent
-                      ? "border-amber-200 bg-amber-50/50"
+                      ? "border-amber/20 bg-amber/10"
                       : "border-divider bg-paper"
                   }`}
                 >
                   <div
                     className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 ${
-                      item.urgent ? "bg-amber-500" : "bg-spruce"
+                      item.urgent ? "bg-amber-500" : "bg-royal"
                     }`}
                   />
                   <div className="flex-1 min-w-0">

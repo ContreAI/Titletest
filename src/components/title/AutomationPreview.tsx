@@ -93,7 +93,7 @@ export default function AutomationPreview({
   const categoryColors = {
     immediate: "border-fern/30 bg-fern/5",
     agent_action: "border-sea-glass/30 bg-sea-glass/5",
-    automated: "border-spruce/20 bg-spruce/5",
+    automated: "border-royal/20 bg-royal/5",
   };
 
   const categories = ["immediate", "agent_action", "automated"] as const;
@@ -119,7 +119,7 @@ export default function AutomationPreview({
                   >
                     <div className="flex items-start gap-3">
                       <div className="p-2 rounded-lg bg-paper flex-shrink-0">
-                        <Icon className="w-4 h-4 text-spruce" />
+                        <Icon className="w-4 h-4 text-royal" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <p className="font-medium text-[var(--text-primary)]">

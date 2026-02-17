@@ -27,12 +27,12 @@ export interface WorkloadHeatmapProps {
 function getBarColor(count: number): string {
   if (count > 60) return "bg-signal-red";
   if (count > 50) return "bg-amber-500";
-  return "bg-spruce";
+  return "bg-royal";
 }
 
 function getCountColor(count: number): string {
   if (count > 60) return "text-signal-red";
-  if (count > 50) return "text-amber-600 dark:text-amber-400";
+  if (count > 50) return "text-amber-400";
   return "text-[var(--text-primary)]";
 }
 
@@ -88,7 +88,7 @@ export default function WorkloadHeatmap({ employees }: WorkloadHeatmapProps) {
               {/* Name row */}
               <div className="flex items-center gap-2 mb-1.5">
                 {/* Avatar */}
-                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-sea-glass to-spruce-200 flex items-center justify-center flex-shrink-0">
+                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-sea-glass to-royal-200 flex items-center justify-center flex-shrink-0">
                   <span className="text-[10px] font-semibold text-storm-gray">
                     {emp.name
                       .split(" ")

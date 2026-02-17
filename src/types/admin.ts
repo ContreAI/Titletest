@@ -351,7 +351,7 @@ export const PIPELINE_STAGES: Record<PipelineStage, { label: string; color: stri
   new_pending: { label: "New Orders", color: "amber", order: 1 },
   title_work: { label: "Title Work", color: "river-stone", order: 2 },
   clear_to_close: { label: "Clear to Close", color: "sea-glass", order: 3 },
-  scheduled: { label: "Scheduled", color: "spruce", order: 4 },
+  scheduled: { label: "Scheduled", color: "royal", order: 4 },
   closed: { label: "Closed", color: "fern", order: 5 },
   cancelled: { label: "Cancelled", color: "signal-red", order: 6 },
   on_hold: { label: "On Hold", color: "storm-gray", order: 7 },

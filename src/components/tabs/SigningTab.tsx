@@ -194,14 +194,14 @@ export default function SigningTab({ transaction }: SigningTabProps) {
                   }}
                   className={`p-4 rounded-lg border-2 text-left transition-all min-h-[48px] ${
                     isSelected
-                      ? "border-spruce bg-spruce/5"
+                      ? "border-royal bg-royal/5"
                       : "border-border hover:border-sea-glass"
                   }`}
                 >
                   <div className="flex sm:block items-center gap-3">
                     <div
                       className={`sm:mb-2 ${
-                        isSelected ? "text-spruce" : "text-river-stone"
+                        isSelected ? "text-royal" : "text-river-stone"
                       }`}
                     >
                       {config.icon}
@@ -209,7 +209,7 @@ export default function SigningTab({ transaction }: SigningTabProps) {
                     <div>
                       <h4
                         className={`font-semibold ${
-                          isSelected ? "text-spruce" : "text-storm-gray"
+                          isSelected ? "text-royal" : "text-storm-gray"
                         }`}
                       >
                         {config.label}
@@ -275,7 +275,7 @@ export default function SigningTab({ transaction }: SigningTabProps) {
                                   onClick={() => setSelectedSlot(slot.id)}
                                   className={`w-full py-2 px-3 text-sm rounded-lg border transition-all min-h-[44px] ${
                                     isSelected
-                                      ? "border-spruce bg-spruce text-white"
+                                      ? "border-royal bg-royal text-white"
                                       : "border-border hover:border-sea-glass text-storm-gray"
                                   }`}
                                 >
@@ -298,7 +298,7 @@ export default function SigningTab({ transaction }: SigningTabProps) {
                     return (
                       <div key={dateKey} className="border border-border rounded-lg overflow-hidden">
                         {/* Date Header */}
-                        <div className="bg-mist px-4 py-2 border-b border-border">
+                        <div className="bg-black/[0.04] px-4 py-2 border-b border-border">
                           <span className="text-xs text-river-stone uppercase mr-2">
                             {dayOfWeek}
                           </span>
@@ -323,7 +323,7 @@ export default function SigningTab({ transaction }: SigningTabProps) {
                                   onClick={() => setSelectedSlot(slot.id)}
                                   className={`py-2 px-4 text-sm rounded-lg border transition-all min-h-[44px] ${
                                     isSelected
-                                      ? "border-spruce bg-spruce text-white"
+                                      ? "border-royal bg-royal text-white"
                                       : "border-border hover:border-sea-glass text-storm-gray"
                                   }`}
                                 >
@@ -382,7 +382,7 @@ export default function SigningTab({ transaction }: SigningTabProps) {
         <CardHeader title="What to Bring" />
         <div className="mt-4 space-y-3">
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-spruce/10 text-spruce">
+            <div className="p-2 rounded-lg bg-royal/10 text-royal">
               <IdCard className="w-4 h-4" />
             </div>
             <div>
@@ -393,7 +393,7 @@ export default function SigningTab({ transaction }: SigningTabProps) {
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-spruce/10 text-spruce">
+            <div className="p-2 rounded-lg bg-royal/10 text-royal">
               <CreditCard className="w-4 h-4" />
             </div>
             <div>
@@ -404,7 +404,7 @@ export default function SigningTab({ transaction }: SigningTabProps) {
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-spruce/10 text-spruce">
+            <div className="p-2 rounded-lg bg-royal/10 text-royal">
               <FileText className="w-4 h-4" />
             </div>
             <div>

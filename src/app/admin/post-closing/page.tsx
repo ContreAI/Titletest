@@ -39,7 +39,7 @@ const MOCK_ITEMS: PostClosingItem[] = [
 
 const statusConfig = {
   late: { label: "Late", bg: "bg-signal-red/10", text: "text-signal-red", icon: AlertTriangle },
-  pending: { label: "Pending", bg: "bg-amber-50", text: "text-amber-700", icon: Clock },
+  pending: { label: "Pending", bg: "bg-amber/10", text: "text-amber-400", icon: Clock },
   received: { label: "Received", bg: "bg-sea-glass/10", text: "text-sea-glass", icon: FileText },
   pushed: { label: "Pushed", bg: "bg-fern/10", text: "text-fern", icon: CheckCircle2 },
 };
@@ -97,12 +97,12 @@ export default function PostClosingPage() {
                       </td>
                       <td className="px-4 py-3 text-right">
                         {(item.status === "pending" || item.status === "late") && (
-                          <button className="text-xs font-medium text-spruce hover:text-spruce-700 transition-colors">
+                          <button className="text-xs font-medium text-royal hover:text-royal-300 transition-colors">
                             Upload & Push
                           </button>
                         )}
                         {item.status === "received" && (
-                          <button className="text-xs font-medium text-spruce hover:text-spruce-700 transition-colors">
+                          <button className="text-xs font-medium text-royal hover:text-royal-300 transition-colors">
                             Push to Portal
                           </button>
                         )}

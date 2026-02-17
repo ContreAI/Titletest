@@ -60,7 +60,7 @@ export default function Modal({
     <Fragment>
       {/* Overlay */}
       <div
-        className="fixed inset-0 bg-storm-gray/50 backdrop-blur-sm z-40 transition-opacity"
+        className="fixed inset-0 bg-grey-950/40 backdrop-blur-md z-40 transition-opacity"
         onClick={closeOnOverlayClick ? onClose : undefined}
         aria-hidden="true"
       />
@@ -70,7 +70,7 @@ export default function Modal({
         <div className="flex min-h-full items-center justify-center p-4">
           {/* Modal Panel */}
           <div
-            className={`relative w-full ${sizes[size]} bg-paper rounded-lg shadow-xl transform transition-all`}
+            className={`relative w-full ${sizes[size]} glass-strong rounded-xl shadow-[var(--shadow-5)] transform transition-all`}
             role="dialog"
             aria-modal="true"
             aria-labelledby={title ? "modal-title" : undefined}
@@ -114,7 +114,7 @@ export default function Modal({
 
             {/* Footer */}
             {footer && (
-              <div className="px-6 py-4 border-t border-border bg-mist/50 rounded-b-lg">
+              <div className="px-6 py-4 border-t border-[var(--glass-border)] bg-transparent rounded-b-xl">
                 {footer}
               </div>
             )}

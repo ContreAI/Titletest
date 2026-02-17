@@ -107,7 +107,7 @@ export default function TitleUploadPage() {
       <div className="px-6 py-4 border-b border-divider bg-paper">
         <Link
           href="/title"
-          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-spruce transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-royal transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Dashboard
@@ -129,7 +129,7 @@ export default function TitleUploadPage() {
                     <div
                       className={`
                         w-10 h-10 rounded-full flex items-center justify-center transition-colors duration-200
-                        ${isComplete ? "bg-fern" : isActive ? "bg-spruce" : "bg-[var(--bg-elevation2)]"}
+                        ${isComplete ? "bg-fern" : isActive ? "bg-royal" : "bg-[var(--bg-elevation2)]"}
                       `}
                     >
                       {isComplete ? (
@@ -141,7 +141,7 @@ export default function TitleUploadPage() {
                       )}
                     </div>
                     <span
-                      className={`mt-2 text-sm font-medium ${isActive ? "text-spruce" : isComplete ? "text-fern" : "text-[var(--text-tertiary)]"}`}
+                      className={`mt-2 text-sm font-medium ${isActive ? "text-royal" : isComplete ? "text-fern" : "text-[var(--text-tertiary)]"}`}
                     >
                       {step.label}
                     </span>

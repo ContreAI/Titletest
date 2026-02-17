@@ -157,15 +157,15 @@ export function DocumentUploadModal({
             border-2 border-dashed rounded-lg p-6
             transition-colors duration-200 cursor-pointer
             ${isDragActive
-              ? "border-spruce bg-spruce/5"
-              : "border-border hover:border-sea-glass hover:bg-mist/50"
+              ? "border-royal bg-royal/5"
+              : "border-border hover:border-sea-glass hover:bg-black/[0.04]"
             }
             ${isUploading ? "opacity-50 cursor-not-allowed" : ""}
           `}
         >
           <input {...getInputProps()} />
           <div className="flex flex-col items-center text-center">
-            <div className="w-12 h-12 bg-mist rounded-full flex items-center justify-center mb-3">
+            <div className="w-12 h-12 bg-black/[0.04] rounded-full flex items-center justify-center mb-3">
               <Upload className="w-6 h-6 text-river-stone" />
             </div>
             <p className="text-storm-gray font-medium">
@@ -256,11 +256,11 @@ function FileCard({
   return (
     <div className="border border-border rounded-lg overflow-hidden">
       {/* Header */}
-      <div className="flex items-center gap-3 p-3 bg-mist/30">
+      <div className="flex items-center gap-3 p-3 bg-black/[0.04]">
         {/* File Icon / Status */}
         <div className="w-10 h-10 bg-paper rounded-lg flex items-center justify-center flex-shrink-0 border border-border">
           {fileMeta.status === "uploading" ? (
-            <Loader2 className="w-5 h-5 text-spruce animate-spin" />
+            <Loader2 className="w-5 h-5 text-royal animate-spin" />
           ) : fileMeta.status === "complete" ? (
             <CheckCircle2 className="w-5 h-5 text-fern" />
           ) : (
@@ -286,7 +286,7 @@ function FileCard({
           <div className="flex items-center gap-2">
             <button
               onClick={() => setExpanded(!expanded)}
-              className="p-1.5 text-river-stone hover:text-storm-gray hover:bg-mist rounded-lg transition-colors"
+              className="p-1.5 text-river-stone hover:text-storm-gray hover:bg-black/[0.04] rounded-lg transition-colors"
             >
               <ChevronDown
                 className={`w-4 h-4 transition-transform ${expanded ? "rotate-180" : ""}`}
@@ -315,7 +315,7 @@ function FileCard({
               onChange={(e) => onTypeChange(e.target.value as DocumentType)}
               className={`
                 w-full px-3 py-2 border rounded-lg bg-paper text-storm-gray
-                focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce
+                focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal
                 ${!fileMeta.type ? "border-signal-red" : "border-border"}
               `}
             >

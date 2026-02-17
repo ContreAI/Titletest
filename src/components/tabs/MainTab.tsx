@@ -167,7 +167,7 @@ export default function MainTab({ transaction, side }: MainTabProps) {
                 className="flex items-center justify-between py-2 border-b border-border last:border-0"
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-2 rounded-lg bg-spruce/10 text-spruce">
+                  <div className="p-2 rounded-lg bg-royal/10 text-royal">
                     <FileText className="w-4 h-4" />
                   </div>
                   <div>
@@ -212,7 +212,7 @@ export default function MainTab({ transaction, side }: MainTabProps) {
             <input
               type="text"
               placeholder="Ask a question about this transaction..."
-              className="w-full px-4 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+              className="w-full px-4 py-2 text-sm border border-border rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
             />
           </div>
           <Button variant="primary" size="sm">

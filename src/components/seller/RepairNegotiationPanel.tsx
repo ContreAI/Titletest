@@ -110,14 +110,14 @@ function RepairItemRow({
               </button>
               <button
                 onClick={() => handleResponse("counter")}
-                className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md bg-amber-50 text-amber-700 hover:bg-amber-100 transition-colors"
+                className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md bg-amber/10 text-amber-400 hover:bg-amber/15 transition-colors"
               >
                 <MessageSquare className="w-3 h-3" />
                 Counter
               </button>
               <button
                 onClick={() => handleResponse("decline")}
-                className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md bg-signal-red-50 text-signal-red hover:bg-signal-red-100 transition-colors"
+                className="flex items-center gap-1 px-2.5 py-1 text-xs font-medium rounded-md bg-signal-red/10 text-signal-red hover:bg-signal-red/15 transition-colors"
               >
                 <X className="w-3 h-3" />
                 Decline
@@ -161,8 +161,8 @@ function RepairItemRow({
                   item.sellerResponse === "accept"
                     ? "bg-fern/10 text-fern"
                     : item.sellerResponse === "counter"
-                      ? "bg-amber-50 text-amber-700"
-                      : "bg-signal-red-50 text-signal-red"
+                      ? "bg-amber/10 text-amber-400"
+                      : "bg-signal-red/10 text-signal-red"
                 }`}
               >
                 {item.sellerResponse === "accept" && <Check className="w-3 h-3" />}
@@ -175,7 +175,7 @@ function RepairItemRow({
                     : "Declined"}
               </span>
               {item.sellerResponse === "counter" && item.counterProposal && (
-                <p className="text-xs text-amber-700 mt-1 italic">
+                <p className="text-xs text-amber-400 mt-1 italic">
                   &quot;{item.counterProposal}&quot;
                 </p>
               )}
@@ -229,7 +229,7 @@ export default function RepairNegotiationPanel({
           onClick={() => setExpanded(!expanded)}
           className="flex items-center gap-3 w-full px-4 py-3 hover:bg-elevation1 transition-colors"
         >
-          <Wrench className="w-5 h-5 text-amber-600 flex-shrink-0" />
+          <Wrench className="w-5 h-5 text-amber-400 flex-shrink-0" />
           <div className="flex-1 text-left">
             <h3 className="text-sm font-semibold text-[var(--text-primary)]">
               Buyer Repair Request
@@ -276,9 +276,9 @@ export default function RepairNegotiationPanel({
 
               {/* Credit request (if any) */}
               {repairRequest.creditRequest && (
-                <div className="p-3 rounded-lg bg-spruce/5 border border-spruce/20">
+                <div className="p-3 rounded-lg bg-royal/5 border border-royal/20">
                   <div className="flex items-center gap-2">
-                    <DollarSign className="w-4 h-4 text-spruce" />
+                    <DollarSign className="w-4 h-4 text-royal" />
                     <div>
                       <p className="text-sm font-medium text-[var(--text-primary)]">
                         Credit Request:{" "}

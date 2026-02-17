@@ -28,13 +28,13 @@ function TimelineMilestone({ milestone, isLast }: TimelineMilestoneProps) {
 
   const getNodeStyles = () => {
     if (milestone.isClosingDay) {
-      return 'bg-spruce text-white border-spruce ring-4 ring-spruce/20';
+      return 'bg-royal text-white border-royal ring-4 ring-royal/20';
     }
     if (isPastDate) {
       return 'bg-elevation2 border-elevation4 text-[var(--text-disabled)]';
     }
     if (daysUntil <= 3) {
-      return 'bg-amber-50 border-amber-400 text-amber-600';
+      return 'bg-amber/10 border-amber-400 text-amber-400';
     }
     return 'bg-paper border-elevation4 text-[var(--text-tertiary)]';
   };
@@ -58,17 +58,17 @@ function TimelineMilestone({ milestone, isLast }: TimelineMilestoneProps) {
         {/* Date */}
         <div className="flex items-center gap-2 mb-1">
           <span className={`text-sm font-semibold ${
-            milestone.isClosingDay ? 'text-spruce' :
+            milestone.isClosingDay ? 'text-royal' :
             isPastDate ? 'text-[var(--text-disabled)]' :
-            daysUntil <= 3 ? 'text-amber-600' :
+            daysUntil <= 3 ? 'text-amber-400' :
             'text-[var(--text-secondary)]'
           }`}>
             {format(new Date(milestone.date), 'MMM d')}
           </span>
           {!isPastDate && (
             <span className={`text-xs px-2 py-0.5 rounded-full ${
-              milestone.isClosingDay ? 'bg-spruce/10 text-spruce font-semibold' :
-              daysUntil <= 3 ? 'bg-amber-100 text-amber-700' :
+              milestone.isClosingDay ? 'bg-royal/10 text-royal font-semibold' :
+              daysUntil <= 3 ? 'bg-amber/15 text-amber-400' :
               'bg-elevation2 text-[var(--text-tertiary)]'
             }`}>
               {daysUntil === 0 ? 'Today' : `${daysUntil}d`}
@@ -95,16 +95,16 @@ function TimelineMilestone({ milestone, isLast }: TimelineMilestoneProps) {
 
         {/* Location and time for closing day */}
         {milestone.isClosingDay && (milestone.time || milestone.location) && (
-          <div className="mt-2 p-3 bg-spruce/5 rounded-lg border border-spruce/20">
+          <div className="mt-2 p-3 bg-royal/5 rounded-lg border border-royal/20">
             {milestone.time && (
               <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)]">
-                <Clock className="w-4 h-4 text-spruce" />
+                <Clock className="w-4 h-4 text-royal" />
                 <span>{milestone.time}</span>
               </div>
             )}
             {milestone.location && (
               <div className="flex items-center gap-2 text-sm text-[var(--text-secondary)] mt-1">
-                <MapPin className="w-4 h-4 text-spruce" />
+                <MapPin className="w-4 h-4 text-royal" />
                 <span>{milestone.location}</span>
               </div>
             )}
@@ -161,7 +161,7 @@ export default function UpcomingTimeline({
         {showViewAll && milestones.length > maxItems && (
           <button
             onClick={onViewAll}
-            className="text-sm text-spruce font-medium hover:underline"
+            className="text-sm text-royal font-medium hover:underline"
           >
             View all
           </button>

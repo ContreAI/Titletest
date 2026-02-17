@@ -35,31 +35,31 @@ const DELIVERABLE_STATUS_CONFIG: Record<
   not_started: {
     label: "Not Started",
     className:
-      "bg-river-stone-100 text-river-stone-600 dark:bg-river-stone-900/30 dark:text-river-stone-400",
+      "bg-river-stone/15 text-river-stone-400",
     icon: Circle,
   },
   draft: {
     label: "Draft",
     className:
-      "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400",
+      "bg-amber/15 text-amber-400",
     icon: FileEdit,
   },
   sent: {
     label: "Sent",
     className:
-      "bg-sea-glass-100 text-sea-glass-700 dark:bg-sea-glass-900/30 dark:text-sea-glass-400",
+      "bg-sea-glass/15 text-sea-glass-400",
     icon: Send,
   },
   delivered: {
     label: "Delivered",
     className:
-      "bg-spruce-100 text-spruce-700 dark:bg-spruce-900/30 dark:text-spruce-400",
+      "bg-royal/15 text-royal-300",
     icon: CheckCircle2,
   },
   viewed: {
     label: "Viewed",
     className:
-      "bg-fern-100 text-fern-700 dark:bg-fern-900/30 dark:text-fern-400",
+      "bg-fern/15 text-fern-400",
     icon: Eye,
   },
   n_a: {
@@ -71,9 +71,9 @@ const DELIVERABLE_STATUS_CONFIG: Record<
 };
 
 const PORTAL_DOT_COLORS: Record<PortalStatusCode, string> = {
-  not_sent: "bg-river-stone-300 dark:bg-river-stone-600",
+  not_sent: "bg-river-stone-300",
   sent: "bg-sea-glass-500",
-  delivered: "bg-spruce-500",
+  delivered: "bg-royal-500",
   viewed: "bg-fern-500",
   n_a: "bg-[var(--text-disabled)]",
 };
@@ -195,15 +195,15 @@ export default function DeliverableMatrix({
       {/* Progress bar */}
       <div className="mt-3 h-1.5 bg-elevation2 rounded-full overflow-hidden">
         <div
-          className="h-full bg-spruce rounded-full transition-all duration-500"
+          className="h-full bg-royal rounded-full transition-all duration-500"
           style={{ width: `${progressPercent}%` }}
         />
       </div>
 
       {/* Quick Push Bar */}
       {nextPushable && onPush && (
-        <div className="mt-4 flex items-center gap-3 p-3 rounded-lg bg-spruce-50 dark:bg-spruce-950/30 border border-spruce-200 dark:border-spruce-800">
-          <Zap className="w-5 h-5 text-spruce flex-shrink-0" />
+        <div className="mt-4 flex items-center gap-3 p-3 rounded-lg bg-royal/10 border border-royal/20">
+          <Zap className="w-5 h-5 text-royal flex-shrink-0" />
           <div className="flex-1 min-w-0">
             <p className="text-sm font-medium text-[var(--text-primary)]">
               Next deliverable ready to push

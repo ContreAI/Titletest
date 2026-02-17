@@ -197,15 +197,15 @@ export default function CommandCenterPage() {
             title="Active Transactions"
             value={activeCount}
             icon={<FileText className="w-5 h-5" />}
-            iconColor="text-spruce"
-            iconBg="bg-spruce/10"
+            iconColor="text-royal"
+            iconBg="bg-royal/10"
           />
           <MetricCard
             title="Closing This Week"
             value={closingThisWeek}
             icon={<Clock className="w-5 h-5" />}
-            iconColor={closingThisWeek > 5 ? "text-amber-600" : "text-spruce"}
-            iconBg={closingThisWeek > 5 ? "bg-amber-50" : "bg-spruce/10"}
+            iconColor={closingThisWeek > 5 ? "text-amber-400" : "text-royal"}
+            iconBg={closingThisWeek > 5 ? "bg-amber/10" : "bg-royal/10"}
           />
           <MetricCard
             title="Overdue Items"

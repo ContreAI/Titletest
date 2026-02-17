@@ -104,8 +104,8 @@ export default function BuyerClosingTab({
       <Card variant="elevated" padding="lg">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-xl bg-spruce/10 flex items-center justify-center">
-              <span className="text-2xl font-bold font-[family-name:var(--font-mono)] text-spruce">
+            <div className="w-16 h-16 rounded-xl bg-royal/10 flex items-center justify-center">
+              <span className="text-2xl font-bold font-[family-name:var(--font-mono)] text-royal">
                 {daysToClose}
               </span>
             </div>
@@ -164,7 +164,7 @@ export default function BuyerClosingTab({
         {/* Signing section */}
         <div>
           <h3 className="text-base font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-2">
-            <FileSignature className="w-5 h-5 text-spruce" />
+            <FileSignature className="w-5 h-5 text-royal" />
             Signing
           </h3>
 
@@ -191,7 +191,7 @@ export default function BuyerClosingTab({
         {/* Walkthrough + Appointment */}
         <div>
           <h3 className="text-base font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-2">
-            <Home className="w-5 h-5 text-spruce" />
+            <Home className="w-5 h-5 text-royal" />
             Final Steps
           </h3>
 

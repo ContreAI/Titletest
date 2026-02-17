@@ -117,7 +117,7 @@ export default function ChatTab({ transaction, side }: ChatTabProps) {
       {/* Header */}
       <Card className="flex-shrink-0 mb-4">
         <div className="flex items-center gap-3">
-          <div className="p-2 rounded-full bg-spruce/10 text-spruce">
+          <div className="p-2 rounded-full bg-royal/10 text-royal">
             <Bot className="w-5 h-5" />
           </div>
           <div>
@@ -164,7 +164,7 @@ export default function ChatTab({ transaction, side }: ChatTabProps) {
                     <div
                       className={`p-1.5 rounded-full flex-shrink-0 ${
                         message.role === "user"
-                          ? "bg-spruce text-white"
+                          ? "bg-royal text-white"
                           : "bg-sea-glass/30 text-river-stone"
                       }`}
                     >
@@ -179,8 +179,8 @@ export default function ChatTab({ transaction, side }: ChatTabProps) {
                     <div
                       className={`px-4 py-3 rounded-2xl ${
                         message.role === "user"
-                          ? "bg-spruce text-white rounded-tr-sm"
-                          : "bg-mist text-storm-gray rounded-tl-sm"
+                          ? "bg-royal text-white rounded-tr-sm"
+                          : "bg-black/[0.04] text-storm-gray rounded-tl-sm"
                       }`}
                     >
                       <p className="text-sm leading-relaxed whitespace-pre-wrap">
@@ -216,7 +216,7 @@ export default function ChatTab({ transaction, side }: ChatTabProps) {
                 <div className="p-1.5 rounded-full bg-sea-glass/30 text-river-stone">
                   <Bot className="w-4 h-4" />
                 </div>
-                <div className="px-4 py-3 rounded-2xl rounded-tl-sm bg-mist">
+                <div className="px-4 py-3 rounded-2xl rounded-tl-sm bg-black/[0.04]">
                   <div className="flex items-center gap-1">
                     <Loader2 className="w-4 h-4 animate-spin text-river-stone" />
                     <span className="text-sm text-river-stone">Thinking...</span>
@@ -237,7 +237,7 @@ export default function ChatTab({ transaction, side }: ChatTabProps) {
               <button
                 key={question}
                 onClick={() => handleSuggestedQuestion(question)}
-                className="px-3 py-1.5 text-xs font-medium text-spruce bg-paper border border-sea-glass rounded-full hover:bg-spruce/5 transition-colors"
+                className="px-3 py-1.5 text-xs font-medium text-royal bg-paper border border-sea-glass rounded-full hover:bg-royal/5 transition-colors"
               >
                 {question}
               </button>
@@ -255,7 +255,7 @@ export default function ChatTab({ transaction, side }: ChatTabProps) {
                 onKeyPress={handleKeyPress}
                 placeholder="Ask a question about this transaction..."
                 rows={1}
-                className="w-full px-4 py-3 text-sm border border-border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+                className="w-full px-4 py-3 text-sm border border-border rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
                 style={{ minHeight: "44px", maxHeight: "120px" }}
               />
             </div>

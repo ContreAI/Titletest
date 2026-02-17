@@ -35,7 +35,7 @@ export default function ClientStatusCard({
     return (
       <Card>
         <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-          <UserPlus className="w-5 h-5 text-spruce" />
+          <UserPlus className="w-5 h-5 text-royal" />
           Enter Client Contact Information
         </h2>
         <p className="text-sm text-[var(--text-secondary)] mb-4">
@@ -56,7 +56,7 @@ export default function ClientStatusCard({
   return (
     <Card>
       <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-        <Users className="w-5 h-5 text-spruce" />
+        <Users className="w-5 h-5 text-royal" />
         {side === "buyer" ? "Buyer" : "Seller"} Client
       </h2>
 

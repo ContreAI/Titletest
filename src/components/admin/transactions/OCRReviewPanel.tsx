@@ -98,7 +98,7 @@ export function OCRReviewPanel({ data, onConfirm, onBack }: OCRReviewPanelProps)
   return (
     <div className="space-y-6">
       {/* Confidence Banner */}
-      <div className="bg-mist rounded-lg p-4 flex items-center justify-between">
+      <div className="bg-black/[0.04] rounded-lg p-4 flex items-center justify-between">
         <div className="flex items-center gap-3">
           {overallConfidence >= 0.85 ? (
             <CheckCircle2 className="w-6 h-6 text-fern" />
@@ -407,10 +407,10 @@ function ReviewSection({
     <div className="border border-border rounded-lg overflow-hidden">
       <button
         onClick={onToggle}
-        className="w-full flex items-center justify-between p-4 bg-mist/30 hover:bg-mist/50 transition-colors"
+        className="w-full flex items-center justify-between p-4 bg-black/[0.04] hover:bg-black/[0.06] transition-colors"
       >
         <div className="flex items-center gap-3">
-          <Icon className="w-5 h-5 text-spruce" />
+          <Icon className="w-5 h-5 text-royal" />
           <h3 className="font-semibold text-storm-gray">{title}</h3>
         </div>
         <svg
@@ -485,7 +485,7 @@ function EditableField({
         <select
           value={String(value)}
           onChange={(e) => onChange(e.target.value)}
-          className="w-full px-3 py-2 border border-border rounded-lg bg-paper text-storm-gray focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+          className="w-full px-3 py-2 border border-border rounded-lg bg-paper text-storm-gray focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
         >
           {options.map((opt) => (
             <option key={opt} value={opt}>
@@ -504,8 +504,8 @@ function EditableField({
             className={`
               w-full px-3 py-2 border rounded-lg
               text-storm-gray
-              focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce
-              ${isEditing ? "border-spruce bg-paper" : "border-border bg-mist/30"}
+              focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal
+              ${isEditing ? "border-royal bg-paper" : "border-border bg-black/[0.04]"}
             `}
           />
           <Edit3 className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-river-stone opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none" />

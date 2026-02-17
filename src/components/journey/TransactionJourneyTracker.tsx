@@ -98,9 +98,9 @@ const PhaseNode = ({ config, status, alert, checkpoints, isFirst, isLast, onClic
     }
     switch (status) {
       case 'complete':
-        return 'bg-spruce border-spruce text-white shadow-[0_2px_8px_rgba(60,90,60,0.3)]';
+        return 'bg-royal border-royal text-white shadow-[0_2px_8px_rgba(60,90,60,0.3)]';
       case 'in_progress':
-        return 'bg-paper border-spruce text-spruce shadow-[0_0_0_3px_var(--bg-paper),0_0_0_5px_var(--spruce),0_0_12px_rgba(60,90,60,0.25)]';
+        return 'bg-paper border-royal text-royal shadow-[0_0_0_3px_var(--bg-paper),0_0_0_5px_var(--royal),0_0_12px_rgba(60,90,60,0.25)]';
       case 'upcoming':
       default:
         return 'bg-elevation2 border-elevation4 text-[var(--text-disabled)]';
@@ -110,11 +110,11 @@ const PhaseNode = ({ config, status, alert, checkpoints, isFirst, isLast, onClic
   const getLabelClasses = () => {
     if (status === 'not_applicable') return 'text-[var(--text-disabled)]';
     if (hasAlert && status !== 'complete') {
-      return isError ? 'text-signal-red-600 font-semibold' : 'text-amber-600 font-semibold';
+      return isError ? 'text-signal-red-400 font-semibold' : 'text-amber-400 font-semibold';
     }
     switch (status) {
-      case 'complete': return 'text-spruce font-semibold';
-      case 'in_progress': return 'text-spruce font-bold';
+      case 'complete': return 'text-royal font-semibold';
+      case 'in_progress': return 'text-royal font-bold';
       default: return 'text-[var(--text-disabled)]';
     }
   };
@@ -122,9 +122,9 @@ const PhaseNode = ({ config, status, alert, checkpoints, isFirst, isLast, onClic
   const getConnectorClasses = (position: 'left' | 'right') => {
     if (status === 'not_applicable') return 'bg-elevation3';
     if (position === 'left') {
-      return status === 'upcoming' ? 'bg-elevation3' : 'bg-spruce';
+      return status === 'upcoming' ? 'bg-elevation3' : 'bg-royal';
     }
-    return status === 'complete' ? 'bg-spruce' : 'bg-elevation3';
+    return status === 'complete' ? 'bg-royal' : 'bg-elevation3';
   };
 
   return (
@@ -164,8 +164,8 @@ const PhaseNode = ({ config, status, alert, checkpoints, isFirst, isLast, onClic
               )
             ) : status === 'in_progress' ? (
               <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-spruce opacity-50" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-spruce" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-royal opacity-50" />
+                <span className="relative inline-flex rounded-full h-3 w-3 bg-royal" />
               </span>
             ) : (
               <span className="text-sm font-medium">
@@ -205,7 +205,7 @@ const PhaseNode = ({ config, status, alert, checkpoints, isFirst, isLast, onClic
         {/* Alert message */}
         {hasAlert && status !== 'complete' && (
           <div className={`text-[10px] md:text-xs mt-0.5 font-medium ${
-            isError ? 'text-signal-red-600' : 'text-amber-600'
+            isError ? 'text-signal-red-400' : 'text-amber-400'
           }`}>
             {alert.message}
           </div>
@@ -227,7 +227,7 @@ const PhaseNode = ({ config, status, alert, checkpoints, isFirst, isLast, onClic
                 className={`
                   w-1.5 h-1.5 rounded-full transition-all duration-300
                   ${cp.complete
-                    ? 'bg-spruce shadow-[0_0_4px_rgba(60,90,60,0.4)]'
+                    ? 'bg-royal shadow-[0_0_4px_rgba(60,90,60,0.4)]'
                     : 'bg-elevation4'
                   }
                 `}
@@ -288,7 +288,7 @@ const ProgressRing = ({ percent, size = 72, strokeWidth = 5, hasError = false }:
     }
   }, [percent]);
 
-  const strokeColor = hasError ? 'var(--signal-red)' : 'var(--spruce)';
+  const strokeColor = hasError ? 'var(--signal-red)' : 'var(--royal)';
   const trackColor = 'var(--bg-elevation3)';
 
   return (
@@ -467,7 +467,7 @@ export default function TransactionJourneyTracker({
 
       {/* Progress ring + stats footer */}
       <div className={`px-4 md:px-6 py-4 border-t ${
-        hasErrorAlert ? 'bg-signal-red-50 border-signal-red-100' : 'bg-elevation1 border-divider'
+        hasErrorAlert ? 'bg-signal-red/10 border-signal-red/20' : 'bg-elevation1 border-divider'
       }`}>
         <div className="flex items-center gap-6">
           {/* SVG Progress Ring */}
@@ -479,12 +479,12 @@ export default function TransactionJourneyTracker({
           <div className="flex-1 md:hidden">
             <div className="flex items-center justify-between mb-1.5">
               <span className={`text-sm font-medium ${
-                hasErrorAlert ? 'text-signal-red-700' : 'text-[var(--text-secondary)]'
+                hasErrorAlert ? 'text-signal-red-400' : 'text-[var(--text-secondary)]'
               }`}>
                 {hasErrorAlert ? 'Action Required' : 'Overall Progress'}
               </span>
               <span className={`text-sm font-bold font-[family-name:var(--font-mono)] ${
-                hasErrorAlert ? 'text-signal-red-600' : 'text-spruce'
+                hasErrorAlert ? 'text-signal-red-400' : 'text-royal'
               }`}>
                 {percentComplete}%
               </span>
@@ -494,7 +494,7 @@ export default function TransactionJourneyTracker({
                 className={`h-full rounded-full transition-all duration-700 ease-out ${
                   hasErrorAlert
                     ? 'bg-gradient-to-r from-signal-red to-signal-red-400'
-                    : 'bg-gradient-to-r from-spruce to-fern-400'
+                    : 'bg-gradient-to-r from-royal to-fern-400'
                 }`}
                 style={{ width: `${percentComplete}%` }}
               />
@@ -504,7 +504,7 @@ export default function TransactionJourneyTracker({
           {/* Desktop: label + progress text */}
           <div className="hidden md:flex flex-col flex-1 min-w-0">
             <span className={`text-sm font-medium ${
-              hasErrorAlert ? 'text-signal-red-700' : 'text-[var(--text-secondary)]'
+              hasErrorAlert ? 'text-signal-red-400' : 'text-[var(--text-secondary)]'
             }`}>
               {hasErrorAlert ? 'Action Required' : 'Overall Progress'}
             </span>
@@ -513,7 +513,7 @@ export default function TransactionJourneyTracker({
                 className={`h-full rounded-full transition-all duration-700 ease-out ${
                   hasErrorAlert
                     ? 'bg-gradient-to-r from-signal-red to-signal-red-400'
-                    : 'bg-gradient-to-r from-spruce to-fern-400'
+                    : 'bg-gradient-to-r from-royal to-fern-400'
                 }`}
                 style={{ width: `${percentComplete}%` }}
               />
@@ -523,13 +523,13 @@ export default function TransactionJourneyTracker({
           {/* Stats */}
           <div className="flex items-center gap-4 md:gap-6 shrink-0">
             <div className="flex items-center gap-2">
-              <div className="w-9 h-9 rounded-lg bg-spruce/10 flex items-center justify-center">
-                <Calendar className="w-4 h-4 text-spruce" />
+              <div className="w-9 h-9 rounded-lg bg-royal/10 flex items-center justify-center">
+                <Calendar className="w-4 h-4 text-royal" />
               </div>
               <div>
                 <div className="text-[10px] uppercase text-[var(--text-tertiary)] font-medium tracking-wide">Days Left</div>
                 <div className={`text-lg font-bold font-[family-name:var(--font-mono)] ${
-                  daysUntilClosing <= 7 ? 'text-amber-600' : 'text-[var(--text-primary)]'
+                  daysUntilClosing <= 7 ? 'text-amber-400' : 'text-[var(--text-primary)]'
                 }`}>
                   <AnimatedCounter value={daysUntilClosing} />
                 </div>

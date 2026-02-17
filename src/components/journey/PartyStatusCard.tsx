@@ -13,38 +13,38 @@ const PARTY_CONFIG: Record<ResponsibleParty, {
   lender: {
     label: 'Lender',
     icon: Landmark,
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-50',
+    color: 'text-royal-300',
+    bgColor: 'bg-royal/10',
   },
   title: {
     label: 'Title Co',
     icon: Building2,
-    color: 'text-purple-600',
-    bgColor: 'bg-purple-50',
+    color: 'text-indigo-400',
+    bgColor: 'bg-indigo-500/10',
   },
   agent: {
     label: 'Agent',
     icon: User,
-    color: 'text-spruce',
-    bgColor: 'bg-spruce/10',
+    color: 'text-royal',
+    bgColor: 'bg-royal/10',
   },
   buyer: {
     label: 'Buyer',
     icon: Users,
-    color: 'text-teal-600',
-    bgColor: 'bg-teal-50',
+    color: 'text-sea-glass-400',
+    bgColor: 'bg-sea-glass/10',
   },
   seller: {
     label: 'Seller',
     icon: Home,
-    color: 'text-amber-600',
-    bgColor: 'bg-amber-50',
+    color: 'text-amber-400',
+    bgColor: 'bg-amber/10',
   },
   appraiser: {
     label: 'Appraiser',
     icon: ClipboardCheck,
-    color: 'text-indigo-600',
-    bgColor: 'bg-indigo-50',
+    color: 'text-indigo-400',
+    bgColor: 'bg-indigo-500/10',
   },
 };
 
@@ -95,9 +95,9 @@ export default function PartyStatusCard({
   const getStatusStyles = () => {
     switch (status) {
       case 'complete':
-        return 'border-fern-200 bg-fern-50/50';
+        return 'border-fern/20 bg-fern/10';
       case 'in_progress':
-        return 'border-amber-200 bg-amber-50/50';
+        return 'border-amber/20 bg-amber/10';
       case 'waiting':
         return 'border-divider bg-elevation1/50';
     }
@@ -132,7 +132,7 @@ export default function PartyStatusCard({
               {getStatusIcon()}
               <span className={`text-xs font-medium ${
                 status === 'complete' ? 'text-fern' :
-                status === 'in_progress' ? 'text-amber-600' :
+                status === 'in_progress' ? 'text-amber-400' :
                 'text-[var(--text-tertiary)]'
               }`}>
                 {getStatusLabel()}

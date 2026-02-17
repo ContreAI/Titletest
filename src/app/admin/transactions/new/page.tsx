@@ -143,10 +143,10 @@ export default function NewTransactionPage() {
       />
 
       {/* Back Link */}
-      <div className="px-6 py-4 border-b border-border bg-white">
+      <div className="px-6 py-4 border-b border-divider bg-paper">
         <Link
           href="/admin/pipeline"
-          className="inline-flex items-center gap-2 text-sm text-river-stone hover:text-spruce transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-river-stone hover:text-royal transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Pipeline
@@ -154,7 +154,7 @@ export default function NewTransactionPage() {
       </div>
 
       {/* Progress Steps */}
-      <div className="px-6 py-6 bg-white border-b border-border">
+      <div className="px-6 py-6 bg-paper border-b border-divider">
         <div className="max-w-3xl mx-auto">
           <div className="flex items-center justify-between">
             {STEPS.map((step, index) => {
@@ -170,7 +170,7 @@ export default function NewTransactionPage() {
                       className={`
                         w-10 h-10 rounded-full flex items-center justify-center
                         transition-colors duration-200
-                        ${isComplete ? "bg-fern" : isActive ? "bg-spruce" : "bg-mist"}
+                        ${isComplete ? "bg-fern" : isActive ? "bg-royal" : "bg-black/[0.04]"}
                       `}
                     >
                       {isComplete ? (
@@ -186,7 +186,7 @@ export default function NewTransactionPage() {
                     <span
                       className={`
                         mt-2 text-sm font-medium
-                        ${isActive ? "text-spruce" : isComplete ? "text-fern" : "text-river-stone"}
+                        ${isActive ? "text-royal" : isComplete ? "text-fern" : "text-river-stone"}
                       `}
                     >
                       {step.label}
@@ -318,7 +318,7 @@ export default function NewTransactionPage() {
                 <select
                   value={assignCloser}
                   onChange={(e) => setAssignCloser(e.target.value)}
-                  className="w-full max-w-md px-3 py-2 border border-border rounded-lg bg-white text-storm-gray focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+                  className="w-full max-w-md px-3 py-2 border border-[var(--glass-border)] rounded-lg bg-white/[0.06] text-[var(--text-primary)] focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
                 >
                   <option value="">Assign later</option>
                   <option value="emp_001">Emily Davis</option>
@@ -337,7 +337,7 @@ export default function NewTransactionPage() {
                       type="checkbox"
                       checked={generateTimeline}
                       onChange={(e) => setGenerateTimeline(e.target.checked)}
-                      className="w-4 h-4 text-spruce border-border rounded focus:ring-spruce"
+                      className="w-4 h-4 text-royal border-border rounded focus:ring-royal"
                     />
                     <span className="text-storm-gray">
                       Generate timeline from contract dates
@@ -348,7 +348,7 @@ export default function NewTransactionPage() {
                       type="checkbox"
                       checked={sendWelcomeEmail}
                       onChange={(e) => setSendWelcomeEmail(e.target.checked)}
-                      className="w-4 h-4 text-spruce border-border rounded focus:ring-spruce"
+                      className="w-4 h-4 text-royal border-border rounded focus:ring-royal"
                     />
                     <span className="text-storm-gray">
                       Send welcome email to parties
@@ -392,7 +392,7 @@ export default function NewTransactionPage() {
                     {editedData.property.city}, {editedData.property.state}{" "}
                     {editedData.property.zip}
                   </p>
-                  <p className="text-sm text-spruce font-medium mt-2">
+                  <p className="text-sm text-royal font-medium mt-2">
                     {TRANSACTION_TYPES[transactionType].label}
                   </p>
                 </SummaryCard>
@@ -463,7 +463,7 @@ export default function NewTransactionPage() {
               </div>
 
               {/* Will Create */}
-              <div className="bg-mist rounded-xl p-4">
+              <div className="bg-black/[0.04] rounded-xl p-4">
                 <h3 className="font-semibold text-storm-gray mb-3">
                   This will create:
                 </h3>
@@ -537,7 +537,7 @@ function SummaryCard({
   return (
     <div className="border border-border rounded-xl p-4">
       <div className="flex items-center gap-2 mb-3">
-        <Icon className="w-4 h-4 text-spruce" />
+        <Icon className="w-4 h-4 text-royal" />
         <h3 className="font-semibold text-storm-gray">{title}</h3>
       </div>
       {children}

@@ -135,46 +135,61 @@
   --indigo-900: #312E81;
   --indigo-950: #1E1B4B;
 
-  /* Legacy base aliases (backward compat) */
+  /* Royal Blue — Primary Brand (Kootenai Title) */
+  --royal-50: #E8EEF7;
+  --royal-100: #C8D6EC;
+  --royal-200: #94AEDA;
+  --royal-300: #6086C7;
+  --royal-400: #3B6AB5;
+  --royal: #002D72;
+  --royal-500: #002D72;
+  --royal-600: #00245E;
+  --royal-700: #001B4A;
+  --royal-800: #001236;
+  --royal-900: #000A22;
+  --royal-950: #000514;
+
+  /* Legacy base aliases */
   --mist: var(--grey-50);
   --storm-gray: var(--grey-700);
 
   /* ===== SEMANTIC COLORS ===== */
-  --background: #ffffff;
-  --foreground: var(--grey-900);
-  --primary: var(--spruce-500);
+  /* Light glass theme — AmbientBackground provides soft pastel gradient */
+  --background: transparent;
+  --foreground: var(--grey-800);
+  --primary: var(--royal-400);
   --secondary: var(--river-stone-500);
-  --accent: var(--sea-glass-400);
+  --accent: var(--sea-glass-500);
   --success: var(--fern-500);
   --warning: var(--amber-500);
   --error: var(--signal-red-500);
   --info: var(--sea-glass-500);
 
-  /* ===== SURFACE / BACKGROUND COLORS (matching ui-main lightPalette) ===== */
-  --surface-primary: #ffffff;
-  --surface-secondary: var(--grey-50);
-  --bg-default: #ffffff;
-  --bg-paper: #ffffff;
-  --bg-neutral: #FAFAFC;
-  --bg-subtle: #F7FAF8;
-  --bg-elevation0: var(--grey-150);
-  --bg-elevation1: var(--grey-50);
-  --bg-elevation2: var(--grey-100);
-  --bg-elevation3: var(--grey-200);
-  --bg-elevation4: var(--grey-300);
+  /* ===== SURFACE / BACKGROUND — translucent panels, ambient color visible ===== */
+  --surface-primary: rgba(255, 255, 255, 0.50);
+  --surface-secondary: rgba(255, 255, 255, 0.35);
+  --bg-default: transparent;
+  --bg-paper: rgba(255, 255, 255, 0.50);
+  --bg-neutral: rgba(255, 255, 255, 0.30);
+  --bg-subtle: rgba(255, 255, 255, 0.18);
+  --bg-elevation0: rgba(255, 255, 255, 0.25);
+  --bg-elevation1: rgba(255, 255, 255, 0.35);
+  --bg-elevation2: rgba(255, 255, 255, 0.45);
+  --bg-elevation3: rgba(255, 255, 255, 0.55);
+  --bg-elevation4: rgba(255, 255, 255, 0.65);
 
-  /* ===== TEXT COLORS (matching ui-main lightPalette) ===== */
-  --text-primary: #1B2124;
-  --text-secondary: #264E36;
-  --text-disabled: #6B7B85;
-  --text-tertiary: #78909C;
-  --text-muted: #94a3b8;
+  /* ===== TEXT COLORS — dark text on light glass ===== */
+  --text-primary: rgba(15, 23, 42, 0.90);
+  --text-secondary: rgba(15, 23, 42, 0.64);
+  --text-disabled: rgba(15, 23, 42, 0.30);
+  --text-tertiary: rgba(15, 23, 42, 0.45);
+  --text-muted: rgba(15, 23, 42, 0.35);
   --text-inverse: #ffffff;
 
   /* ===== BORDER COLORS ===== */
-  --border-light: #E6E8EB;
-  --border-medium: var(--sea-glass-400);
-  --divider: #E6E8EB;
+  --border-light: rgba(0, 0, 0, 0.06);
+  --border-medium: rgba(0, 0, 0, 0.12);
+  --divider: rgba(0, 0, 0, 0.08);
 
   /* ===== 7-LEVEL SHADOW SYSTEM (from ui-main shadows.ts) ===== */
   --shadow-0: 2px 2px 10px 0px rgba(0, 0, 0, 0.09), 0px 1px 1px 0px rgba(0, 0, 0, 0.03);
@@ -218,63 +233,30 @@
   --radius-xl: 1rem;     /* 16px */
   --radius-2xl: 1.25rem; /* 20px */
   --radius-full: 9999px;
+
+  /* ===== GLASSMORPHISM SYSTEM (Apple/iOS-inspired) ===== */
+
+  /* Glass materials — translucent enough to see ambient color bleed through */
+  --glass-surface: rgba(255, 255, 255, 0.48);
+  --glass-surface-strong: rgba(255, 255, 255, 0.58);
+  --glass-surface-subtle: rgba(255, 255, 255, 0.32);
+  --glass-surface-nav: rgba(255, 255, 255, 0.55);
+  --glass-surface-chat: rgba(255, 255, 255, 0.60);
+
+  /* Glass borders — barely visible white edge + subtle dark outline for definition */
+  --glass-border: rgba(255, 255, 255, 0.55);
+  --glass-border-strong: rgba(255, 255, 255, 0.72);
+  --glass-border-subtle: rgba(255, 255, 255, 0.40);
+
+  /* Glow accents — subtle colored ambient light */
+  --glow-royal: 0 4px 24px rgba(59, 106, 181, 0.12);
+  --glow-spruce: 0 4px 24px rgba(38, 78, 54, 0.10);
+  --glow-sea-glass: 0 4px 24px rgba(100, 170, 170, 0.12);
+  --glow-indigo: 0 4px 24px rgba(99, 102, 241, 0.12);
 }
 
-/* ===== DARK MODE ===== */
-.dark {
-  --background: var(--grey-950);
-  --foreground: var(--grey-100);
-  --primary: var(--spruce-400);
-  --secondary: var(--river-stone-400);
-  --accent: var(--sea-glass-400);
-  --success: var(--fern-400);
-  --warning: var(--amber-400);
-  --error: var(--signal-red-400);
-  --info: var(--sea-glass-400);
-
-  /* Surfaces (matching ui-main darkPalette) */
-  --surface-primary: var(--grey-950);
-  --surface-secondary: var(--grey-900);
-  --bg-default: var(--grey-950);
-  --bg-paper: var(--grey-950);
-  --bg-neutral: var(--grey-900);
-  --bg-subtle: var(--grey-850);
-  --bg-elevation0: var(--grey-950);
-  --bg-elevation1: var(--grey-900);
-  --bg-elevation2: var(--grey-800);
-  --bg-elevation3: var(--grey-700);
-  --bg-elevation4: var(--grey-600);
-
-  /* Text (matching ui-main darkPalette) */
-  --text-primary: var(--grey-100);
-  --text-secondary: var(--grey-300);
-  --text-disabled: var(--grey-500);
-  --text-tertiary: var(--grey-400);
-  --text-muted: var(--grey-500);
-  --text-inverse: var(--grey-950);
-
-  /* Borders */
-  --border-light: rgba(255, 255, 255, 0.08);
-  --border-medium: rgba(255, 255, 255, 0.12);
-  --divider: var(--grey-700);
-
-  /* Shadows (dark mode — from ui-main darkShadows) */
-  --shadow-0: 0px 12px 51px 0px rgba(0, 0, 0, 0.60), 0px 3px 24px 0px rgba(0, 0, 0, 0.56), 0px 1px 16px 0px rgba(0, 0, 0, 0.10);
-  --shadow-1: var(--shadow-0);
-  --shadow-2: var(--shadow-0);
-  --shadow-3: var(--shadow-0);
-  --shadow-4: var(--shadow-0);
-  --shadow-5: var(--shadow-0);
-  --shadow-6: var(--shadow-0);
-  --shadow-sm: var(--shadow-0);
-  --shadow-md: var(--shadow-0);
-  --shadow-lg: var(--shadow-0);
-  --shadow-xl: var(--shadow-0);
-
-  /* Glassmorphism dark variants */
-  --glass-surface: rgba(30, 34, 42, 0.72);
-  --glass-border: rgba(255, 255, 255, 0.06);
-}
+/* ===== DARK MODE (unused — light glass is the default and only theme) ===== */
+.dark {}
 
 /* ===== TAILWIND THEME REGISTRATION ===== */
 @theme inline {
@@ -360,6 +342,19 @@
   --color-bark-brown: var(--bark-brown);
   --color-bark-brown-50: var(--bark-brown-50);
   --color-bark-brown-500: var(--bark-brown-500);
+
+  --color-royal: var(--royal);
+  --color-royal-50: var(--royal-50);
+  --color-royal-100: var(--royal-100);
+  --color-royal-200: var(--royal-200);
+  --color-royal-300: var(--royal-300);
+  --color-royal-400: var(--royal-400);
+  --color-royal-500: var(--royal-500);
+  --color-royal-600: var(--royal-600);
+  --color-royal-700: var(--royal-700);
+  --color-royal-800: var(--royal-800);
+  --color-royal-900: var(--royal-900);
+  --color-royal-950: var(--royal-950);
 
   --color-indigo-50: var(--indigo-50);
   --color-indigo-100: var(--indigo-100);
@@ -532,19 +527,101 @@ h6 {
 }
 
 /* ===== GLASSMORPHISM UTILITIES ===== */
+
+/* Base glass — Apple-inspired frosted panel: high blur, thin border, refined shadow */
 .glass {
-  background: var(--glass-surface, rgba(255, 255, 255, 0.72));
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.18));
+  background: var(--glass-surface);
+  backdrop-filter: blur(24px) saturate(200%);
+  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  border: 0.5px solid rgba(255, 255, 255, 0.60);
+  box-shadow:
+    inset 0 0.5px 0 0 rgba(255, 255, 255, 0.50),
+    0 0.5px 0 0 rgba(0, 0, 0, 0.03),
+    0 1px 3px rgba(0, 0, 0, 0.04),
+    0 6px 20px rgba(0, 0, 0, 0.03);
 }
 
-.glass-subtle {
-  background: var(--glass-surface, rgba(255, 255, 255, 0.45));
-  backdrop-filter: blur(8px) saturate(150%);
-  -webkit-backdrop-filter: blur(8px) saturate(150%);
-  border: 1px solid var(--glass-border, rgba(255, 255, 255, 0.12));
+/* Strong glass — modals, elevated panels */
+.glass-strong {
+  background: var(--glass-surface-strong);
+  backdrop-filter: blur(32px) saturate(200%);
+  -webkit-backdrop-filter: blur(32px) saturate(200%);
+  border: 0.5px solid rgba(255, 255, 255, 0.70);
+  box-shadow:
+    inset 0 0.5px 0 0 rgba(255, 255, 255, 0.60),
+    0 0.5px 0 0 rgba(0, 0, 0, 0.04),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    0 12px 32px rgba(0, 0, 0, 0.06);
 }
+
+/* Subtle glass — secondary panels, inset sections */
+.glass-subtle {
+  background: var(--glass-surface-subtle);
+  backdrop-filter: blur(12px) saturate(160%);
+  -webkit-backdrop-filter: blur(12px) saturate(160%);
+  border: 0.5px solid rgba(255, 255, 255, 0.45);
+  box-shadow:
+    inset 0 0.5px 0 0 rgba(255, 255, 255, 0.35),
+    0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+/* Nav glass — sticky header/nav bars */
+.glass-nav {
+  background: var(--glass-surface-nav);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+  box-shadow:
+    inset 0 0.5px 0 0 rgba(255, 255, 255, 0.50),
+    0 1px 3px rgba(0, 0, 0, 0.03),
+    0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+/* Chat panel glass */
+.glass-chat {
+  background: var(--glass-surface-chat);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 0.5px solid rgba(255, 255, 255, 0.55);
+  box-shadow:
+    inset 0 0.5px 0 0 rgba(255, 255, 255, 0.45),
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    0 8px 24px rgba(0, 0, 0, 0.05);
+}
+
+/* Noise overlay — apply as pseudo-element for glass realism */
+.glass-noise { position: relative; }
+.glass-noise::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.5;
+}
+.glass-noise > * { position: relative; z-index: 1; }
+
+/* Glass card hover — lift + shadow on hover */
+.glass-card-hover {
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+}
+.glass-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.60),
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    var(--glow-royal);
+  border-color: var(--glass-border-strong);
+}
+
+/* Glow accent utilities */
+.glow-royal { box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.40), var(--glow-royal); }
+.glow-spruce { box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.40), var(--glow-spruce); }
+.glow-sea-glass { box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.40), var(--glow-sea-glass); }
+.glow-indigo { box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.40), var(--glow-indigo); }
 
 /* ===== ANIMATIONS ===== */
 
@@ -612,6 +689,41 @@ h6 {
   0%, 100% { stroke-dasharray: 0 180; }
   50% { stroke-dasharray: 80 120; }
 }
+
+/* ===== AMBIENT GRADIENT ANIMATIONS ===== */
+
+@keyframes orbFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(30px, -20px) scale(1.05); }
+  66% { transform: translate(-20px, 15px) scale(0.95); }
+}
+
+@keyframes orbFloatReverse {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-25px, 20px) scale(0.95); }
+  66% { transform: translate(15px, -25px) scale(1.05); }
+}
+
+/* Ambient background container — fixed full-page, always behind all content */
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Gradient orbs — bold color blobs visible through frosted glass panels */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.75;
+  will-change: transform;
+}
+.orb-1 { animation: orbFloat 20s ease-in-out infinite; }
+.orb-2 { animation: orbFloatReverse 25s ease-in-out infinite; }
+.orb-3 { animation: orbFloat 30s ease-in-out infinite; }
 
 /* ===== ANIMATION UTILITY CLASSES ===== */
 .animate-fade-in { animation: fadeIn 200ms ease-out forwards; }
@@ -764,5 +876,16 @@ h6 {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+  .orb-1, .orb-2, .orb-3 {
+    animation: none !important;
+  }
+}
+
+/* ===== GLASSMORPHISM FALLBACK ===== */
+@supports not (backdrop-filter: blur(8px)) {
+  .glass, .glass-strong, .glass-subtle, .glass-nav, .glass-chat {
+    background: var(--bg-paper) !important;
+    border: 1px solid var(--divider) !important;
   }
 }

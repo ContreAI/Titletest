@@ -85,14 +85,14 @@ export default function DocumentUploadZone({
         {...getRootProps()}
         className={`
           border-2 border-dashed rounded-lg p-4 text-center cursor-pointer transition-colors
-          ${isDragActive ? "border-spruce bg-spruce/5" : "border-divider hover:border-spruce/50"}
+          ${isDragActive ? "border-royal bg-royal/5" : "border-divider hover:border-royal/50"}
           ${isUploading ? "opacity-50 cursor-wait" : ""}
         `}
       >
         <input {...getInputProps()} />
         {isUploading ? (
           <div className="flex items-center justify-center gap-2">
-            <Loader2 className="w-5 h-5 animate-spin text-spruce" />
+            <Loader2 className="w-5 h-5 animate-spin text-royal" />
             <span className="text-sm text-[var(--text-secondary)]">
               Uploading & processing...
             </span>
@@ -109,7 +109,7 @@ export default function DocumentUploadZone({
 
       {automationHint && (
         <p className="text-xs text-[var(--text-tertiary)] mt-2 flex items-center gap-1">
-          <Zap className="w-3 h-3 text-sea-glass-700" />
+          <Zap className="w-3 h-3 text-sea-glass-400" />
           {automationHint}
         </p>
       )}

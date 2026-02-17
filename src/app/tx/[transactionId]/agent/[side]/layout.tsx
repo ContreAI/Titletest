@@ -3,9 +3,9 @@
 import { useParams } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { ThemeToggle } from "@/components/common";
 import { mockTitleCompany, mockTransaction } from "@/data/mockData";
 import { ChatProvider } from "@/components/chat";
+import { AmbientBackground } from "@/components/layout";
 
 export default function AgentLayout({
   children,
@@ -22,9 +22,10 @@ export default function AgentLayout({
     side === "buyer" ? "Premier Boise Realty" : "Idaho Realty Group";
 
   return (
-    <div className="min-h-screen bg-mist flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col relative">
+      <AmbientBackground persona="agent" />
       {/* Agent Header */}
-      <header className="bg-paper border-b border-divider px-6 py-3 flex items-center justify-between">
+      <header className="glass-nav px-6 py-3 flex items-center justify-between relative z-10">
         <div className="flex items-center gap-4">
           <Image
             src={mockTitleCompany.logo}
@@ -51,12 +52,11 @@ export default function AgentLayout({
               {side === "buyer" ? "Buyer" : "Seller"}'s Agent Portal
             </p>
           </div>
-          <ThemeToggle />
         </div>
       </header>
 
       <ChatProvider persona="agent" transactionId={transactionId} side={side}>
-        <main className="flex-1 flex flex-col overflow-hidden">{children}</main>
+        <main className="flex-1 flex flex-col overflow-hidden relative z-10">{children}</main>
       </ChatProvider>
     </div>
   );

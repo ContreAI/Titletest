@@ -37,9 +37,9 @@ const partyIcons: Record<WaitingOn, React.ReactNode> = {
 };
 
 const partyColors: Record<WaitingOn, { bg: string; text: string; border: string }> = {
-  title: { bg: "bg-spruce/10", text: "text-spruce", border: "border-spruce/20" },
-  lender: { bg: "bg-blue-50", text: "text-blue-700", border: "border-blue-200" },
-  buyer: { bg: "bg-amber/10", text: "text-amber-700", border: "border-amber/20" },
+  title: { bg: "bg-royal/10", text: "text-royal", border: "border-royal/20" },
+  lender: { bg: "bg-royal/10", text: "text-royal-300", border: "border-royal/20" },
+  buyer: { bg: "bg-amber/10", text: "text-amber-400", border: "border-amber/20" },
   seller: { bg: "bg-fern/10", text: "text-fern", border: "border-fern/20" },
   agent: { bg: "bg-river-stone/10", text: "text-river-stone", border: "border-river-stone/20" },
 };
@@ -75,7 +75,7 @@ export default function StatusBoardCard({
     <div
       className={`
         rounded-lg border transition-all
-        ${allComplete ? "bg-mist border-border" : `${colors.bg} ${colors.border}`}
+        ${allComplete ? "bg-black/[0.04] border-border" : `${colors.bg} ${colors.border}`}
       `}
     >
       {/* Header */}
@@ -133,7 +133,7 @@ export default function StatusBoardCard({
                   className={`
                     flex items-center gap-2 p-2 rounded-md border transition-colors
                     ${canEdit
-                      ? "bg-paper border-border hover:border-spruce/30"
+                      ? "bg-paper border-border hover:border-royal/30"
                       : "bg-elevation1 border-border/50"
                     }
                   `}
@@ -144,7 +144,7 @@ export default function StatusBoardCard({
                         e.stopPropagation();
                         onItemComplete?.(item);
                       }}
-                      className="shrink-0 text-river-stone hover:text-spruce transition-colors"
+                      className="shrink-0 text-river-stone hover:text-royal transition-colors"
                       title="Mark as complete"
                     >
                       <Circle className="w-4 h-4" />
@@ -159,7 +159,7 @@ export default function StatusBoardCard({
                     className={`
                       flex-1 text-left text-sm truncate transition-colors
                       ${canEdit
-                        ? "text-storm-gray hover:text-spruce"
+                        ? "text-storm-gray hover:text-royal"
                         : "text-river-stone"
                       }
                     `}
@@ -194,7 +194,7 @@ export default function StatusBoardCard({
                   {completedItems.map((item) => (
                     <div
                       key={item.id}
-                      className="flex items-center gap-2 p-2 bg-mist/50 rounded-md border border-border/50"
+                      className="flex items-center gap-2 p-2 bg-black/[0.04] rounded-md border border-border/50"
                     >
                       {canEdit ? (
                         <button

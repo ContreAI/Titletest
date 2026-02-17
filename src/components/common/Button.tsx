@@ -32,13 +32,13 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary:
-        "bg-spruce text-white hover:bg-spruce-600 focus-visible:ring-spruce shadow-[var(--shadow-0)]",
+        "bg-royal text-white hover:bg-royal-600 focus-visible:ring-royal shadow-[var(--shadow-0)]",
       secondary:
         "bg-river-stone text-white hover:bg-river-stone-600 focus-visible:ring-river-stone shadow-[var(--shadow-0)]",
       ghost:
         "bg-transparent text-[var(--text-primary)] hover:bg-elevation1 focus-visible:ring-sea-glass",
       outline:
-        "bg-transparent text-[var(--text-primary)] border border-divider hover:bg-elevation1 focus-visible:ring-spruce",
+        "bg-transparent text-[var(--text-primary)] border border-divider hover:bg-elevation1 focus-visible:ring-royal",
       danger:
         "bg-signal-red text-white hover:bg-signal-red-600 focus-visible:ring-signal-red shadow-[var(--shadow-0)]",
       success:
@@ -52,7 +52,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       lg: "px-6 py-3 text-base gap-2.5",
     };
 
-    const glowStyles = glow ? "ring-4 ring-spruce-400/20" : "";
+    const glowStyles = glow ? "ring-4 ring-royal-400/20" : "";
 
     return (
       <button

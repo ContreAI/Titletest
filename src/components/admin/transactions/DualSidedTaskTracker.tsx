@@ -40,26 +40,26 @@ const STATUS_CONFIG: Record<
   completed: {
     icon: CheckCircle2,
     iconClass: "text-fern",
-    rowClass: "bg-fern-50/60 dark:bg-fern-950/20",
+    rowClass: "bg-fern/10",
     label: "Completed",
   },
   overdue: {
     icon: AlertTriangle,
     iconClass: "text-signal-red",
     rowClass:
-      "bg-signal-red-50 dark:bg-signal-red-950/20 border-l-[3px] border-l-signal-red",
+      "bg-signal-red/10 border-l-[3px] border-l-signal-red",
     label: "Overdue",
   },
   action_required: {
     icon: Clock,
-    iconClass: "text-amber-600",
-    rowClass: "bg-amber-50/60 dark:bg-amber-950/20",
+    iconClass: "text-amber-400",
+    rowClass: "bg-amber/10",
     label: "Action Required",
   },
   in_review: {
     icon: Eye,
-    iconClass: "text-sea-glass-600",
-    rowClass: "bg-sea-glass-50/60 dark:bg-sea-glass-950/20",
+    iconClass: "text-sea-glass-400",
+    rowClass: "bg-sea-glass/10",
     label: "In Review",
   },
   not_started: {
@@ -243,7 +243,7 @@ function SideColumn({
         {/* Progress bar */}
         <div className="h-1.5 bg-elevation2 rounded-full overflow-hidden">
           <div
-            className="h-full bg-spruce rounded-full transition-all duration-500"
+            className="h-full bg-royal rounded-full transition-all duration-500"
             style={{ width: `${percent}%` }}
           />
         </div>

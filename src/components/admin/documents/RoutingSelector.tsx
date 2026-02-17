@@ -20,9 +20,9 @@ const ROUTING_ICONS: Record<DocumentRouting, React.ComponentType<{ className?: s
 
 const ROUTING_COLORS: Record<DocumentRouting, { bg: string; border: string; text: string }> = {
   buyer_only: {
-    bg: "bg-spruce/10",
-    border: "border-spruce",
-    text: "text-spruce",
+    bg: "bg-royal/10",
+    border: "border-royal",
+    text: "text-royal",
   },
   seller_only: {
     bg: "bg-amber/10",
@@ -53,7 +53,7 @@ export function RoutingSelector({
         <select
           value={value}
           onChange={(e) => onChange(e.target.value as DocumentRouting)}
-          className="w-full px-3 py-2 border border-border rounded-lg bg-paper text-storm-gray focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+          className="w-full px-3 py-2 border border-border rounded-lg bg-paper text-storm-gray focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
         >
           {ROUTING_OPTIONS.map((option) => (
             <option key={option.value} value={option.value}>
@@ -92,7 +92,7 @@ export function RoutingSelector({
               <div
                 className={`
                   w-8 h-8 rounded-full flex items-center justify-center
-                  ${isSelected ? colors.bg : "bg-mist"}
+                  ${isSelected ? colors.bg : "bg-black/[0.04]"}
                 `}
               >
                 <Icon
@@ -115,7 +115,7 @@ export function RoutingSelector({
                 <div
                   className={`absolute top-2 right-2 w-2 h-2 rounded-full ${
                     option.value === "buyer_only"
-                      ? "bg-spruce"
+                      ? "bg-royal"
                       : option.value === "seller_only"
                       ? "bg-amber"
                       : option.value === "both"

@@ -6,6 +6,7 @@ import {
   Header,
   TabNavigation,
   PageContainer,
+  AmbientBackground,
 } from "@/components/layout";
 import { TabId, TransactionTask, NetProceedsEstimate } from "@/types";
 import {
@@ -439,9 +440,9 @@ export default function PortalPage() {
   // Show loading state while checking auth
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-mist flex items-center justify-center">
+      <div className="min-h-screen bg-transparent flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="w-8 h-8 text-spruce animate-spin mx-auto mb-4" />
+          <Loader2 className="w-8 h-8 text-royal animate-spin mx-auto mb-4" />
           <p className="text-river-stone">Loading portal...</p>
         </div>
       </div>
@@ -455,7 +456,10 @@ export default function PortalPage() {
 
   return (
     <ChatProvider persona="client" transactionId={transactionId} side={side}>
-    <div className="min-h-screen bg-mist">
+    <div className="min-h-screen bg-transparent relative z-0">
+      <AmbientBackground persona="client" />
+      {/* All content above ambient bg */}
+      <div className="relative z-10 min-h-screen flex flex-col">
       <Header
         logo={titleCompany.logo}
         companyName={titleCompany.name}
@@ -497,6 +501,7 @@ export default function PortalPage() {
         isOpen={showNotificationSettings}
         onClose={() => setShowNotificationSettings(false)}
       />
+      </div>
     </div>
     </ChatProvider>
   );

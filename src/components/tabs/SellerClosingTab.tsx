@@ -129,8 +129,8 @@ export default function SellerClosingTab({
       <Card variant="elevated" padding="lg">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="w-16 h-16 rounded-xl bg-spruce/10 flex items-center justify-center">
-              <span className="text-2xl font-bold font-[family-name:var(--font-mono)] text-spruce">
+            <div className="w-16 h-16 rounded-xl bg-royal/10 flex items-center justify-center">
+              <span className="text-2xl font-bold font-[family-name:var(--font-mono)] text-royal">
                 {daysToClose}
               </span>
             </div>
@@ -161,7 +161,7 @@ export default function SellerClosingTab({
         {/* Signing section */}
         <div>
           <h3 className="text-base font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-2">
-            <FileSignature className="w-5 h-5 text-spruce" />
+            <FileSignature className="w-5 h-5 text-royal" />
             Documents to Sign
           </h3>
 
@@ -188,7 +188,7 @@ export default function SellerClosingTab({
         {/* Key delivery checklist */}
         <div>
           <h3 className="text-base font-semibold text-[var(--text-primary)] mb-3 flex items-center gap-2">
-            <Key className="w-5 h-5 text-spruce" />
+            <Key className="w-5 h-5 text-royal" />
             Key Delivery Checklist
           </h3>
 
@@ -264,12 +264,12 @@ export default function SellerClosingTab({
               desc: "Your net proceeds will be wired to your bank account, typically within 1-2 business days after closing.",
             },
             {
-              icon: <FileText className="w-4 h-4 text-spruce" />,
+              icon: <FileText className="w-4 h-4 text-royal" />,
               label: "1099-S Tax Form",
               desc: "You'll receive a 1099-S form by January 31st for the tax year of the sale.",
             },
             {
-              icon: <Shield className="w-4 h-4 text-amber-600" />,
+              icon: <Shield className="w-4 h-4 text-amber-400" />,
               label: "Cancel Home Insurance",
               desc: "Cancel your homeowners insurance policy after closing is confirmed and funds are disbursed.",
             },

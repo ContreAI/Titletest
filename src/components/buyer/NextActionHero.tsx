@@ -72,13 +72,13 @@ export default function NextActionHero({ task, onAction }: NextActionHeroProps) 
   const isOverdue = task.status === "overdue";
   const actionLabel = getActionLabel(task.portalAction);
 
-  const accentColor = isOverdue ? "signal-red" : "spruce";
-  const bgAccent = isOverdue ? "bg-signal-red/5" : "bg-spruce/5";
-  const iconBg = isOverdue ? "bg-signal-red/10" : "bg-spruce/10";
-  const iconText = isOverdue ? "text-signal-red" : "text-spruce";
+  const accentColor = isOverdue ? "signal-red" : "royal";
+  const bgAccent = isOverdue ? "bg-signal-red/5" : "bg-royal/5";
+  const iconBg = isOverdue ? "bg-signal-red/10" : "bg-royal/10";
+  const iconText = isOverdue ? "text-signal-red" : "text-royal";
   const borderAccent = isOverdue
     ? "border-l-signal-red"
-    : "border-l-spruce";
+    : "border-l-royal";
 
   return (
     <div ref={containerRef}>
@@ -103,7 +103,7 @@ export default function NextActionHero({ task, onAction }: NextActionHeroProps) 
               <div className="flex items-center gap-2 mb-1">
                 <span
                   className={`text-xs font-semibold uppercase tracking-wider ${
-                    isOverdue ? "text-signal-red" : "text-spruce"
+                    isOverdue ? "text-signal-red" : "text-royal"
                   }`}
                 >
                   {isOverdue ? "Overdue" : "Your Next Step"}

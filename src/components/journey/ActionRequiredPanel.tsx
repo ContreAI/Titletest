@@ -91,8 +91,8 @@ function ActionItemRow({ item, onAction, index }: ActionItemRowProps) {
   }, []);
 
   const getUrgencyStyles = () => {
-    if (isOverdue) return 'bg-signal-red-50 border-signal-red-200 border-l-[3px] border-l-signal-red shadow-[inset_0_0_0_1px_rgba(220,38,38,0.05)]';
-    if (isUrgent) return 'bg-amber-50 border-amber-200 border-l-[3px] border-l-amber-500';
+    if (isOverdue) return 'bg-signal-red/10 border-signal-red/20 border-l-[3px] border-l-signal-red shadow-[inset_0_0_0_1px_rgba(220,38,38,0.05)]';
+    if (isUrgent) return 'bg-amber/10 border-amber/20 border-l-[3px] border-l-amber-500';
     return 'bg-paper border-divider';
   };
 
@@ -114,10 +114,10 @@ function ActionItemRow({ item, onAction, index }: ActionItemRowProps) {
     >
       {/* Icon */}
       <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
-        isOverdue ? 'bg-signal-red-100' : isUrgent ? 'bg-amber-100' : 'bg-elevation2'
+        isOverdue ? 'bg-signal-red/15' : isUrgent ? 'bg-amber/15' : 'bg-elevation2'
       }`}>
         <Icon className={`w-5 h-5 ${
-          isOverdue ? 'text-signal-red-600' : isUrgent ? 'text-amber-600' : 'text-[var(--text-tertiary)]'
+          isOverdue ? 'text-signal-red-400' : isUrgent ? 'text-amber-400' : 'text-[var(--text-tertiary)]'
         }`} />
       </div>
 
@@ -126,7 +126,7 @@ function ActionItemRow({ item, onAction, index }: ActionItemRowProps) {
         <div className="flex items-center gap-2">
           <h4 className="font-semibold text-[var(--text-primary)] truncate">{item.title}</h4>
           {isOverdue && (
-            <span className="px-2 py-0.5 text-[10px] font-bold uppercase bg-signal-red-100 text-signal-red-700 rounded animate-pulse">
+            <span className="px-2 py-0.5 text-[10px] font-bold uppercase bg-signal-red/15 text-signal-red-400 rounded animate-pulse">
               Overdue
             </span>
           )}
@@ -134,13 +134,13 @@ function ActionItemRow({ item, onAction, index }: ActionItemRowProps) {
         <p className="text-sm text-[var(--text-tertiary)] line-clamp-1">{item.description}</p>
         <div className="flex items-center gap-3 mt-1">
           <span className={`text-xs font-medium ${
-            isOverdue ? 'text-signal-red-600' : isUrgent ? 'text-amber-600' : 'text-[var(--text-tertiary)]'
+            isOverdue ? 'text-signal-red-400' : isUrgent ? 'text-amber-400' : 'text-[var(--text-tertiary)]'
           }`}>
             Due: {format(new Date(item.dueDate), 'MMM d')}
           </span>
           {/* Countdown timer */}
           <span className={`flex items-center gap-1 text-[11px] font-semibold font-[family-name:var(--font-mono)] ${
-            isOverdue ? 'text-signal-red-600' : isUrgent ? 'text-amber-600' : 'text-[var(--text-disabled)]'
+            isOverdue ? 'text-signal-red-400' : isUrgent ? 'text-amber-400' : 'text-[var(--text-disabled)]'
           }`}>
             <Clock className="w-3 h-3" />
             {countdown}
@@ -185,18 +185,18 @@ export default function ActionRequiredPanel({ items, onAction }: ActionRequiredP
   const highPriorityCount = items.filter(i => i.urgency === 'high').length;
 
   return (
-    <div ref={containerRef} className="bg-paper rounded-lg border border-amber-200 shadow-[var(--shadow-1)] overflow-hidden">
+    <div ref={containerRef} className="bg-paper rounded-lg border border-amber/20 shadow-[var(--shadow-1)] overflow-hidden">
       {/* Header */}
-      <div className="px-4 py-3 bg-amber-50 border-b border-amber-100 flex items-center gap-3">
-        <div className="w-8 h-8 rounded-lg bg-amber-100 flex items-center justify-center">
-          <AlertTriangle className="w-4 h-4 text-amber-600" />
+      <div className="px-4 py-3 bg-amber/10 border-b border-amber/15 flex items-center gap-3">
+        <div className="w-8 h-8 rounded-lg bg-amber/15 flex items-center justify-center">
+          <AlertTriangle className="w-4 h-4 text-amber-400" />
         </div>
         <div>
           <h3 className="font-semibold text-[var(--text-primary)]">Action Required</h3>
           <p className="text-xs text-[var(--text-tertiary)]">
             {items.length} item{items.length !== 1 ? 's' : ''} need{items.length === 1 ? 's' : ''} your attention
             {highPriorityCount > 0 && (
-              <span className="text-signal-red-600 font-semibold"> &bull; {highPriorityCount} urgent</span>
+              <span className="text-signal-red-400 font-semibold"> &bull; {highPriorityCount} urgent</span>
             )}
           </p>
         </div>

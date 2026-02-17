@@ -94,25 +94,25 @@ const LEVEL_CONFIG: Record<
   }
 > = {
   compliant: {
-    bgClass: "bg-fern-50 dark:bg-fern-950/20",
-    borderClass: "border-fern-200 dark:border-fern-800",
-    textClass: "text-fern-700 dark:text-fern-400",
+    bgClass: "bg-fern/10",
+    borderClass: "border-fern/20",
+    textClass: "text-fern-400",
     barClass: "bg-fern",
     iconClass: "text-fern",
     label: "Compliant",
   },
   warning: {
-    bgClass: "bg-amber-50 dark:bg-amber-950/20",
-    borderClass: "border-amber-200 dark:border-amber-800",
-    textClass: "text-amber-700 dark:text-amber-400",
+    bgClass: "bg-amber/10",
+    borderClass: "border-amber/20",
+    textClass: "text-amber-400",
     barClass: "bg-amber-500",
     iconClass: "text-amber-500",
     label: "Approaching Deadline",
   },
   danger: {
-    bgClass: "bg-signal-red-50 dark:bg-signal-red-950/20",
-    borderClass: "border-signal-red-200 dark:border-signal-red-800",
-    textClass: "text-signal-red-700 dark:text-signal-red-400",
+    bgClass: "bg-signal-red/10",
+    borderClass: "border-signal-red/20",
+    textClass: "text-signal-red-400",
     barClass: "bg-signal-red",
     iconClass: "text-signal-red",
     label: "At Risk",
@@ -140,14 +140,14 @@ function cdStatusDisplay(status: string): {
         icon: CheckCircle2,
         label: "Delivered",
         done: true,
-        iconClass: "text-spruce",
+        iconClass: "text-royal",
       };
     case "sent":
       return {
         icon: Clock,
         label: "Sent",
         done: true,
-        iconClass: "text-sea-glass-600",
+        iconClass: "text-sea-glass-400",
       };
     case "generated":
       return {
@@ -369,7 +369,7 @@ export default function TRIDComplianceWidget({
           <span
             className={`text-xs px-2 py-0.5 rounded-full font-medium ${
               buyerDisplay.done
-                ? "bg-fern-50 text-fern-700 dark:bg-fern-950/30 dark:text-fern-400"
+                ? "bg-fern/10 text-fern-400"
                 : "bg-elevation2 text-[var(--text-tertiary)]"
             }`}
           >
@@ -390,7 +390,7 @@ export default function TRIDComplianceWidget({
           <span
             className={`text-xs px-2 py-0.5 rounded-full font-medium ${
               sellerDisplay.done
-                ? "bg-fern-50 text-fern-700 dark:bg-fern-950/30 dark:text-fern-400"
+                ? "bg-fern/10 text-fern-400"
                 : "bg-elevation2 text-[var(--text-tertiary)]"
             }`}
           >
@@ -401,13 +401,13 @@ export default function TRIDComplianceWidget({
 
       {/* Warning banner when at risk */}
       {analysis.level === "danger" && !analysis.isCDSent && (
-        <div className="mt-4 flex items-start gap-2 p-3 rounded-lg bg-signal-red-50 dark:bg-signal-red-950/30 border border-signal-red-200 dark:border-signal-red-800">
+        <div className="mt-4 flex items-start gap-2 p-3 rounded-lg bg-signal-red/10 border border-signal-red/20">
           <AlertTriangle className="w-4 h-4 text-signal-red flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm font-medium text-signal-red-700 dark:text-signal-red-400">
+            <p className="text-sm font-medium text-signal-red-400">
               TRID deadline at risk
             </p>
-            <p className="text-xs text-signal-red-600 dark:text-signal-red-500 mt-0.5">
+            <p className="text-xs text-signal-red-400 mt-0.5">
               The Closing Disclosure must be delivered at least 3 business days
               before closing. Failure to comply may require rescheduling the
               closing date.

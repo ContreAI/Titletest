@@ -100,7 +100,7 @@ export function PipelineView() {
       {/* View Toggle & Filters */}
       <div className="flex items-center justify-between px-6 py-4 border-b border-border bg-paper">
         {/* View Toggle */}
-        <div className="flex items-center bg-mist rounded-lg p-1">
+        <div className="flex items-center bg-black/[0.04] rounded-lg p-1">
           {VIEW_OPTIONS.map(({ mode, icon: Icon, label }) => (
             <button
               key={mode}
@@ -164,8 +164,8 @@ function QuickFilter({
         transition-colors duration-150
         ${
           active
-            ? "bg-spruce text-white"
-            : "bg-mist text-river-stone hover:bg-sea-glass/30 hover:text-storm-gray"
+            ? "bg-royal text-white"
+            : "bg-black/[0.04] text-river-stone hover:bg-sea-glass/30 hover:text-storm-gray"
         }
       `}
     >
@@ -174,7 +174,7 @@ function QuickFilter({
         <span
           className={`
             ml-1.5 px-1.5 py-0.5 text-xs rounded-full
-            ${active ? "bg-white/20" : "bg-storm-gray/10"}
+            ${active ? "bg-white/30" : "bg-black/[0.04]"}
           `}
         >
           {count}

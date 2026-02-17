@@ -104,8 +104,8 @@ export default function WireSecurityPage() {
           </Card>
           <Card variant="default" padding="md">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-amber-50 flex items-center justify-center">
-                <Clock className="w-5 h-5 text-amber-600" />
+              <div className="w-10 h-10 rounded-full bg-amber/10 flex items-center justify-center">
+                <Clock className="w-5 h-5 text-amber-400" />
               </div>
               <div>
                 <p className="text-2xl font-semibold font-[family-name:var(--font-mono)] text-[var(--text-primary)]">
@@ -147,7 +147,7 @@ export default function WireSecurityPage() {
                     <span className={`text-xs font-medium px-2 py-1 rounded-full ${
                       isComplete
                         ? "bg-fern/10 text-fern"
-                        : "bg-amber-50 text-amber-700"
+                        : "bg-amber/10 text-amber-400"
                     }`}>
                       {isComplete ? "Verified" : `Step ${currentStep + 1} of ${tx.steps.length}`}
                     </span>
@@ -163,7 +163,7 @@ export default function WireSecurityPage() {
                               step.status === "complete"
                                 ? "bg-fern text-white"
                                 : step.status === "current"
-                                  ? "bg-spruce text-white ring-2 ring-spruce/30"
+                                  ? "bg-royal text-white ring-2 ring-royal/30"
                                   : "bg-elevation2 border-2 border-divider text-[var(--text-disabled)]"
                             }`}>
                               <StepIcon className="w-4 h-4" />

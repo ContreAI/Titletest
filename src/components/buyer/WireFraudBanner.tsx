@@ -18,7 +18,7 @@ export default function WireFraudBanner({
 
   if (compact) {
     return (
-      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-signal-red-50 border border-signal-red-200 text-signal-red-700">
+      <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-signal-red/10 border border-signal-red/20 text-signal-red-400">
         <ShieldAlert className="w-4 h-4 flex-shrink-0" />
         <span className="text-xs font-medium">
           NEVER wire money based on emailed instructions. Always verify through the portal.
@@ -28,27 +28,27 @@ export default function WireFraudBanner({
   }
 
   return (
-    <div className="relative rounded-lg bg-signal-red-50 border border-signal-red-200 p-4">
+    <div className="relative rounded-lg bg-signal-red/10 border border-signal-red/20 p-4">
       {dismissable && (
         <button
           onClick={() => setDismissed(true)}
-          className="absolute top-3 right-3 p-1 rounded hover:bg-signal-red-100 transition-colors"
+          className="absolute top-3 right-3 p-1 rounded hover:bg-signal-red/15 transition-colors"
           aria-label="Dismiss wire fraud warning"
         >
-          <X className="w-4 h-4 text-signal-red-500" />
+          <X className="w-4 h-4 text-signal-red-400" />
         </button>
       )}
 
       <div className="flex gap-3">
-        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-signal-red-100 flex items-center justify-center">
+        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-signal-red/15 flex items-center justify-center">
           <ShieldAlert className="w-5 h-5 text-signal-red" />
         </div>
 
         <div className="flex-1">
-          <h4 className="text-sm font-semibold text-signal-red-800 mb-1">
+          <h4 className="text-sm font-semibold text-signal-red-400 mb-1">
             Wire Fraud Prevention Notice
           </h4>
-          <ul className="text-sm text-signal-red-700 space-y-1 mb-3">
+          <ul className="text-sm text-signal-red-400 space-y-1 mb-3">
             <li>
               <strong>NEVER</strong> send money based on instructions received
               via email. Criminals impersonate title companies.
@@ -63,7 +63,7 @@ export default function WireFraudBanner({
             </li>
           </ul>
 
-          <div className="flex items-center gap-2 text-xs text-signal-red-600">
+          <div className="flex items-center gap-2 text-xs text-signal-red-400">
             <Phone className="w-3.5 h-3.5" />
             <span>
               Verify by phone:{" "}

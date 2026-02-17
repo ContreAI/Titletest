@@ -61,7 +61,7 @@ function PhaseRow({
             isComplete
               ? "bg-fern text-white"
               : isInProgress
-                ? "bg-spruce text-white"
+                ? "bg-royal text-white"
                 : "bg-elevation2 border-2 border-divider"
           }`}
         >

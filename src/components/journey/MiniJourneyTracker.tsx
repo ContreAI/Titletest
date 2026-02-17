@@ -49,9 +49,9 @@ const PhaseIndicator = ({
     }
     switch (status) {
       case 'complete':
-        return 'bg-spruce text-white border-spruce shadow-[0_1px_4px_rgba(60,90,60,0.25)]';
+        return 'bg-royal text-white border-royal shadow-[0_1px_4px_rgba(60,90,60,0.25)]';
       case 'in_progress':
-        return 'bg-paper border-spruce text-spruce shadow-[0_0_0_2px_var(--bg-paper),0_0_0_3px_var(--spruce)]';
+        return 'bg-paper border-royal text-royal shadow-[0_0_0_2px_var(--bg-paper),0_0_0_3px_var(--royal)]';
       case 'upcoming':
         return 'bg-elevation2 border-elevation4 text-[var(--text-disabled)]';
       default:
@@ -63,9 +63,9 @@ const PhaseIndicator = ({
     if (status === 'not_applicable') return 'bg-elevation3';
     switch (status) {
       case 'complete':
-        return 'bg-spruce';
+        return 'bg-royal';
       case 'in_progress':
-        return 'bg-gradient-to-r from-spruce to-elevation4';
+        return 'bg-gradient-to-r from-royal to-elevation4';
       case 'upcoming':
         return 'bg-elevation4';
       default:
@@ -76,7 +76,7 @@ const PhaseIndicator = ({
   const getLabelStyles = () => {
     if (status === 'not_applicable') return 'text-[var(--text-disabled)]';
     if (hasAlert && status !== 'complete') {
-      return isError ? 'text-signal-red-600' : 'text-amber-600';
+      return isError ? 'text-signal-red-400' : 'text-amber-400';
     }
     return status === 'upcoming' ? 'text-[var(--text-disabled)]' : 'text-[var(--text-secondary)]';
   };
@@ -106,8 +106,8 @@ const PhaseIndicator = ({
           {status === 'complete' && <Check className="w-3 h-3 sm:w-3.5 sm:h-3.5" strokeWidth={2.5} />}
           {status === 'in_progress' && !hasAlert && (
             <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-spruce opacity-50" />
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-spruce" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-royal opacity-50" />
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-royal" />
             </span>
           )}
           {hasAlert && status !== 'complete' && status !== 'not_applicable' && (
@@ -138,7 +138,7 @@ const PhaseIndicator = ({
       {/* Connector line (after) */}
       {!isLast && (
         <div className={`h-0.5 w-6 sm:w-10 rounded-full transition-all duration-400 ${
-          status === 'complete' ? 'bg-spruce' : 'bg-elevation4'
+          status === 'complete' ? 'bg-royal' : 'bg-elevation4'
         }`} />
       )}
     </div>
@@ -247,7 +247,7 @@ export default function MiniJourneyTracker({
                   <div className="w-24 lg:w-32 h-2 bg-elevation3 rounded-full overflow-hidden">
                     <div
                       ref={barRef}
-                      className="h-full bg-spruce rounded-full"
+                      className="h-full bg-royal rounded-full"
                       style={{ width: `${percentComplete}%` }}
                     />
                   </div>
@@ -263,7 +263,7 @@ export default function MiniJourneyTracker({
               <div className="text-xs text-[var(--text-tertiary)]">Closing</div>
               <div className="text-sm font-semibold text-[var(--text-primary)]">
                 {formattedDate}{' '}
-                <span className={`${daysUntilClosing <= 7 ? 'text-amber-600' : 'text-[var(--text-tertiary)]'}`}>
+                <span className={`${daysUntilClosing <= 7 ? 'text-amber-400' : 'text-[var(--text-tertiary)]'}`}>
                   ({daysUntilClosing}d)
                 </span>
               </div>
@@ -276,11 +276,11 @@ export default function MiniJourneyTracker({
           <div className="flex items-center justify-between gap-3">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-medium text-spruce">
+                <span className="text-xs font-medium text-royal">
                   {PHASES[currentPhaseIndex]?.label || 'In Progress'}
                 </span>
                 {hasAnyAlert && (
-                  <span className="flex items-center gap-1 text-xs text-signal-red-600">
+                  <span className="flex items-center gap-1 text-xs text-signal-red-400">
                     <AlertCircle className="w-3 h-3" />
                     Alert
                   </span>
@@ -293,7 +293,7 @@ export default function MiniJourneyTracker({
               <div className="w-full h-1.5 bg-elevation3 rounded-full overflow-hidden">
                 <div
                   className={`h-full rounded-full transition-all duration-500 ${
-                    hasAnyAlert ? 'bg-signal-red' : 'bg-spruce'
+                    hasAnyAlert ? 'bg-signal-red' : 'bg-royal'
                   }`}
                   style={{ width: `${percentComplete}%` }}
                 />
@@ -303,7 +303,7 @@ export default function MiniJourneyTracker({
             <div className="text-right shrink-0">
               <div className="text-[10px] text-[var(--text-tertiary)] uppercase tracking-wide">Close</div>
               <div className={`text-sm font-bold font-[family-name:var(--font-mono)] ${
-                hasAnyAlert ? 'text-signal-red-600' : daysUntilClosing <= 7 ? 'text-amber-600' : 'text-[var(--text-primary)]'
+                hasAnyAlert ? 'text-signal-red-400' : daysUntilClosing <= 7 ? 'text-amber-400' : 'text-[var(--text-primary)]'
               }`}>
                 {daysUntilClosing}d
               </div>

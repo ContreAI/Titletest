@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning className="dark" style={{ backgroundColor: '#0a1628' }}>
       <body
         className={`${bebasNeue.variable} ${manrope.variable} ${jetbrainsMono.variable} antialiased`}
       >

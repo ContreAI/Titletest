@@ -21,8 +21,8 @@ interface TransactionCardProps {
 const PRIORITY_STYLES = {
   low: "bg-river-stone/10 text-[var(--text-tertiary)]",
   normal: "",
-  high: "bg-amber-50 text-amber-700 border border-amber-200",
-  urgent: "bg-signal-red-50 text-signal-red-700 border border-signal-red-200",
+  high: "bg-amber/10 text-amber-400 border border-amber/20",
+  urgent: "bg-signal-red/10 text-signal-red-400 border border-signal-red/20",
 };
 
 export function TransactionCard({
@@ -82,7 +82,7 @@ export function TransactionCard({
           <Calendar className="w-4 h-4 text-[var(--text-disabled)]" />
           <span
             className={`font-medium ${
-              isOverdue ? "text-signal-red" : isUrgent ? "text-amber-600" : "text-[var(--text-secondary)]"
+              isOverdue ? "text-signal-red" : isUrgent ? "text-amber-400" : "text-[var(--text-secondary)]"
             }`}
           >
             {formatClosingDate(transaction.dates.closingDate)}
@@ -127,13 +127,13 @@ export function TransactionCard({
                   {transaction.documentCount}
                 </span>
                 {transaction.unreadMessageCount > 0 && (
-                  <span className="flex items-center gap-1 text-spruce font-medium">
+                  <span className="flex items-center gap-1 text-royal font-medium">
                     <MessageSquare className="w-3.5 h-3.5" />
                     {transaction.unreadMessageCount}
                   </span>
                 )}
                 {transaction.pendingDocumentCount > 0 && (
-                  <span className="flex items-center gap-1 text-amber-600 font-medium">
+                  <span className="flex items-center gap-1 text-amber-400 font-medium">
                     <AlertCircle className="w-3.5 h-3.5" />
                     {transaction.pendingDocumentCount} pending
                   </span>
@@ -143,7 +143,7 @@ export function TransactionCard({
               {/* Closer avatar */}
               {transaction.assignedCloserName && (
                 <div className="flex items-center gap-1.5">
-                  <div className="w-6 h-6 bg-gradient-to-br from-sea-glass to-spruce-200 rounded-full flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
+                  <div className="w-6 h-6 bg-gradient-to-br from-sea-glass to-royal-200 rounded-full flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
                     <span className="text-[10px] font-semibold text-storm-gray">
                       {getInitials(transaction.assignedCloserName)}
                     </span>
@@ -160,7 +160,7 @@ export function TransactionCard({
               <FileText className="w-3.5 h-3.5" />
               {transaction.documentCount}
               {transaction.unreadMessageCount > 0 && (
-                <span className="flex items-center gap-1 text-spruce">
+                <span className="flex items-center gap-1 text-royal">
                   <MessageSquare className="w-3.5 h-3.5" />
                   {transaction.unreadMessageCount}
                 </span>

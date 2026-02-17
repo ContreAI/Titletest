@@ -177,7 +177,7 @@ function ChecklistSection({
                 rel="noopener noreferrer"
                 className="p-1.5 rounded-md hover:bg-elevation2 transition-colors"
               >
-                <ExternalLink className="w-4 h-4 text-spruce" />
+                <ExternalLink className="w-4 h-4 text-royal" />
               </a>
             )}
           </div>

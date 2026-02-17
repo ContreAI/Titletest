@@ -13,11 +13,11 @@ import {
 // Title Company
 export const mockTitleCompany: TitleCompany = {
   id: "tc_001",
-  name: "Contre Title",
+  name: "Kootenai Title",
   logo: "/logo.svg",
   address: "100 Title Way, Suite 200, Boise, ID 83702",
   phone: "(208) 555-1000",
-  email: "closings@contretitle.com",
+  email: "closings@kootenaititle.com",
 };
 
 // Sample Transaction

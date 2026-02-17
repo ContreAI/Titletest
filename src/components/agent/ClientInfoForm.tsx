@@ -40,7 +40,7 @@ export default function ClientInfoForm({
           onChange={(e) => setName(e.target.value)}
           placeholder="John & Mary Smith"
           required
-          className="w-full px-3 py-2 border border-divider rounded-lg bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+          className="w-full px-3 py-2 border border-divider rounded-lg bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
         />
       </div>
 
@@ -54,7 +54,7 @@ export default function ClientInfoForm({
           onChange={(e) => setEmail(e.target.value)}
           placeholder="john@example.com"
           required
-          className="w-full px-3 py-2 border border-divider rounded-lg bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+          className="w-full px-3 py-2 border border-divider rounded-lg bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
         />
       </div>
 
@@ -67,7 +67,7 @@ export default function ClientInfoForm({
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           placeholder="(208) 555-1234"
-          className="w-full px-3 py-2 border border-divider rounded-lg bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+          className="w-full px-3 py-2 border border-divider rounded-lg bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
         />
       </div>
 

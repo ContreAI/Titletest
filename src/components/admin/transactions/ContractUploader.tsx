@@ -73,15 +73,15 @@ export function ContractUploader({
             border-2 border-dashed rounded-xl p-8
             transition-colors duration-200 cursor-pointer
             ${isDragActive
-              ? "border-spruce bg-spruce/5"
-              : "border-border hover:border-sea-glass hover:bg-mist/50"
+              ? "border-royal bg-royal/5"
+              : "border-border hover:border-sea-glass hover:bg-black/[0.04]"
             }
             ${isProcessing ? "opacity-50 cursor-not-allowed" : ""}
           `}
         >
           <input {...getInputProps()} />
           <div className="flex flex-col items-center text-center">
-            <div className="w-16 h-16 bg-mist rounded-full flex items-center justify-center mb-4">
+            <div className="w-16 h-16 bg-black/[0.04] rounded-full flex items-center justify-center mb-4">
               <Upload className="w-8 h-8 text-river-stone" />
             </div>
             <h3 className="text-lg font-semibold text-storm-gray mb-2">
@@ -104,8 +104,8 @@ export function ContractUploader({
         <div className="border border-border rounded-xl p-4">
           <div className="flex items-start gap-4">
             {/* File Icon */}
-            <div className="w-12 h-12 bg-mist rounded-lg flex items-center justify-center flex-shrink-0">
-              <FileText className="w-6 h-6 text-spruce" />
+            <div className="w-12 h-12 bg-black/[0.04] rounded-lg flex items-center justify-center flex-shrink-0">
+              <FileText className="w-6 h-6 text-royal" />
             </div>
 
             {/* File Info */}
@@ -119,7 +119,7 @@ export function ContractUploader({
 
               {/* Processing Status */}
               {processingStatus === "processing" && (
-                <div className="flex items-center gap-2 mt-2 text-sm text-spruce">
+                <div className="flex items-center gap-2 mt-2 text-sm text-royal">
                   <Loader2 className="w-4 h-4 animate-spin" />
                   <span>Extracting contract data...</span>
                 </div>

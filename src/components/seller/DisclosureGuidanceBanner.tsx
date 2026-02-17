@@ -20,25 +20,25 @@ export default function DisclosureGuidanceBanner({
   };
 
   return (
-    <div className="relative rounded-lg bg-amber-50/50 border-l-4 border-l-amber-500 p-4">
+    <div className="relative rounded-lg bg-amber/10 border-l-4 border-l-amber-500 p-4">
       <button
         onClick={handleDismiss}
-        className="absolute top-3 right-3 p-1 rounded hover:bg-amber-100 transition-colors"
+        className="absolute top-3 right-3 p-1 rounded hover:bg-amber/15 transition-colors"
         aria-label="Dismiss guidance banner"
       >
-        <X className="w-4 h-4 text-amber-600" />
+        <X className="w-4 h-4 text-amber-400" />
       </button>
 
       <div className="flex gap-3">
-        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber-100 flex items-center justify-center">
-          <HelpCircle className="w-5 h-5 text-amber-600" />
+        <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-amber/15 flex items-center justify-center">
+          <HelpCircle className="w-5 h-5 text-amber-400" />
         </div>
 
         <div className="flex-1 pr-6">
-          <h4 className="text-sm font-semibold text-amber-800 mb-1.5">
+          <h4 className="text-sm font-semibold text-amber-400 mb-1.5">
             Disclosure Guidance
           </h4>
-          <ul className="text-sm text-amber-700 space-y-1">
+          <ul className="text-sm text-amber-400 space-y-1">
             <li>
               <strong>Disclose everything you know.</strong> It is better to
               over-disclose than under-disclose.
@@ -54,7 +54,7 @@ export default function DisclosureGuidanceBanner({
             </li>
           </ul>
 
-          <div className="flex items-center gap-1.5 mt-3 text-xs text-amber-600">
+          <div className="flex items-center gap-1.5 mt-3 text-xs text-amber-400">
             <AlertTriangle className="w-3.5 h-3.5" />
             <span>
               Failure to disclose known issues can result in legal liability after

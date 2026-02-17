@@ -14,8 +14,8 @@ export default function CalendarPage() {
       <div className="p-6">
         <Card variant="default" padding="lg">
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-spruce/10 flex items-center justify-center mb-4">
-              <CalendarDays className="w-8 h-8 text-spruce" />
+            <div className="w-16 h-16 rounded-full bg-royal/10 flex items-center justify-center mb-4">
+              <CalendarDays className="w-8 h-8 text-royal" />
             </div>
             <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-2">
               Calendar View

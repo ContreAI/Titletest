@@ -72,7 +72,7 @@ function DocumentRow({
     <div
       className={`
         flex items-center justify-between p-3 rounded-lg border border-border
-        ${hasFile ? "bg-paper hover:border-spruce/30 cursor-pointer" : "bg-mist/50"}
+        ${hasFile ? "bg-paper hover:border-royal/30 cursor-pointer" : "bg-black/[0.04]"}
         transition-colors
       `}
       onClick={hasFile ? onClick : undefined}
@@ -81,7 +81,7 @@ function DocumentRow({
         <div
           className={`
             p-2 rounded-lg shrink-0
-            ${hasFile ? "bg-spruce/10 text-spruce" : "bg-river-stone/10 text-river-stone"}
+            ${hasFile ? "bg-royal/10 text-royal" : "bg-river-stone/10 text-river-stone"}
           `}
         >
           {hasFile ? (
@@ -119,7 +119,7 @@ function DocumentRow({
               e.stopPropagation();
               onViewReport();
             }}
-            className="text-spruce hover:bg-spruce/10"
+            className="text-royal hover:bg-royal/10"
           >
             <Sparkles className="w-4 h-4 mr-1" />
             <span className="hidden sm:inline">AI Report</span>

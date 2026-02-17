@@ -71,15 +71,15 @@ const TEAM_MEMBERS: TeamMember[] = [
 ];
 
 const roleBadgeColors: Record<Role, string> = {
-  Closer: "text-spruce bg-spruce/10",
+  Closer: "text-royal bg-royal/10",
   Processor: "text-sea-glass bg-sea-glass/10",
-  Admin: "text-amber-600 bg-amber-50",
+  Admin: "text-amber-400 bg-amber/10",
 };
 
 // ── Performance Helpers ─────────────────────────────────────────────
 function getOnTimeColor(rate: number): string {
   if (rate >= 95) return "text-fern";
-  if (rate >= 90) return "text-amber-600";
+  if (rate >= 90) return "text-amber-400";
   return "text-signal-red";
 }
 
@@ -124,7 +124,7 @@ export default function TeamPage() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <Card variant="default" padding="md">
             <div className="flex items-center gap-2 mb-1">
-              <FileText className="w-4 h-4 text-spruce" />
+              <FileText className="w-4 h-4 text-royal" />
               <p className="text-xs font-semibold uppercase tracking-wider text-[var(--text-tertiary)]">
                 Total Active
               </p>

@@ -28,11 +28,11 @@ const ACTION_ICONS: Record<string, React.ComponentType<{ className?: string }>> 
 
 const STATUS_STYLES: Record<string, { bg: string; text: string; label: string }> = {
   completed: { bg: "bg-fern/10", text: "text-fern", label: "Done" },
-  action_required: { bg: "bg-amber-50", text: "text-amber-700", label: "Action Required" },
+  action_required: { bg: "bg-amber-500/15", text: "text-amber-400", label: "Action Required" },
   not_started: { bg: "bg-[var(--bg-elevation1)]", text: "text-[var(--text-tertiary)]", label: "Upcoming" },
   locked: { bg: "bg-[var(--bg-elevation1)]", text: "text-[var(--text-disabled)]", label: "Locked" },
   overdue: { bg: "bg-signal-red/10", text: "text-signal-red", label: "Overdue" },
-  in_review: { bg: "bg-sea-glass/10", text: "text-sea-glass-700", label: "In Review" },
+  in_review: { bg: "bg-sea-glass/10", text: "text-sea-glass-400", label: "In Review" },
 };
 
 export interface AgentTaskTrackerProps {
@@ -68,7 +68,7 @@ export default function AgentTaskTracker({ side }: AgentTaskTrackerProps) {
             onClick={() => setFilter(opt.id)}
             className={`px-3 py-1.5 text-sm font-medium rounded-lg transition-colors ${
               filter === opt.id
-                ? "bg-spruce text-white"
+                ? "bg-royal text-white"
                 : "bg-[var(--bg-elevation1)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
             }`}
           >

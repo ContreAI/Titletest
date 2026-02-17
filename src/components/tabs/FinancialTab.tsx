@@ -50,7 +50,7 @@ export default function FinancialTab({ transaction, side }: FinancialTabProps) {
       {/* Header */}
       <div>
         <h1 className="text-xl font-semibold text-storm-gray flex items-center gap-2">
-          <DollarSign className="w-5 h-5 text-spruce" />
+          <DollarSign className="w-5 h-5 text-royal" />
           Financial Documents
         </h1>
         <p className="text-sm text-river-stone mt-1">
@@ -60,9 +60,9 @@ export default function FinancialTab({ transaction, side }: FinancialTabProps) {
 
       {/* Loan Status Banner */}
       {loanAmount && (
-        <Card className="border-l-4 border-l-blue-500 bg-blue-50/50">
+        <Card className="border-l-4 border-l-royal bg-royal/10">
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-full bg-blue-100 text-blue-700">
+            <div className="p-2 rounded-full bg-royal/15 text-royal-300">
               <Landmark className="w-5 h-5" />
             </div>
             <div className="flex-1">
@@ -82,7 +82,7 @@ export default function FinancialTab({ transaction, side }: FinancialTabProps) {
       <Card>
         <CardHeader title="Transaction Summary" />
         <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="p-3 rounded-lg bg-mist">
+          <div className="p-3 rounded-lg bg-black/[0.04]">
             <div className="text-xs text-river-stone uppercase tracking-wide">
               Purchase Price
             </div>
@@ -91,7 +91,7 @@ export default function FinancialTab({ transaction, side }: FinancialTabProps) {
             </div>
           </div>
           {loanAmount && (
-            <div className="p-3 rounded-lg bg-mist">
+            <div className="p-3 rounded-lg bg-black/[0.04]">
               <div className="text-xs text-river-stone uppercase tracking-wide">
                 Loan Amount
               </div>
@@ -101,7 +101,7 @@ export default function FinancialTab({ transaction, side }: FinancialTabProps) {
             </div>
           )}
           {downPayment && (
-            <div className="p-3 rounded-lg bg-mist">
+            <div className="p-3 rounded-lg bg-black/[0.04]">
               <div className="text-xs text-river-stone uppercase tracking-wide">
                 Down Payment
               </div>
@@ -110,7 +110,7 @@ export default function FinancialTab({ transaction, side }: FinancialTabProps) {
               </div>
             </div>
           )}
-          <div className="p-3 rounded-lg bg-mist">
+          <div className="p-3 rounded-lg bg-black/[0.04]">
             <div className="text-xs text-river-stone uppercase tracking-wide">
               Earnest Money
             </div>

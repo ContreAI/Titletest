@@ -77,7 +77,7 @@ export default function AlertRibbon({
         ${
           critical
             ? "bg-signal-red/10 border-signal-red/30 text-signal-red"
-            : "bg-amber/10 border-amber/30 text-amber-700 dark:text-amber-400"
+            : "bg-amber/10 border-amber/30 text-amber-400"
         }
       `}
     >
@@ -108,7 +108,7 @@ export default function AlertRibbon({
                     ${
                       critical
                         ? "bg-signal-red/20 text-signal-red"
-                        : "bg-amber/20 text-amber-700 dark:text-amber-400"
+                        : "bg-amber/20 text-amber-400"
                     }
                   `}
                 >
@@ -127,7 +127,7 @@ export default function AlertRibbon({
                     ${
                       critical
                         ? "text-signal-red hover:bg-signal-red/10"
-                        : "text-amber-700 dark:text-amber-400 hover:bg-amber/10"
+                        : "text-amber-400 hover:bg-amber/10"
                     }
                   `}
                 >
@@ -155,7 +155,7 @@ export default function AlertRibbon({
           ${
             critical
               ? "hover:bg-signal-red/20 text-signal-red"
-              : "hover:bg-amber/20 text-amber-700 dark:text-amber-400"
+              : "hover:bg-amber/20 text-amber-400"
           }
         `}
       >

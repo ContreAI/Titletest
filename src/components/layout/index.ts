@@ -9,3 +9,5 @@ export type { TabNavigationProps, TabConfig } from "./TabNavigation";
 
 export { default as PageContainer } from "./PageContainer";
 export type { PageContainerProps } from "./PageContainer";
+
+export { default as AmbientBackground } from "./AmbientBackground";

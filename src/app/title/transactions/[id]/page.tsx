@@ -93,7 +93,7 @@ export default function TitleTransactionDetailPage() {
           </p>
           <Link
             href="/title/transactions"
-            className="text-spruce hover:underline mt-2 inline-block"
+            className="text-royal hover:underline mt-2 inline-block"
           >
             Back to transactions
           </Link>
@@ -170,7 +170,7 @@ export default function TitleTransactionDetailPage() {
         {/* Back */}
         <Link
           href="/title/transactions"
-          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-spruce transition-colors"
+          className="inline-flex items-center gap-2 text-sm text-[var(--text-secondary)] hover:text-royal transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Transactions
@@ -209,7 +209,7 @@ export default function TitleTransactionDetailPage() {
             {/* Agent Portal Links */}
             <Card>
               <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-                <Users className="w-5 h-5 text-spruce" />
+                <Users className="w-5 h-5 text-royal" />
                 Agent Portal Links
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -237,7 +237,7 @@ export default function TitleTransactionDetailPage() {
             {/* Document Upload Zones */}
             <Card>
               <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-spruce" />
+                <FileText className="w-5 h-5 text-royal" />
                 Upload Documents
               </h2>
               <div className="space-y-4">
@@ -279,7 +279,7 @@ export default function TitleTransactionDetailPage() {
           <div className="space-y-6">
             <Card>
               <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-                <Zap className="w-5 h-5 text-sea-glass-700" />
+                <Zap className="w-5 h-5 text-sea-glass-400" />
                 Automation Log
               </h2>
               <AutomationLog events={automationEvents} />
@@ -316,7 +316,7 @@ function AgentLinkCard({
       <div className="flex items-center justify-between mb-2">
         <span
           className={`text-xs font-semibold uppercase tracking-wide ${
-            side === "buyer" ? "text-spruce" : "text-signal-red"
+            side === "buyer" ? "text-royal" : "text-signal-red"
           }`}
         >
           {side}'s Agent
@@ -331,7 +331,7 @@ function AgentLinkCard({
       <div className="flex items-center gap-2 mt-3">
         <Link
           href={`/tx/${transactionId}/agent/${side}`}
-          className="text-xs text-spruce hover:underline flex items-center gap-1"
+          className="text-xs text-royal hover:underline flex items-center gap-1"
         >
           <ExternalLink className="w-3 h-3" />
           Open Portal

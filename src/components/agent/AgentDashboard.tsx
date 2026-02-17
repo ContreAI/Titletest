@@ -107,7 +107,7 @@ export default function AgentDashboard({
           label="Action Required"
           value={taskStats.actionRequired}
           icon={AlertTriangle}
-          color="text-amber-600"
+          color="text-amber-400"
         />
         <StatCard
           label="Days to Close"
@@ -119,13 +119,13 @@ export default function AgentDashboard({
             )
           )}
           icon={Calendar}
-          color="text-spruce"
+          color="text-royal"
         />
         <StatCard
           label="Documents"
           value={isBuyer ? 8 : 5}
           icon={FileText}
-          color="text-sea-glass-700"
+          color="text-sea-glass-400"
         />
       </div>
 
@@ -134,7 +134,7 @@ export default function AgentDashboard({
         <div className="lg:col-span-2 space-y-6">
           <Card>
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-              <Clock className="w-5 h-5 text-amber-600" />
+              <Clock className="w-5 h-5 text-amber-400" />
               Next Actions Required
             </h2>
             <div className="space-y-3">
@@ -143,8 +143,8 @@ export default function AgentDashboard({
                   key={i}
                   className="flex items-center gap-3 p-3 rounded-lg bg-[var(--bg-elevation1)] hover:bg-[var(--bg-elevation2)] transition-colors cursor-pointer"
                 >
-                  <div className="w-10 h-10 rounded-lg bg-amber-50 flex items-center justify-center flex-shrink-0">
-                    <AlertTriangle className="w-4 h-4 text-amber-700" />
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/15 flex items-center justify-center flex-shrink-0">
+                    <AlertTriangle className="w-4 h-4 text-amber-400" />
                   </div>
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium text-[var(--text-primary)]">
@@ -172,7 +172,7 @@ export default function AgentDashboard({
         <div className="space-y-6">
           <Card>
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-              <Zap className="w-5 h-5 text-sea-glass-700" />
+              <Zap className="w-5 h-5 text-sea-glass-400" />
               Recent Activity
             </h2>
             <div className="space-y-3">
@@ -181,7 +181,7 @@ export default function AgentDashboard({
                   {item.status === "completed" ? (
                     <CheckCircle2 className="w-4 h-4 text-fern flex-shrink-0 mt-0.5" />
                   ) : (
-                    <Clock className="w-4 h-4 text-amber-500 flex-shrink-0 mt-0.5" />
+                    <Clock className="w-4 h-4 text-amber-400 flex-shrink-0 mt-0.5" />
                   )}
                   <div>
                     <p className="text-sm text-[var(--text-primary)]">
@@ -199,7 +199,7 @@ export default function AgentDashboard({
           {/* Key Dates */}
           <Card>
             <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-spruce" />
+              <Calendar className="w-5 h-5 text-royal" />
               Key Dates
             </h2>
             <div className="space-y-2">

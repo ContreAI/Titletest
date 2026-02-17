@@ -24,11 +24,11 @@ const Card = forwardRef<HTMLDivElement, CardProps>(
     const baseStyles = "rounded-lg";
 
     const variants = {
-      default: "bg-paper border border-divider",
-      elevated: "bg-paper shadow-[var(--shadow-1)]",
-      outlined: "bg-transparent border border-border-medium",
-      glass: "glass rounded-lg",
-      interactive: "bg-paper border border-divider card-hover cursor-pointer",
+      default: "glass border border-[var(--glass-border)]",
+      elevated: "glass-strong shadow-[var(--shadow-2)]",
+      outlined: "bg-transparent border border-[var(--glass-border-strong)]",
+      glass: "glass glass-noise rounded-lg",
+      interactive: "glass border border-[var(--glass-border)] glass-card-hover cursor-pointer",
     };
 
     // Padding matching ui-main: cardPaddingSm=16px (p-4), cardPadding=24px (p-6)

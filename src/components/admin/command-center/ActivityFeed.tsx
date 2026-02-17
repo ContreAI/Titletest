@@ -60,8 +60,8 @@ const TYPE_CONFIG: Record<
   },
   stage_change: {
     icon: ArrowRightLeft,
-    iconColor: "text-spruce",
-    bgColor: "bg-spruce/10",
+    iconColor: "text-royal",
+    bgColor: "bg-royal/10",
   },
   signing_scheduled: {
     icon: PenTool,
@@ -70,7 +70,7 @@ const TYPE_CONFIG: Record<
   },
   new_transaction: {
     icon: FolderPlus,
-    iconColor: "text-amber-600 dark:text-amber-400",
+    iconColor: "text-amber-400",
     bgColor: "bg-amber/10",
   },
   message: {

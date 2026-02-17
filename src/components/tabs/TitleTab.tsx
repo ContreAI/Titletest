@@ -62,7 +62,7 @@ export default function TitleTab({ transaction, side }: TitleTabProps) {
       {/* Header */}
       <div>
         <h1 className="text-xl font-semibold text-storm-gray flex items-center gap-2">
-          <Building2 className="w-5 h-5 text-spruce" />
+          <Building2 className="w-5 h-5 text-royal" />
           Title Documents
         </h1>
         <p className="text-sm text-river-stone mt-1">
@@ -71,9 +71,9 @@ export default function TitleTab({ transaction, side }: TitleTabProps) {
       </div>
 
       {/* Title Status Banner */}
-      <Card className="border-l-4 border-l-spruce bg-spruce/5">
+      <Card className="border-l-4 border-l-royal bg-royal/5">
         <div className="flex items-start gap-3">
-          <div className="p-2 rounded-full bg-spruce/10 text-spruce">
+          <div className="p-2 rounded-full bg-royal/10 text-royal">
             <Building2 className="w-5 h-5" />
           </div>
           <div className="flex-1">
@@ -107,7 +107,7 @@ export default function TitleTab({ transaction, side }: TitleTabProps) {
             {titleExceptions.map((exception) => (
               <div
                 key={exception.id}
-                className="flex items-start gap-3 p-3 rounded-lg bg-mist"
+                className="flex items-start gap-3 p-3 rounded-lg bg-black/[0.04]"
               >
                 <div
                   className={`

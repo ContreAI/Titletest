@@ -50,9 +50,9 @@ export function AdminHeader({
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="
                   w-full pl-10 pr-4 py-2
-                  bg-mist border border-border rounded-lg
+                  bg-black/[0.04] border border-border rounded-lg
                   text-sm text-storm-gray placeholder:text-river-stone
-                  focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce
+                  focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal
                   transition-colors
                 "
               />
@@ -76,7 +76,7 @@ export function AdminHeader({
               onClick={() => setShowNotifications(!showNotifications)}
               className="
                 relative p-2 rounded-lg
-                text-river-stone hover:text-storm-gray hover:bg-mist
+                text-river-stone hover:text-storm-gray hover:bg-black/[0.04]
                 transition-colors
               "
               title="Notifications"
@@ -130,7 +130,7 @@ export function AdminHeader({
                   <div className="px-4 py-2 border-t border-border">
                     <Link
                       href="/admin/notifications"
-                      className="text-sm text-spruce hover:underline"
+                      className="text-sm text-royal hover:underline"
                     >
                       View all notifications
                     </Link>
@@ -170,13 +170,13 @@ function NotificationItem({
     <div
       className={`
         px-4 py-3 border-b border-border last:border-b-0
-        hover:bg-mist/50 cursor-pointer transition-colors
+        hover:bg-black/[0.04] cursor-pointer transition-colors
         ${unread ? "bg-sea-glass/10" : ""}
       `}
     >
       <div className="flex items-start gap-3">
         {unread && (
-          <span className="w-2 h-2 bg-spruce rounded-full mt-1.5 flex-shrink-0" />
+          <span className="w-2 h-2 bg-royal rounded-full mt-1.5 flex-shrink-0" />
         )}
         <div className={unread ? "" : "pl-5"}>
           <p className="text-sm font-medium text-storm-gray">{title}</p>

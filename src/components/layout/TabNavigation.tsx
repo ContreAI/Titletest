@@ -80,7 +80,7 @@ export default function TabNavigation({
   }, [updateIndicator]);
 
   return (
-    <nav className="bg-paper border-b border-divider">
+    <nav className="glass-nav">
       {/* Mobile Navigation */}
       <div className="md:hidden">
         <div className="px-4 py-2">
@@ -94,7 +94,7 @@ export default function TabNavigation({
               {activeTabConfig?.icon}
               <span className="font-medium">{activeTabConfig?.label}</span>
               {getBadgeCount(activeTab) > 0 && (
-                <span className="px-1.5 py-0.5 text-xs font-medium rounded-full bg-spruce text-white">
+                <span className="px-1.5 py-0.5 text-xs font-medium rounded-full bg-royal text-white">
                   {getBadgeCount(activeTab)}
                 </span>
               )}
@@ -119,7 +119,7 @@ export default function TabNavigation({
             />
             <div
               id="mobile-menu"
-              className="absolute left-0 right-0 bg-paper border-b border-divider shadow-[var(--shadow-2)] z-20"
+              className="absolute left-0 right-0 glass-strong border-b border-[var(--glass-border)] shadow-[var(--shadow-2)] z-20"
             >
               {tabs.map((tab) => {
                 const isActive = activeTab === tab.id;
@@ -135,7 +135,7 @@ export default function TabNavigation({
                       transition-all duration-200 min-h-[48px]
                       ${
                         isActive
-                          ? "bg-spruce/5 text-spruce border-l-3 border-spruce"
+                          ? "bg-royal/5 text-royal border-l-3 border-royal"
                           : "text-[var(--text-tertiary)] hover:bg-elevation1 hover:text-[var(--text-primary)] border-l-3 border-transparent"
                       }
                     `}
@@ -145,7 +145,7 @@ export default function TabNavigation({
                     <span className="font-medium">{tab.label}</span>
 
                     {badgeCount > 0 && (
-                      <span className="ml-auto px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-spruce text-white min-w-[20px] text-center">
+                      <span className="ml-auto px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-royal text-white min-w-[20px] text-center">
                         {badgeCount}
                       </span>
                     )}
@@ -166,7 +166,7 @@ export default function TabNavigation({
         <div ref={containerRef} className="relative flex overflow-x-auto scrollbar-hide -mb-px">
           {/* Sliding indicator pill */}
           <div
-            className="absolute bottom-0 h-0.5 bg-spruce rounded-full transition-all duration-300 ease-out"
+            className="absolute bottom-0 h-0.5 bg-royal rounded-full transition-all duration-300 ease-out"
             style={{
               left: `${indicatorStyle.left}px`,
               width: `${indicatorStyle.width}px`,
@@ -191,7 +191,7 @@ export default function TabNavigation({
                   transition-colors duration-200
                   ${
                     isActive
-                      ? "text-spruce"
+                      ? "text-royal"
                       : "text-[var(--text-tertiary)] hover:text-[var(--text-primary)]"
                   }
                 `}
@@ -204,7 +204,7 @@ export default function TabNavigation({
                 {badgeCount > 0 && (
                   <span className={`ml-1 px-1.5 py-0.5 text-[10px] font-semibold rounded-full min-w-[18px] text-center ${
                     isActive
-                      ? 'bg-spruce text-white'
+                      ? 'bg-royal text-white'
                       : 'bg-elevation2 text-[var(--text-tertiary)]'
                   }`}>
                     {badgeCount}

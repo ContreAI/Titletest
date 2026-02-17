@@ -52,12 +52,12 @@ const PRIORITY_CONFIG: Record<
   overdue: {
     label: "Overdue",
     icon: Clock,
-    pillClass: "bg-amber/10 text-amber-700 dark:text-amber-400",
+    pillClass: "bg-amber/10 text-amber-400",
   },
   due_today: {
     label: "Due Today",
     icon: CalendarClock,
-    pillClass: "bg-sea-glass/20 text-sea-glass-700 dark:text-sea-glass",
+    pillClass: "bg-sea-glass/20 text-sea-glass-400",
   },
 };
 
@@ -221,7 +221,7 @@ export default function FireList({ transactions, onGoClick }: FireListProps) {
                 className="
                   flex-shrink-0 inline-flex items-center gap-1
                   px-2.5 py-1 rounded-md text-xs font-semibold
-                  text-spruce hover:bg-spruce/10
+                  text-royal hover:bg-royal/10
                   transition-all duration-150
                   active:scale-[0.97]
                 "
@@ -240,8 +240,8 @@ export default function FireList({ transactions, onGoClick }: FireListProps) {
           onClick={() => setExpanded(true)}
           className="
             mt-3 w-full flex items-center justify-center gap-1
-            text-xs font-semibold text-spruce
-            hover:text-spruce-600 transition-colors duration-150
+            text-xs font-semibold text-royal
+            hover:text-royal-300 transition-colors duration-150
             py-2
           "
         >

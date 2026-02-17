@@ -48,7 +48,7 @@ export function ListView({ transactions }: ListViewProps) {
             <th className="text-left py-3 px-4">
               <button
                 onClick={() => handleSort("property")}
-                className="flex items-center gap-1 text-sm font-semibold text-storm-gray hover:text-spruce"
+                className="flex items-center gap-1 text-sm font-semibold text-storm-gray hover:text-royal"
               >
                 Property
                 <SortIcon column="property" />
@@ -69,7 +69,7 @@ export function ListView({ transactions }: ListViewProps) {
             <th className="text-left py-3 px-4">
               <button
                 onClick={() => handleSort("closing_date")}
-                className="flex items-center gap-1 text-sm font-semibold text-storm-gray hover:text-spruce"
+                className="flex items-center gap-1 text-sm font-semibold text-storm-gray hover:text-royal"
               >
                 Closing
                 <SortIcon column="closing_date" />
@@ -95,8 +95,8 @@ export function ListView({ transactions }: ListViewProps) {
                 key={tx.id}
                 className={`
                   border-b border-border
-                  hover:bg-mist/50 transition-colors
-                  ${index % 2 === 0 ? "bg-paper" : "bg-mist/20"}
+                  hover:bg-black/[0.04] transition-colors
+                  ${index % 2 === 0 ? "bg-paper" : "bg-black/[0.04]"}
                 `}
                 onMouseEnter={() => setHoveredRow(tx.id)}
                 onMouseLeave={() => setHoveredRow(null)}
@@ -105,7 +105,7 @@ export function ListView({ transactions }: ListViewProps) {
                 <td className="py-3 px-4">
                   <Link
                     href={`/admin/transactions/${tx.id}`}
-                    className="hover:text-spruce"
+                    className="hover:text-royal"
                   >
                     <div className="font-medium text-storm-gray">
                       {tx.property.address}
@@ -188,7 +188,7 @@ export function ListView({ transactions }: ListViewProps) {
                     <FileText className="w-4 h-4" />
                     <span>{tx.documentCount}</span>
                     {tx.unreadMessageCount > 0 && (
-                      <span className="flex items-center gap-1 text-spruce">
+                      <span className="flex items-center gap-1 text-royal">
                         <MessageSquare className="w-4 h-4" />
                         {tx.unreadMessageCount}
                       </span>
@@ -201,7 +201,7 @@ export function ListView({ transactions }: ListViewProps) {
                   <button
                     className={`
                       p-1.5 rounded-lg text-river-stone
-                      hover:bg-mist hover:text-storm-gray
+                      hover:bg-black/[0.04] hover:text-storm-gray
                       transition-opacity duration-150
                       ${hoveredRow === tx.id ? "opacity-100" : "opacity-0"}
                     `}
@@ -231,10 +231,10 @@ function StatusBadge({ stage }: { stage: AdminTransaction["pipelineStage"] }) {
     new_pending: "bg-amber/20 text-amber",
     title_work: "bg-river-stone/20 text-river-stone",
     clear_to_close: "bg-sea-glass/30 text-storm-gray",
-    scheduled: "bg-spruce/20 text-spruce",
+    scheduled: "bg-royal/20 text-royal",
     closed: "bg-fern/20 text-fern",
     cancelled: "bg-signal-red/20 text-signal-red",
-    on_hold: "bg-storm-gray/20 text-storm-gray",
+    on_hold: "bg-black/[0.06] text-[var(--text-secondary)]",
   };
 
   return (

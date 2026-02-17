@@ -30,7 +30,7 @@ const typeIcons = {
 };
 
 const statusConfig = {
-  sent: { label: "Sent", color: "text-amber-600 bg-amber-50" },
+  sent: { label: "Sent", color: "text-amber-400 bg-amber/10" },
   delivered: { label: "Delivered", color: "text-sea-glass bg-sea-glass/10" },
   read: { label: "Read", color: "text-fern bg-fern/10" },
   failed: { label: "Failed", color: "text-signal-red bg-signal-red/10" },

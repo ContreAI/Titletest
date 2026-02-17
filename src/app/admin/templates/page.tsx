@@ -31,9 +31,9 @@ const TIMELINE_TEMPLATES: TimelineTemplate[] = [
 ];
 
 const typeColors: Record<TimelineTemplate["type"], string> = {
-  purchase: "text-spruce bg-spruce/10",
+  purchase: "text-royal bg-royal/10",
   refinance: "text-sea-glass bg-sea-glass/10",
-  commercial: "text-amber-600 bg-amber-50",
+  commercial: "text-amber-400 bg-amber/10",
 };
 
 // ── Message Templates ───────────────────────────────────────────────
@@ -57,8 +57,8 @@ const MESSAGE_TEMPLATES: MessageTemplate[] = [
 ];
 
 const categoryColors: Record<Category, string> = {
-  welcome: "text-spruce bg-spruce/10",
-  reminder: "text-amber-600 bg-amber-50",
+  welcome: "text-royal bg-royal/10",
+  reminder: "text-amber-400 bg-amber/10",
   closing: "text-sea-glass bg-sea-glass/10",
   "post-closing": "text-fern bg-fern/10",
 };

@@ -166,7 +166,7 @@ export default function ClosingCalendarStrip({
               border
               ${
                 d.isToday
-                  ? "ring-2 ring-spruce ring-offset-1 ring-offset-[var(--bg-paper)] border-spruce bg-spruce/5"
+                  ? "ring-2 ring-royal ring-offset-1 ring-offset-[var(--bg-paper)] border-royal bg-royal/5"
                   : d.hasTRIDRisk
                     ? "bg-amber/10 border-amber/40"
                     : d.isWeekend
@@ -182,9 +182,9 @@ export default function ClosingCalendarStrip({
                 text-[10px] font-semibold uppercase tracking-wide
                 ${
                   d.isToday
-                    ? "text-spruce"
+                    ? "text-royal"
                     : d.hasTRIDRisk
-                      ? "text-amber-600 dark:text-amber-400"
+                      ? "text-amber-400"
                       : "text-[var(--text-tertiary)]"
                 }
               `}
@@ -199,9 +199,9 @@ export default function ClosingCalendarStrip({
                 font-[family-name:var(--font-mono)]
                 ${
                   d.isToday
-                    ? "text-spruce"
+                    ? "text-royal"
                     : d.hasTRIDRisk
-                      ? "text-amber-700 dark:text-amber-300"
+                      ? "text-amber-400"
                       : "text-[var(--text-primary)]"
                 }
               `}
@@ -223,7 +223,7 @@ export default function ClosingCalendarStrip({
                           ${
                             d.hasTRIDRisk
                               ? "bg-amber-500"
-                              : "bg-spruce"
+                              : "bg-royal"
                           }
                         `}
                       />
@@ -233,7 +233,7 @@ export default function ClosingCalendarStrip({
                       <span
                         className={`
                           w-1.5 h-1.5 rounded-full
-                          ${d.hasTRIDRisk ? "bg-amber-500" : "bg-spruce"}
+                          ${d.hasTRIDRisk ? "bg-amber-500" : "bg-royal"}
                         `}
                       />
                       <span
@@ -242,8 +242,8 @@ export default function ClosingCalendarStrip({
                           font-[family-name:var(--font-mono)]
                           ${
                             d.hasTRIDRisk
-                              ? "text-amber-600 dark:text-amber-400"
-                              : "text-spruce"
+                              ? "text-amber-400"
+                              : "text-royal"
                           }
                         `}
                       >

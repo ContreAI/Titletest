@@ -66,7 +66,7 @@ export function AdminSidebar() {
     <aside
       className={`
         flex flex-col h-screen sticky top-0
-        bg-storm-gray/95 backdrop-blur-xl
+        bg-[rgba(15,20,28,0.92)] backdrop-blur-xl
         border-r border-white/[0.06]
         transition-all duration-300 ease-in-out
         ${collapsed ? "w-16" : "w-64"}
@@ -74,9 +74,9 @@ export function AdminSidebar() {
     >
       {/* Brand area — gradient wash */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-spruce/30 via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-royal/30 via-transparent to-transparent" />
         <div className="relative flex items-center gap-3 px-4 py-5 border-b border-white/[0.08]">
-          <div className="w-8 h-8 bg-spruce rounded-lg flex items-center justify-center flex-shrink-0 shadow-[0_2px_8px_rgba(60,90,60,0.4)]">
+          <div className="w-8 h-8 bg-royal rounded-lg flex items-center justify-center flex-shrink-0 shadow-[0_2px_8px_rgba(60,90,60,0.4)]">
             <Building2 className="w-5 h-5 text-white" />
           </div>
           {!collapsed && (
@@ -122,7 +122,7 @@ export function AdminSidebar() {
                   transition-all duration-200 ease-out
                   ${
                     isActive(item.href)
-                      ? "bg-white/[0.12] text-white border-l-2 border-spruce shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                      ? "bg-white/[0.12] text-white border-l-2 border-royal shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
                       : "text-white/60 hover:bg-white/[0.08] hover:text-white border-l-2 border-transparent"
                   }
                   ${collapsed ? "justify-center !border-l-0" : ""}
@@ -130,7 +130,7 @@ export function AdminSidebar() {
                 title={collapsed ? item.label : undefined}
               >
                 <item.icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-200 ${
-                  isActive(item.href) ? 'text-spruce-300' : ''
+                  isActive(item.href) ? 'text-royal-300' : ''
                 }`} />
                 {!collapsed && (
                   <>
@@ -164,7 +164,7 @@ export function AdminSidebar() {
                   transition-all duration-200 ease-out
                   ${
                     isActive(item.href)
-                      ? "bg-white/[0.12] text-white border-l-2 border-spruce shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                      ? "bg-white/[0.12] text-white border-l-2 border-royal shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
                       : "text-white/60 hover:bg-white/[0.08] hover:text-white border-l-2 border-transparent"
                   }
                   ${collapsed ? "justify-center !border-l-0" : ""}
@@ -172,7 +172,7 @@ export function AdminSidebar() {
                 title={collapsed ? item.label : undefined}
               >
                 <item.icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-200 ${
-                  isActive(item.href) ? 'text-spruce-300' : ''
+                  isActive(item.href) ? 'text-royal-300' : ''
                 }`} />
                 {!collapsed && (
                   <>
@@ -206,7 +206,7 @@ export function AdminSidebar() {
                   transition-all duration-200 ease-out
                   ${
                     isActive(item.href)
-                      ? "bg-white/[0.12] text-white border-l-2 border-spruce shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
+                      ? "bg-white/[0.12] text-white border-l-2 border-royal shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]"
                       : "text-white/60 hover:bg-white/[0.08] hover:text-white border-l-2 border-transparent"
                   }
                   ${collapsed ? "justify-center !border-l-0" : ""}
@@ -214,7 +214,7 @@ export function AdminSidebar() {
                 title={collapsed ? item.label : undefined}
               >
                 <item.icon className={`w-5 h-5 flex-shrink-0 transition-colors duration-200 ${
-                  isActive(item.href) ? 'text-spruce-300' : ''
+                  isActive(item.href) ? 'text-royal-300' : ''
                 }`} />
                 {!collapsed && <span className="truncate text-sm font-medium">{item.label}</span>}
               </Link>
@@ -260,8 +260,8 @@ export function AdminSidebar() {
             ${collapsed ? "justify-center" : ""}
           `}
         >
-          <div className="w-8 h-8 bg-gradient-to-br from-sea-glass to-spruce-300 rounded-full flex items-center justify-center flex-shrink-0 shadow-[0_1px_4px_rgba(0,0,0,0.2)]">
-            <span className="text-xs font-semibold text-storm-gray">ED</span>
+          <div className="w-8 h-8 bg-gradient-to-br from-sea-glass to-royal-300 rounded-full flex items-center justify-center flex-shrink-0 shadow-[0_1px_4px_rgba(0,0,0,0.2)]">
+            <span className="text-xs font-semibold text-white">ED</span>
           </div>
           {!collapsed && (
             <div className="flex-1 min-w-0">

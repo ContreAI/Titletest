@@ -28,7 +28,7 @@ const IconButton = forwardRef<HTMLButtonElement, IconButtonProps>(
       default:
         "text-river-stone hover:text-storm-gray hover:bg-sea-glass/20 focus-visible:ring-sea-glass",
       ghost:
-        "text-storm-gray/60 hover:text-storm-gray hover:bg-mist focus-visible:ring-sea-glass",
+        "text-storm-gray/60 hover:text-storm-gray hover:bg-black/[0.04] focus-visible:ring-sea-glass",
       danger:
         "text-river-stone hover:text-signal-red hover:bg-signal-red/10 focus-visible:ring-signal-red",
     };

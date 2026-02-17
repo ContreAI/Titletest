@@ -40,8 +40,8 @@ export default function SettingsPage() {
           {SETTING_SECTIONS.map((section) => (
             <Card key={section.title} variant="default" padding="md">
               <div className="flex items-start gap-4">
-                <div className="w-10 h-10 rounded-lg bg-spruce/10 flex items-center justify-center flex-shrink-0">
-                  <section.icon className="w-5 h-5 text-spruce" />
+                <div className="w-10 h-10 rounded-lg bg-royal/10 flex items-center justify-center flex-shrink-0">
+                  <section.icon className="w-5 h-5 text-royal" />
                 </div>
                 <div className="flex-1">
                   <h3 className="text-sm font-semibold text-[var(--text-primary)] mb-1">
@@ -50,7 +50,7 @@ export default function SettingsPage() {
                   <p className="text-xs text-[var(--text-tertiary)]">
                     {section.description}
                   </p>
-                  <button className="mt-3 text-xs font-medium text-spruce hover:text-spruce-700 transition-colors">
+                  <button className="mt-3 text-xs font-medium text-royal hover:text-royal-300 transition-colors">
                     Configure
                   </button>
                 </div>

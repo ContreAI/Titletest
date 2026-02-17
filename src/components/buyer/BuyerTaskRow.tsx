@@ -44,8 +44,8 @@ function StatusIcon({ status }: { status: TransactionTask["status"] }) {
     case "action_required":
       return (
         <div className="relative flex-shrink-0">
-          <Circle className="w-5 h-5 text-spruce" />
-          <span className="absolute top-0 right-0 w-2 h-2 bg-spruce rounded-full animate-pulse" />
+          <Circle className="w-5 h-5 text-royal" />
+          <span className="absolute top-0 right-0 w-2 h-2 bg-royal rounded-full animate-pulse" />
         </div>
       );
     case "overdue":
@@ -62,9 +62,9 @@ function StatusIcon({ status }: { status: TransactionTask["status"] }) {
 function getRowStyles(status: TransactionTask["status"]): string {
   switch (status) {
     case "overdue":
-      return "bg-signal-red-50/50 border-l-[3px] border-l-signal-red";
+      return "bg-signal-red/10 border-l-[3px] border-l-signal-red";
     case "action_required":
-      return "bg-paper hover:bg-elevation1 border-l-[3px] border-l-spruce";
+      return "bg-paper hover:bg-elevation1 border-l-[3px] border-l-royal";
     case "in_review":
       return "bg-paper hover:bg-elevation1 border-l-[3px] border-l-sea-glass";
     case "completed":
@@ -125,7 +125,7 @@ export default function BuyerTaskRow({
                 <span key={depId}>
                   {i > 0 && " + "}
                   <button
-                    className="underline hover:text-spruce transition-colors"
+                    className="underline hover:text-royal transition-colors"
                     onClick={() => onDependencyClick?.(depId)}
                   >
                     {dependencyLabels[depId] || depId}

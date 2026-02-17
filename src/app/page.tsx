@@ -12,6 +12,7 @@ import {
   Zap,
 } from "lucide-react";
 import { mockTitleCompany, mockTransaction } from "@/data/mockData";
+import { AmbientBackground } from "@/components/layout";
 
 export default function Home() {
   const titleCompany = mockTitleCompany;
@@ -19,9 +20,10 @@ export default function Home() {
   const fullAddress = `${transaction.property.address}, ${transaction.property.city}, ${transaction.property.state} ${transaction.property.zip}`;
 
   return (
-    <div className="min-h-screen bg-mist flex flex-col">
+    <div className="min-h-screen bg-transparent flex flex-col relative">
+      <AmbientBackground persona="landing" />
       {/* Header */}
-      <header className="bg-paper border-b border-divider py-4 px-6">
+      <header className="glass-nav py-4 px-6 relative z-10">
         <div className="max-w-3xl mx-auto flex items-center justify-center">
           <Image
             src={titleCompany.logo}
@@ -34,12 +36,12 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center p-4">
+      <main className="flex-1 flex items-center justify-center p-4 relative z-10">
         <div className="w-full max-w-3xl">
           {/* Hero */}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-semibold text-[var(--text-primary)]">
-              Contitle Portal
+              Kootenai Title Portal
             </h1>
             <p className="text-[var(--text-secondary)] mt-2">
               Automation-driven real estate transaction management
@@ -50,9 +52,9 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {/* Title Company */}
             <Link href="/title" className="group block">
-              <div className="h-full bg-paper rounded-xl border-2 border-divider hover:border-spruce p-6 transition-all hover:-translate-y-0.5 hover:shadow-[var(--shadow-2)]">
+              <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6 transition-all glass-card-hover">
                 <div className="flex flex-col items-center text-center">
-                  <div className="p-3 rounded-full bg-spruce/10 text-spruce mb-4 group-hover:bg-spruce group-hover:text-white transition-colors">
+                  <div className="p-3 rounded-full bg-royal/10 text-royal mb-4 group-hover:bg-royal group-hover:text-white transition-colors">
                     <Building2 className="w-7 h-7" />
                   </div>
                   <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-1">
@@ -69,7 +71,7 @@ export default function Home() {
                       <Zap className="w-3 h-3" /> Automate
                     </span>
                   </div>
-                  <div className="flex items-center gap-1 text-spruce text-sm font-medium mt-4 group-hover:gap-2 transition-all">
+                  <div className="flex items-center gap-1 text-royal text-sm font-medium mt-4 group-hover:gap-2 transition-all">
                     <span>Open Dashboard</span>
                     <ArrowRight className="w-4 h-4" />
                   </div>
@@ -78,9 +80,9 @@ export default function Home() {
             </Link>
 
             {/* Agent Portal */}
-            <div className="h-full bg-paper rounded-xl border-2 border-divider p-6">
+            <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6 transition-all glass-card-hover">
               <div className="flex flex-col items-center text-center">
-                <div className="p-3 rounded-full bg-sea-glass/20 text-sea-glass-700 mb-4">
+                <div className="p-3 rounded-full bg-sea-glass/20 text-sea-glass-400 mb-4">
                   <UserCircle className="w-7 h-7" />
                 </div>
                 <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-1">
@@ -100,13 +102,13 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-2 w-full">
                   <Link
                     href={`/tx/${transaction.id}/agent/buyer`}
-                    className="text-xs font-medium text-spruce bg-spruce/5 hover:bg-spruce/10 rounded-lg py-2 px-3 transition-colors text-center"
+                    className="text-xs font-medium text-royal bg-royal/5 hover:bg-royal/10 rounded-lg py-2 px-3 transition-colors text-center"
                   >
                     Buyer's Agent
                   </Link>
                   <Link
                     href={`/tx/${transaction.id}/agent/seller`}
-                    className="text-xs font-medium text-spruce bg-spruce/5 hover:bg-spruce/10 rounded-lg py-2 px-3 transition-colors text-center"
+                    className="text-xs font-medium text-royal bg-royal/5 hover:bg-royal/10 rounded-lg py-2 px-3 transition-colors text-center"
                   >
                     Seller's Agent
                   </Link>
@@ -115,7 +117,7 @@ export default function Home() {
             </div>
 
             {/* Client Portal */}
-            <div className="h-full bg-paper rounded-xl border-2 border-divider p-6">
+            <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6 transition-all glass-card-hover">
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-full bg-fern/10 text-fern mb-4">
                   <Users className="w-7 h-7" />
@@ -154,7 +156,7 @@ export default function Home() {
           </div>
 
           {/* Demo Transaction Info */}
-          <div className="bg-paper border border-divider rounded-xl p-4 text-center">
+          <div className="glass-subtle border border-[var(--glass-border-subtle)] rounded-xl p-4 text-center">
             <p className="text-sm text-[var(--text-secondary)]">
               Demo Transaction:{" "}
               <span className="font-medium text-[var(--text-primary)]">

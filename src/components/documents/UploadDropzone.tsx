@@ -107,7 +107,7 @@ export default function UploadDropzone({
           relative p-8 border-2 border-dashed rounded-lg transition-all
           ${
             isDragging
-              ? "border-spruce bg-spruce/5"
+              ? "border-royal bg-royal/5"
               : "border-sea-glass hover:border-river-stone"
           }
         `}
@@ -124,7 +124,7 @@ export default function UploadDropzone({
           <div
             className={`
               w-12 h-12 rounded-full flex items-center justify-center mb-4
-              ${isDragging ? "bg-spruce/10 text-spruce" : "bg-sea-glass/20 text-river-stone"}
+              ${isDragging ? "bg-royal/10 text-royal" : "bg-sea-glass/20 text-river-stone"}
             `}
           >
             <Upload className="w-6 h-6" />
@@ -150,7 +150,7 @@ export default function UploadDropzone({
 
       {/* Selected Files */}
       {files.length > 0 && (
-        <div className="p-4 bg-mist border-t border-border">
+        <div className="p-4 bg-transparent border-t border-border">
           <p className="text-xs font-medium text-river-stone mb-2">
             Selected files ({files.length})
           </p>

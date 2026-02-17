@@ -15,7 +15,7 @@ const roleConfig: Record<
   PartyRole,
   { label: string; badgeColor: string; group: string }
 > = {
-  buyer: { label: "BUYER", badgeColor: "bg-spruce/10 text-spruce", group: "Buyers" },
+  buyer: { label: "BUYER", badgeColor: "bg-royal/10 text-royal", group: "Buyers" },
   seller: { label: "SELLER", badgeColor: "bg-fern/10 text-fern", group: "Sellers" },
   buyer_agent: { label: "BUYER AGENT", badgeColor: "bg-river-stone/10 text-river-stone", group: "Agents" },
   seller_agent: { label: "SELLER AGENT", badgeColor: "bg-river-stone/10 text-river-stone", group: "Agents" },
@@ -77,7 +77,7 @@ function PartyCard({ party }: { party: (typeof mockParties)[0] }) {
         {party.contact.phone && (
           <a
             href={`tel:${party.contact.phone}`}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-spruce bg-spruce/10 rounded-lg hover:bg-spruce/20 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-royal bg-royal/10 rounded-lg hover:bg-royal/20 transition-colors"
           >
             <Phone className="w-4 h-4" />
             {party.contact.phone}
@@ -86,7 +86,7 @@ function PartyCard({ party }: { party: (typeof mockParties)[0] }) {
         {party.contact.email && (
           <a
             href={`mailto:${party.contact.email}`}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-river-stone bg-mist rounded-lg hover:bg-sea-glass/20 transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium text-river-stone bg-black/[0.04] rounded-lg hover:bg-sea-glass/20 transition-colors"
           >
             <Mail className="w-4 h-4" />
             Email

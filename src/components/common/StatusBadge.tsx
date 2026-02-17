@@ -28,8 +28,8 @@ const statusConfig: Record<
   },
   closing_scheduled: {
     label: "Closing Scheduled",
-    variant: "bg-spruce/10 text-spruce",
-    dotColor: "bg-spruce",
+    variant: "bg-royal/10 text-royal",
+    dotColor: "bg-royal",
   },
   closed: {
     label: "Closed",

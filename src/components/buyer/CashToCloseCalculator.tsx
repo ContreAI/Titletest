@@ -57,15 +57,15 @@ export default function CashToCloseCalculator({
     <div ref={containerRef}>
       <Card variant="default" padding="md">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-8 h-8 rounded-lg bg-spruce/10 flex items-center justify-center">
-            <Calculator className="w-4 h-4 text-spruce" />
+          <div className="w-8 h-8 rounded-lg bg-royal/10 flex items-center justify-center">
+            <Calculator className="w-4 h-4 text-royal" />
           </div>
           <div>
             <h3 className="text-sm font-semibold text-[var(--text-primary)]">
               Cash to Close
             </h3>
             {!isFinalized && (
-              <span className="text-[10px] uppercase tracking-wider text-amber-600 font-semibold">
+              <span className="text-[10px] uppercase tracking-wider text-amber-400 font-semibold">
                 Estimate
               </span>
             )}
@@ -84,7 +84,7 @@ export default function CashToCloseCalculator({
           {/* Loan Amount */}
           <div className="flex justify-between text-sm">
             <span className="text-[var(--text-secondary)]">Loan Amount</span>
-            <span className="font-[family-name:var(--font-mono)] text-signal-red-600">
+            <span className="font-[family-name:var(--font-mono)] text-signal-red-400">
               -{formatCurrency(loanAmount)}
             </span>
           </div>
@@ -119,7 +119,7 @@ export default function CashToCloseCalculator({
               <span
                 className={`font-[family-name:var(--font-mono)] ${
                   item.isDeduction
-                    ? "text-signal-red-600"
+                    ? "text-signal-red-400"
                     : "text-[var(--text-primary)]"
                 }`}
               >
@@ -137,7 +137,7 @@ export default function CashToCloseCalculator({
               </span>
               <span
                 className={`text-lg font-bold font-[family-name:var(--font-mono)] ${
-                  isFinalized ? "text-spruce" : "text-amber-600"
+                  isFinalized ? "text-royal" : "text-amber-400"
                 }`}
               >
                 {formatCurrency(totalCashToClose)}
@@ -150,7 +150,7 @@ export default function CashToCloseCalculator({
         {!isFinalized && (
           <div className="flex items-start gap-1.5 mt-4">
             <Info className="w-3.5 h-3.5 text-amber-500 mt-0.5 flex-shrink-0" />
-            <p className="text-xs text-amber-600 leading-relaxed">
+            <p className="text-xs text-amber-400 leading-relaxed">
               This is an estimate based on preliminary figures. Final amounts will be
               confirmed on the Closing Disclosure.
             </p>

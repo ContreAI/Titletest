@@ -64,22 +64,22 @@ const DOC_TYPE_CONFIG: Record<string, {
   accentBg: string;
   accentText: string;
 }> = {
-  purchase_agreement: { icon: FileSignature, accentBg: "bg-spruce/10", accentText: "text-spruce" },
-  addendum: { icon: FileSignature, accentBg: "bg-spruce/10", accentText: "text-spruce" },
-  earnest_money_receipt: { icon: DollarSign, accentBg: "bg-fern-50", accentText: "text-fern" },
-  title_commitment: { icon: Shield, accentBg: "bg-indigo-50", accentText: "text-indigo-500" },
-  preliminary_title_report: { icon: Shield, accentBg: "bg-indigo-50", accentText: "text-indigo-500" },
-  settlement_statement_buyer: { icon: DollarSign, accentBg: "bg-fern-50", accentText: "text-fern" },
-  settlement_statement_seller: { icon: DollarSign, accentBg: "bg-fern-50", accentText: "text-fern" },
-  wire_instructions: { icon: DollarSign, accentBg: "bg-amber-50", accentText: "text-amber-600" },
-  closing_disclosure: { icon: Scale, accentBg: "bg-amber-50", accentText: "text-amber-600" },
-  deed: { icon: Home, accentBg: "bg-spruce/10", accentText: "text-spruce" },
-  title_policy: { icon: Shield, accentBg: "bg-indigo-50", accentText: "text-indigo-500" },
-  payoff_statement: { icon: DollarSign, accentBg: "bg-signal-red-50", accentText: "text-signal-red" },
-  inspection_report: { icon: Home, accentBg: "bg-amber-50", accentText: "text-amber-600" },
-  appraisal: { icon: Home, accentBg: "bg-fern-50", accentText: "text-fern" },
-  loan_approval: { icon: DollarSign, accentBg: "bg-fern-50", accentText: "text-fern" },
-  insurance_binder: { icon: Shield, accentBg: "bg-indigo-50", accentText: "text-indigo-500" },
+  purchase_agreement: { icon: FileSignature, accentBg: "bg-royal/10", accentText: "text-royal" },
+  addendum: { icon: FileSignature, accentBg: "bg-royal/10", accentText: "text-royal" },
+  earnest_money_receipt: { icon: DollarSign, accentBg: "bg-fern/10", accentText: "text-fern" },
+  title_commitment: { icon: Shield, accentBg: "bg-indigo-500/10", accentText: "text-indigo-500" },
+  preliminary_title_report: { icon: Shield, accentBg: "bg-indigo-500/10", accentText: "text-indigo-500" },
+  settlement_statement_buyer: { icon: DollarSign, accentBg: "bg-fern/10", accentText: "text-fern" },
+  settlement_statement_seller: { icon: DollarSign, accentBg: "bg-fern/10", accentText: "text-fern" },
+  wire_instructions: { icon: DollarSign, accentBg: "bg-amber/10", accentText: "text-amber-400" },
+  closing_disclosure: { icon: Scale, accentBg: "bg-amber/10", accentText: "text-amber-400" },
+  deed: { icon: Home, accentBg: "bg-royal/10", accentText: "text-royal" },
+  title_policy: { icon: Shield, accentBg: "bg-indigo-500/10", accentText: "text-indigo-500" },
+  payoff_statement: { icon: DollarSign, accentBg: "bg-signal-red/10", accentText: "text-signal-red" },
+  inspection_report: { icon: Home, accentBg: "bg-amber/10", accentText: "text-amber-400" },
+  appraisal: { icon: Home, accentBg: "bg-fern/10", accentText: "text-fern" },
+  loan_approval: { icon: DollarSign, accentBg: "bg-fern/10", accentText: "text-fern" },
+  insurance_binder: { icon: Shield, accentBg: "bg-indigo-500/10", accentText: "text-indigo-500" },
   hoa_documents: { icon: Home, accentBg: "bg-elevation2", accentText: "text-[var(--text-tertiary)]" },
   other: { icon: FileText, accentBg: "bg-elevation2", accentText: "text-[var(--text-tertiary)]" },
 };
@@ -151,7 +151,7 @@ export default function DocumentCard({
               {isProcessing && (
                 <div className="mt-2 w-full max-w-[200px]">
                   <div className="w-full h-1.5 bg-elevation3 rounded-full overflow-hidden">
-                    <div className="h-full bg-spruce rounded-full animate-[progress_2s_ease-in-out_infinite]" style={{ width: '60%' }} />
+                    <div className="h-full bg-royal rounded-full animate-[progress_2s_ease-in-out_infinite]" style={{ width: '60%' }} />
                   </div>
                   <p className="text-[10px] text-[var(--text-tertiary)] mt-0.5">Processing document...</p>
                 </div>
@@ -219,7 +219,7 @@ export default function DocumentCard({
                         }}
                         className={`w-full px-4 py-3 text-sm text-left flex items-center gap-3 min-h-[44px] ${
                           item.danger
-                            ? "text-signal-red hover:bg-signal-red-50"
+                            ? "text-signal-red hover:bg-signal-red/10"
                             : "text-[var(--text-primary)] hover:bg-elevation1"
                         } transition-colors`}
                       >

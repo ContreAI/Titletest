@@ -101,8 +101,8 @@ export default function SellerMoneyTab({
           {/* Mortgage Information Form (S-02) */}
           <Card variant="default" padding="md">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-spruce/10 flex items-center justify-center">
-                <Building2 className="w-4 h-4 text-spruce" />
+              <div className="w-8 h-8 rounded-lg bg-royal/10 flex items-center justify-center">
+                <Building2 className="w-4 h-4 text-royal" />
               </div>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-tertiary)]">
                 Mortgage Information
@@ -122,7 +122,7 @@ export default function SellerMoneyTab({
                       setMortgageInfo({ ...mortgageInfo, lenderName: e.target.value })
                     }
                     placeholder="e.g., Wells Fargo"
-                    className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
+                    className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
                   />
                 </div>
                 <div>
@@ -136,7 +136,7 @@ export default function SellerMoneyTab({
                       setMortgageInfo({ ...mortgageInfo, loanNumber: e.target.value })
                     }
                     placeholder="Your loan account number"
-                    className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] font-[family-name:var(--font-mono)]"
+                    className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] font-[family-name:var(--font-mono)]"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -151,7 +151,7 @@ export default function SellerMoneyTab({
                         setMortgageInfo({ ...mortgageInfo, contactPhone: e.target.value })
                       }
                       placeholder="(555) 555-5555"
-                      className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
+                      className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
                     />
                   </div>
                   <div>
@@ -165,7 +165,7 @@ export default function SellerMoneyTab({
                         setMortgageInfo({ ...mortgageInfo, contactEmail: e.target.value })
                       }
                       placeholder="payoffs@lender.com"
-                      className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
+                      className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
                     />
                   </div>
                 </div>
@@ -235,8 +235,8 @@ export default function SellerMoneyTab({
           {/* Bank Account Form (S-15) */}
           <Card variant="default" padding="md">
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-spruce/10 flex items-center justify-center">
-                <CreditCard className="w-4 h-4 text-spruce" />
+              <div className="w-8 h-8 rounded-lg bg-royal/10 flex items-center justify-center">
+                <CreditCard className="w-4 h-4 text-royal" />
               </div>
               <h3 className="text-sm font-semibold uppercase tracking-wider text-[var(--text-tertiary)]">
                 Wire Instructions (Your Bank)
@@ -255,7 +255,7 @@ export default function SellerMoneyTab({
                     setBankAccount({ ...bankAccount, bankName: e.target.value })
                   }
                   placeholder="Your bank name"
-                  className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
+                  className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
                 />
               </div>
               <div>
@@ -270,7 +270,7 @@ export default function SellerMoneyTab({
                   }
                   placeholder="9-digit routing number"
                   maxLength={9}
-                  className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] font-[family-name:var(--font-mono)]"
+                  className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] font-[family-name:var(--font-mono)]"
                 />
               </div>
               <div>
@@ -284,7 +284,7 @@ export default function SellerMoneyTab({
                     setBankAccount({ ...bankAccount, accountNumber: e.target.value })
                   }
                   placeholder="Your account number"
-                  className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] font-[family-name:var(--font-mono)]"
+                  className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] font-[family-name:var(--font-mono)]"
                 />
               </div>
               <div>
@@ -301,7 +301,7 @@ export default function SellerMoneyTab({
                     })
                   }
                   placeholder="Re-enter account number"
-                  className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] font-[family-name:var(--font-mono)]"
+                  className="w-full px-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] font-[family-name:var(--font-mono)]"
                 />
               </div>
               <div>
@@ -317,8 +317,8 @@ export default function SellerMoneyTab({
                       }
                       className={`px-4 py-2 text-sm font-medium rounded-lg border transition-all ${
                         bankAccount.accountType === type
-                          ? "border-spruce bg-spruce/5 text-spruce"
-                          : "border-divider text-[var(--text-tertiary)] hover:border-spruce/50"
+                          ? "border-royal bg-royal/5 text-royal"
+                          : "border-divider text-[var(--text-tertiary)] hover:border-royal/50"
                       }`}
                     >
                       {type.charAt(0).toUpperCase() + type.slice(1)}

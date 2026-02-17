@@ -17,8 +17,8 @@ export default function MetricCard({
   title,
   value,
   icon,
-  iconColor = 'text-spruce',
-  iconBg = 'bg-spruce/10',
+  iconColor = 'text-royal',
+  iconBg = 'bg-royal/10',
   trend,
   percentage,
   className = '',
@@ -51,8 +51,8 @@ export default function MetricCard({
             <span
               className={`inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded-full text-xs font-medium chip-hover ${
                 trend === 'up'
-                  ? 'bg-fern-50 text-fern'
-                  : 'bg-signal-red-50 text-signal-red'
+                  ? 'bg-fern/10 text-fern'
+                  : 'bg-signal-red/10 text-signal-red'
               }`}
             >
               {trend === 'up' ? (

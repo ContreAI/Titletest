@@ -64,7 +64,7 @@ export default function AgentDocumentVault({ side, documents }: AgentDocumentVau
               ) : (
                 <ChevronRight className="w-4 h-4 text-[var(--text-tertiary)] flex-shrink-0" />
               )}
-              <FolderOpen className="w-5 h-5 text-spruce flex-shrink-0" />
+              <FolderOpen className="w-5 h-5 text-royal flex-shrink-0" />
               <span className="font-medium text-[var(--text-primary)] flex-1">
                 {folder.label}
               </span>
@@ -93,10 +93,10 @@ export default function AgentDocumentVault({ side, documents }: AgentDocumentVau
                           </p>
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
-                          <button className="p-1.5 rounded-md hover:bg-[var(--bg-elevation2)] text-[var(--text-secondary)] hover:text-spruce transition-colors">
+                          <button className="p-1.5 rounded-md hover:bg-[var(--bg-elevation2)] text-[var(--text-secondary)] hover:text-royal transition-colors">
                             <Eye className="w-4 h-4" />
                           </button>
-                          <button className="p-1.5 rounded-md hover:bg-[var(--bg-elevation2)] text-[var(--text-secondary)] hover:text-spruce transition-colors">
+                          <button className="p-1.5 rounded-md hover:bg-[var(--bg-elevation2)] text-[var(--text-secondary)] hover:text-royal transition-colors">
                             <Download className="w-4 h-4" />
                           </button>
                         </div>

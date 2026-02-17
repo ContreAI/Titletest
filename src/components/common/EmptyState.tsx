@@ -25,7 +25,7 @@ export default function EmptyState({
       {...props}
     >
       {icon && (
-        <div className="w-16 h-16 rounded-full bg-sea-glass-50 flex items-center justify-center mb-4 text-river-stone">
+        <div className="w-16 h-16 rounded-full bg-sea-glass/10 flex items-center justify-center mb-4 text-river-stone">
           {icon}
         </div>
       )}

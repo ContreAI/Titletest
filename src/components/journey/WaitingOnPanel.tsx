@@ -8,12 +8,12 @@ const PARTY_CONFIG: Record<ResponsibleParty, {
   icon: React.ComponentType<{ className?: string }>;
   color: string;
 }> = {
-  lender: { label: 'Lender', icon: Landmark, color: 'text-blue-600' },
-  title: { label: 'Title Company', icon: Building2, color: 'text-purple-600' },
-  agent: { label: 'Agent', icon: User, color: 'text-spruce' },
-  buyer: { label: 'Buyer', icon: Users, color: 'text-teal-600' },
-  seller: { label: 'Seller', icon: Home, color: 'text-amber-600' },
-  appraiser: { label: 'Appraiser', icon: ClipboardCheck, color: 'text-indigo-600' },
+  lender: { label: 'Lender', icon: Landmark, color: 'text-royal-300' },
+  title: { label: 'Title Company', icon: Building2, color: 'text-indigo-400' },
+  agent: { label: 'Agent', icon: User, color: 'text-royal' },
+  buyer: { label: 'Buyer', icon: Users, color: 'text-sea-glass-400' },
+  seller: { label: 'Seller', icon: Home, color: 'text-amber-400' },
+  appraiser: { label: 'Appraiser', icon: ClipboardCheck, color: 'text-indigo-400' },
 };
 
 interface WaitingOnPanelProps {

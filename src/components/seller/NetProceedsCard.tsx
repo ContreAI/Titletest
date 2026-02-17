@@ -61,12 +61,12 @@ export default function NetProceedsCard({
 
   if (compact) {
     return (
-      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-fern-50 border border-fern-200">
+      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-fern/10 border border-fern/20">
         <DollarSign className="w-3.5 h-3.5 text-fern" />
-        <span className="text-sm font-semibold font-[family-name:var(--font-mono)] text-fern-700">
+        <span className="text-sm font-semibold font-[family-name:var(--font-mono)] text-fern-400">
           {formatCurrency(estimate.estimatedNet)}
         </span>
-        <span className="text-xs text-fern-600">est. net</span>
+        <span className="text-xs text-fern-400">est. net</span>
       </div>
     );
   }
@@ -111,7 +111,7 @@ export default function NetProceedsCard({
           {topDeductions.map((item) => (
             <div key={item.id} className="flex justify-between text-sm">
               <span className="text-[var(--text-secondary)]">{item.label}</span>
-              <span className="font-[family-name:var(--font-mono)] text-signal-red-600">
+              <span className="font-[family-name:var(--font-mono)] text-signal-red-400">
                 -{formatCurrency(Math.abs(item.amount))}
               </span>
             </div>
@@ -122,7 +122,7 @@ export default function NetProceedsCard({
               <span className="text-[var(--text-disabled)] italic">
                 +{estimate.deductions.length - 3} more deductions
               </span>
-              <span className="font-[family-name:var(--font-mono)] text-signal-red-600">
+              <span className="font-[family-name:var(--font-mono)] text-signal-red-400">
                 -{formatCurrency(
                   Math.abs(
                     estimate.totalDeductions -
@@ -158,7 +158,7 @@ export default function NetProceedsCard({
         {onViewBreakdown && (
           <button
             onClick={onViewBreakdown}
-            className="flex items-center gap-1 text-sm font-medium text-spruce hover:text-spruce-700 transition-colors"
+            className="flex items-center gap-1 text-sm font-medium text-royal hover:text-royal-700 transition-colors"
           >
             View Full Breakdown
             <ChevronRight className="w-4 h-4" />

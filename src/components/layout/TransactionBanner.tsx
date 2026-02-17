@@ -19,11 +19,11 @@ export default function TransactionBanner({
   const roleLabel = side === "buyer" ? "Buyer Agent" : "Seller Agent";
 
   return (
-    <div className="bg-mist border-b border-border px-4 md:px-6 py-4">
+    <div className="bg-transparent border-b border-border px-4 md:px-6 py-4">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3">
         {/* Property Info */}
         <div>
-          <h1 className="text-2xl md:text-3xl text-spruce tracking-wide">
+          <h1 className="text-2xl md:text-3xl text-royal tracking-wide">
             {fullAddress}
           </h1>
           <div className="flex flex-wrap items-center gap-3 mt-2">

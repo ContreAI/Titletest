@@ -199,29 +199,29 @@ export default function BuyerDashboardTab({
             title="Days to Close"
             value={daysToClose}
             icon={<Calendar />}
-            iconColor="text-spruce"
-            iconBg="bg-spruce/10"
+            iconColor="text-royal"
+            iconBg="bg-royal/10"
           />
           <MetricCard
             title="Tasks Complete"
             value={`${counts.completed}/${counts.total}`}
             icon={<FileCheck />}
             iconColor="text-fern"
-            iconBg="bg-fern-50"
+            iconBg="bg-fern/10"
           />
           <MetricCard
             title="Action Items"
             value={counts.actionRequired + counts.overdue}
             icon={<AlertCircle />}
-            iconColor="text-amber-600"
-            iconBg="bg-amber-50"
+            iconColor="text-amber-400"
+            iconBg="bg-amber/10"
           />
           <MetricCard
             title="Docs in Vault"
             value={0}
             icon={<FolderOpen />}
             iconColor="text-river-stone"
-            iconBg="bg-river-stone-50"
+            iconBg="bg-river-stone/10"
           />
         </div>
       </div>
@@ -241,7 +241,7 @@ export default function BuyerDashboardTab({
               {actionRequired.length > 3 && (
                 <button
                   onClick={() => onTabChange?.("tasks")}
-                  className="mt-2 flex items-center gap-1 text-sm font-medium text-spruce hover:text-spruce-700 transition-colors"
+                  className="mt-2 flex items-center gap-1 text-sm font-medium text-royal hover:text-royal-700 transition-colors"
                 >
                   View all {actionRequired.length} tasks
                   <ChevronRight className="w-4 h-4" />

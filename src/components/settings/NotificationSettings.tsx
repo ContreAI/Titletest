@@ -118,7 +118,7 @@ export default function NotificationSettings({
             type="email"
             value={emailAddress}
             onChange={(e) => setEmailAddress(e.target.value)}
-            className="w-full px-3 py-2 border border-border rounded-lg text-storm-gray placeholder:text-river-stone/50 focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-transparent"
+            className="w-full px-3 py-2 border border-border rounded-lg text-storm-gray placeholder:text-river-stone/50 focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-transparent"
           />
           <p className="mt-1 text-xs text-river-stone">
             Notifications will be sent to this email address
@@ -142,7 +142,7 @@ export default function NotificationSettings({
                 key={pref.id}
                 className={`flex items-start gap-3 p-3 rounded-lg border transition-all cursor-pointer ${
                   pref.enabled
-                    ? "border-spruce/30 bg-spruce/5"
+                    ? "border-royal/30 bg-royal/5"
                     : "border-border hover:border-sea-glass"
                 }`}
                 onClick={() => togglePreference(pref.id)}
@@ -150,8 +150,8 @@ export default function NotificationSettings({
                 <div
                   className={`p-2 rounded-lg flex-shrink-0 ${
                     pref.enabled
-                      ? "bg-spruce/10 text-spruce"
-                      : "bg-mist text-river-stone"
+                      ? "bg-royal/10 text-royal"
+                      : "bg-black/[0.04] text-river-stone"
                   }`}
                 >
                   {pref.icon}
@@ -172,7 +172,7 @@ export default function NotificationSettings({
                 <div className="flex-shrink-0">
                   <div
                     className={`w-10 h-6 rounded-full transition-colors relative ${
-                      pref.enabled ? "bg-spruce" : "bg-river-stone/30"
+                      pref.enabled ? "bg-royal" : "bg-river-stone/30"
                     }`}
                   >
                     <div
@@ -188,9 +188,9 @@ export default function NotificationSettings({
         </div>
 
         {/* Summary */}
-        <Card className="bg-mist border-0">
+        <Card className="bg-black/[0.04] border-0">
           <div className="flex items-center gap-3">
-            <div className="p-2 rounded-lg bg-spruce/10 text-spruce">
+            <div className="p-2 rounded-lg bg-royal/10 text-royal">
               <Bell className="w-5 h-5" />
             </div>
             <div className="flex-1">

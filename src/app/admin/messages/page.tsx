@@ -118,7 +118,7 @@ export default function MessagesPage() {
                 Inbox
               </h3>
               {unreadCount > 0 && (
-                <span className="text-[11px] font-semibold px-1.5 py-0.5 rounded-full bg-spruce text-white">
+                <span className="text-[11px] font-semibold px-1.5 py-0.5 rounded-full bg-royal text-white">
                   {unreadCount} new
                 </span>
               )}
@@ -134,14 +134,14 @@ export default function MessagesPage() {
               <div
                 key={msg.id}
                 className={`flex items-start gap-3 px-4 py-4 hover:bg-elevation1 transition-colors cursor-pointer ${
-                  msg.unread ? "bg-spruce/[0.03]" : ""
+                  msg.unread ? "bg-royal/[0.03]" : ""
                 }`}
               >
                 {/* Avatar */}
                 <div
                   className={`w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 text-xs font-semibold ${
                     msg.unread
-                      ? "bg-spruce/10 text-spruce"
+                      ? "bg-royal/10 text-royal"
                       : "bg-elevation2 text-[var(--text-tertiary)]"
                   }`}
                 >
@@ -194,7 +194,7 @@ export default function MessagesPage() {
                     {formatTimestamp(msg.timestamp)}
                   </span>
                   {msg.unread && (
-                    <span className="w-2 h-2 rounded-full bg-spruce" />
+                    <span className="w-2 h-2 rounded-full bg-royal" />
                   )}
                 </div>
               </div>

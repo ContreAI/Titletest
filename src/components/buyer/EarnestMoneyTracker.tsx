@@ -68,7 +68,7 @@ export default function EarnestMoneyTracker({ tracker }: EarnestMoneyTrackerProp
                       isCompleted
                         ? "bg-fern text-white"
                         : isActive
-                          ? "bg-spruce text-white ring-4 ring-spruce/20"
+                          ? "bg-royal text-white ring-4 ring-royal/20"
                           : "bg-elevation2 border-2 border-divider"
                     }`}
                   >
@@ -87,7 +87,7 @@ export default function EarnestMoneyTracker({ tracker }: EarnestMoneyTrackerProp
                       isCompleted
                         ? "text-fern font-medium"
                         : isActive
-                          ? "text-spruce font-medium"
+                          ? "text-royal font-medium"
                           : "text-[var(--text-disabled)]"
                     }`}
                   >

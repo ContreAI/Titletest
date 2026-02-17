@@ -74,7 +74,7 @@ export default function TimelineTable({ events }: TimelineTableProps) {
     <div className="bg-paper rounded-lg border border-border overflow-hidden">
       <table className="w-full">
         <thead>
-          <tr className="border-b border-border bg-mist">
+          <tr className="border-b border-border bg-black/[0.04]">
             <th className="px-4 py-3 text-left text-xs font-semibold text-river-stone uppercase tracking-wider">
               Date
             </th>
@@ -99,7 +99,7 @@ export default function TimelineTable({ events }: TimelineTableProps) {
             return (
               <tr
                 key={event.id}
-                className={`${getRowBackground(event.status)} hover:bg-mist/50 transition-colors`}
+                className={`${getRowBackground(event.status)} hover:bg-black/[0.04] transition-colors`}
               >
                 {/* Date */}
                 <td className="px-4 py-3">
@@ -127,11 +127,11 @@ export default function TimelineTable({ events }: TimelineTableProps) {
                 {/* Event Title */}
                 <td className="px-4 py-3">
                   <div className="flex items-center gap-2">
-                    {isLast && <Target className="w-4 h-4 text-spruce" />}
+                    {isLast && <Target className="w-4 h-4 text-royal" />}
                     <span
                       className={`text-sm ${
                         isLast
-                          ? "font-semibold text-spruce"
+                          ? "font-semibold text-royal"
                           : "text-storm-gray"
                       }`}
                     >

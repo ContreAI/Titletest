@@ -47,7 +47,7 @@ export default function ContractTab({ transaction, side }: ContractTabProps) {
       {/* Header */}
       <div>
         <h1 className="text-xl font-semibold text-storm-gray flex items-center gap-2">
-          <FileSignature className="w-5 h-5 text-spruce" />
+          <FileSignature className="w-5 h-5 text-royal" />
           Contract Documents
         </h1>
         <p className="text-sm text-river-stone mt-1">

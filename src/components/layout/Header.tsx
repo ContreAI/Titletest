@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Settings, HelpCircle, LogOut, Calendar } from "lucide-react";
-import { IconButton, ThemeToggle, StatusBadge, Badge } from "@/components/common";
+import { IconButton, StatusBadge, Badge } from "@/components/common";
 import { Transaction } from "@/types";
 import { formatDate, calculateDaysRemaining } from "@/data/mockData";
 
@@ -35,7 +35,7 @@ export default function Header({
   const roleLabel = side === "buyer" ? "Buyer Agent" : side === "seller" ? "Seller Agent" : null;
 
   return (
-    <header className="sticky top-0 z-30 bg-paper border-b border-divider">
+    <header className="sticky top-0 z-30 glass-nav">
       {/* Row 1: Logo + Actions */}
       <div className="h-14 px-4 md:px-6 flex items-center justify-between gap-4">
         {/* Logo */}
@@ -80,7 +80,7 @@ export default function Header({
           {hasTransaction && daysUntilClosing !== null && (
             <div className={`hidden md:flex items-center gap-1.5 px-2.5 py-1 rounded-full mr-2 text-xs font-semibold ${
               daysUntilClosing <= 7
-                ? 'bg-amber-50 text-amber-700 border border-amber-200'
+                ? 'bg-amber/10 text-amber-400 border border-amber/20'
                 : 'bg-elevation1 text-[var(--text-secondary)] border border-divider'
             }`}>
               <Calendar className="w-3.5 h-3.5" />
@@ -89,7 +89,6 @@ export default function Header({
             </div>
           )}
 
-          <ThemeToggle />
           <IconButton label="Settings" variant="ghost" onClick={onSettingsClick}>
             <Settings className="w-5 h-5" />
           </IconButton>
@@ -106,7 +105,7 @@ export default function Header({
 
       {/* Row 2: Transaction details bar (mobile + desktop sub-row) */}
       {hasTransaction && (
-        <div className="px-4 md:px-6 py-2 bg-elevation1 border-t border-divider flex items-center justify-between gap-3">
+        <div className="px-4 md:px-6 py-2 bg-black/[0.04] border-t border-[var(--glass-border)] flex items-center justify-between gap-3">
           {/* Mobile: show address */}
           <div className="md:hidden flex-1 min-w-0">
             <p className="text-sm font-medium text-[var(--text-primary)] truncate">
@@ -137,7 +136,7 @@ export default function Header({
           {/* Mobile: countdown */}
           {daysUntilClosing !== null && (
             <div className={`md:hidden flex items-center gap-1 text-xs font-semibold ${
-              daysUntilClosing <= 7 ? 'text-amber-600' : 'text-[var(--text-secondary)]'
+              daysUntilClosing <= 7 ? 'text-amber-400' : 'text-[var(--text-secondary)]'
             }`}>
               <Calendar className="w-3.5 h-3.5" />
               <span className="font-[family-name:var(--font-mono)]">{daysUntilClosing}d</span>
@@ -148,7 +147,7 @@ export default function Header({
 
       {/* Non-transaction mobile address fallback */}
       {propertyAddress && !hasTransaction && (
-        <div className="md:hidden px-4 py-2 bg-elevation1 border-t border-divider">
+        <div className="md:hidden px-4 py-2 bg-black/[0.04] border-t border-[var(--glass-border)]">
           <span className="text-sm font-medium text-[var(--text-tertiary)] truncate block">
             {propertyAddress}
           </span>

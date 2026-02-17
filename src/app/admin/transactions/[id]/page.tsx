@@ -41,7 +41,7 @@ export default function TransactionDetailPage() {
           <p className="text-sm text-[var(--text-tertiary)]">ID: {txId}</p>
           <button
             onClick={() => router.push("/admin/transactions")}
-            className="mt-4 text-sm text-spruce hover:text-spruce-700 transition-colors"
+            className="mt-4 text-sm text-royal hover:text-royal-300 transition-colors"
           >
             Back to Transactions
           </button>
@@ -83,7 +83,7 @@ export default function TransactionDetailPage() {
               className={`
                 px-4 py-3 text-sm font-medium border-b-2 transition-colors
                 ${activeTab === tab.id
-                  ? "border-spruce text-spruce"
+                  ? "border-royal text-royal"
                   : "border-transparent text-[var(--text-tertiary)] hover:text-[var(--text-primary)] hover:border-divider"
                 }
               `}

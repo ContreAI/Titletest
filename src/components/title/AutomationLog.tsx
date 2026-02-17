@@ -41,7 +41,7 @@ const TYPE_ICONS: Record<string, React.ComponentType<{ className?: string }>> =
 const STATUS_STYLES: Record<string, string> = {
   completed: "text-fern",
   pending: "text-amber-500",
-  simulated: "text-sea-glass-700",
+  simulated: "text-sea-glass-400",
 };
 
 export interface AutomationLogProps {
@@ -78,7 +78,7 @@ export default function AutomationLog({ events }: AutomationLogProps) {
                 event.status === "completed"
                   ? "bg-fern/10"
                   : event.status === "pending"
-                    ? "bg-amber-50"
+                    ? "bg-amber/10"
                     : "bg-sea-glass/10"
               }`}
             >

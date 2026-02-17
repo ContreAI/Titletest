@@ -15,10 +15,10 @@ const STAGE_LABELS: Record<string, string> = {
 };
 
 const STAGE_COLORS: Record<string, string> = {
-  new_pending: "bg-sea-glass/20 text-sea-glass-700",
-  title_work: "bg-spruce/10 text-spruce",
-  clear_to_close: "bg-fern/10 text-fern-700",
-  scheduled: "bg-amber-50 text-amber-700",
+  new_pending: "bg-sea-glass/20 text-sea-glass-400",
+  title_work: "bg-royal/10 text-royal",
+  clear_to_close: "bg-fern/10 text-fern-400",
+  scheduled: "bg-amber/10 text-amber-400",
   closed: "bg-river-stone/10 text-river-stone",
   on_hold: "bg-signal-red/10 text-signal-red",
   cancelled: "bg-river-stone/10 text-river-stone",
@@ -62,13 +62,13 @@ export default function TransactionStatusList({
 
           <span
             className={`px-2.5 py-1 rounded-full text-xs font-medium flex-shrink-0 ${
-              STAGE_COLORS[tx.pipelineStage] || "bg-mist text-river-stone"
+              STAGE_COLORS[tx.pipelineStage] || "bg-black/[0.04] text-river-stone"
             }`}
           >
             {STAGE_LABELS[tx.pipelineStage] || tx.pipelineStage}
           </span>
 
-          <ArrowRight className="w-4 h-4 text-[var(--text-disabled)] group-hover:text-spruce transition-colors flex-shrink-0" />
+          <ArrowRight className="w-4 h-4 text-[var(--text-disabled)] group-hover:text-royal transition-colors flex-shrink-0" />
         </Link>
       ))}
     </div>

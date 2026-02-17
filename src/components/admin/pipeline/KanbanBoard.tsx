@@ -82,7 +82,7 @@ export function KanbanBoard({ transactionsByStage }: KanbanBoardProps) {
                 <h3 className="font-semibold text-storm-gray">
                   {stageInfo.label}
                 </h3>
-                <span className="text-sm text-river-stone bg-mist px-2 py-0.5 rounded-full">
+                <span className="text-sm text-river-stone bg-black/[0.04] px-2 py-0.5 rounded-full">
                   {transactions.length}
                 </span>
               </div>
@@ -93,7 +93,7 @@ export function KanbanBoard({ transactionsByStage }: KanbanBoardProps) {
               className={`
                 flex-1 rounded-xl p-2 overflow-y-auto
                 transition-colors duration-200
-                ${isDropTarget ? "bg-sea-glass/20 border-2 border-dashed border-sea-glass" : "bg-mist/50"}
+                ${isDropTarget ? "bg-sea-glass/20 border-2 border-dashed border-sea-glass" : "bg-black/[0.04]"}
               `}
             >
               <div className="space-y-3">
@@ -139,7 +139,7 @@ function getStageColor(stage: PipelineStage): string {
     new_pending: "#F59E0B", // amber
     title_work: "#78909C", // river-stone
     clear_to_close: "#9DBFBF", // sea-glass
-    scheduled: "#264E36", // spruce
+    scheduled: "#264E36", // royal
     closed: "#607D3B", // fern
     cancelled: "#CC0000", // signal-red
     on_hold: "#37474F", // storm-gray

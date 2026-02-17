@@ -151,7 +151,7 @@ function FolderCard({
 
         <FolderOpen
           className={`w-5 h-5 flex-shrink-0 ${
-            documents.length > 0 ? "text-spruce" : "text-[var(--text-disabled)]"
+            documents.length > 0 ? "text-royal" : "text-[var(--text-disabled)]"
           }`}
         />
 
@@ -300,7 +300,7 @@ export default function BuyerDocumentsTab({
           placeholder="Search documents..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full pl-9 pr-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
+          className="w-full pl-9 pr-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
         />
       </div>
 

@@ -72,7 +72,7 @@ export default function TimelineTab({ transaction }: TimelineTabProps) {
         <Card>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="p-2 rounded-full bg-spruce/10 text-spruce">
+              <div className="p-2 rounded-full bg-royal/10 text-royal">
                 <Calendar className="w-5 h-5" />
               </div>
               <div>
@@ -113,13 +113,13 @@ export default function TimelineTab({ transaction }: TimelineTabProps) {
                     <div className="absolute right-0 top-full mt-1 z-20 bg-paper border border-border rounded-lg shadow-lg py-1 min-w-[160px]">
                       <button
                         onClick={handleExportOutlookPersonal}
-                        className="w-full px-4 py-2 text-sm text-left text-storm-gray hover:bg-mist transition-colors"
+                        className="w-full px-4 py-2 text-sm text-left text-storm-gray hover:bg-black/[0.04] transition-colors"
                       >
                         Outlook.com (Personal)
                       </button>
                       <button
                         onClick={handleExportOutlookWork}
-                        className="w-full px-4 py-2 text-sm text-left text-storm-gray hover:bg-mist transition-colors"
+                        className="w-full px-4 py-2 text-sm text-left text-storm-gray hover:bg-black/[0.04] transition-colors"
                       >
                         Office 365 (Work)
                       </button>

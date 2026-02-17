@@ -14,11 +14,11 @@ const statusConfig: Record<
 > = {
   sign_required: {
     label: "Sign",
-    className: "bg-amber/10 text-amber-700 border-amber/20",
+    className: "bg-amber/10 text-amber-400 border-amber/20",
   },
   review_required: {
     label: "Review",
-    className: "bg-spruce/10 text-spruce border-spruce/20",
+    className: "bg-royal/10 text-royal border-royal/20",
   },
   upload_needed: {
     label: "Upload Needed",
@@ -30,11 +30,11 @@ const statusConfig: Record<
   },
   pending_from_title: {
     label: "Waiting on Title",
-    className: "bg-spruce/10 text-spruce border-spruce/20",
+    className: "bg-royal/10 text-royal border-royal/20",
   },
   pending_from_lender: {
     label: "Waiting on Lender",
-    className: "bg-blue-50 text-blue-700 border-blue-200",
+    className: "bg-royal/10 text-royal-300 border-royal/20",
   },
 };
 

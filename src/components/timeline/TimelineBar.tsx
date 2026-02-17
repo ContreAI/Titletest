@@ -16,7 +16,7 @@ export default function TimelineBar({ events }: TimelineBarProps) {
   const getStatusIcon = (status: TimelineEvent["status"], isLast: boolean) => {
     if (isLast) {
       return (
-        <div className="w-4 h-4 rounded-full bg-spruce flex items-center justify-center">
+        <div className="w-4 h-4 rounded-full bg-royal flex items-center justify-center">
           <Target className="w-2.5 h-2.5 text-white" />
         </div>
       );
@@ -31,7 +31,7 @@ export default function TimelineBar({ events }: TimelineBarProps) {
         );
       case "upcoming":
         return (
-          <div className="w-4 h-4 rounded-full border-2 border-spruce bg-paper animate-pulse" />
+          <div className="w-4 h-4 rounded-full border-2 border-royal bg-paper animate-pulse" />
         );
       case "overdue":
         return (
@@ -51,7 +51,7 @@ export default function TimelineBar({ events }: TimelineBarProps) {
       case "complete":
         return "bg-fern";
       case "upcoming":
-        return "bg-spruce";
+        return "bg-royal";
       default:
         return "bg-river-stone/30";
     }

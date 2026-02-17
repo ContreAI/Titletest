@@ -163,11 +163,11 @@ export default function ChatWindow({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed bottom-24 right-6 z-40 w-[400px] max-w-[calc(100vw-48px)] h-[560px] max-h-[calc(100vh-140px)] bg-paper border border-divider rounded-2xl shadow-[var(--shadow-5)] flex flex-col overflow-hidden">
+    <div className="fixed bottom-24 right-6 z-40 w-[400px] max-w-[calc(100vw-48px)] h-[560px] max-h-[calc(100vh-140px)] glass-chat border border-[var(--glass-border)] rounded-2xl shadow-[var(--shadow-5)] flex flex-col overflow-hidden">
       {/* Header */}
-      <div className="flex items-center gap-3 px-4 py-3 border-b border-divider bg-spruce/5">
-        <div className="p-1.5 rounded-full bg-spruce/10">
-          <Sparkles className="w-4 h-4 text-spruce" />
+      <div className="flex items-center gap-3 px-4 py-3 border-b border-[var(--glass-border)] bg-royal/8">
+        <div className="p-1.5 rounded-full bg-royal/10">
+          <Sparkles className="w-4 h-4 text-royal" />
         </div>
         <div className="flex-1 min-w-0">
           <h3 className="text-sm font-semibold text-[var(--text-primary)]">
@@ -199,7 +199,7 @@ export default function ChatWindow({
                 <button
                   key={q}
                   onClick={() => handleSuggested(q)}
-                  className="px-3 py-1.5 text-xs font-medium text-spruce bg-spruce/5 border border-spruce/20 rounded-full hover:bg-spruce/10 transition-colors text-left"
+                  className="px-3 py-1.5 text-xs font-medium text-royal bg-royal/5 border border-royal/20 rounded-full hover:bg-royal/10 transition-colors text-left"
                 >
                   {q}
                 </button>
@@ -222,8 +222,8 @@ export default function ChatWindow({
                 <div
                   className={`p-1 rounded-full flex-shrink-0 ${
                     msg.role === "user"
-                      ? "bg-spruce text-white"
-                      : "bg-spruce/10 text-spruce"
+                      ? "bg-royal text-white"
+                      : "bg-royal/10 text-royal"
                   }`}
                 >
                   {msg.role === "user" ? (
@@ -235,7 +235,7 @@ export default function ChatWindow({
                 <div
                   className={`px-3 py-2 rounded-xl text-sm leading-relaxed ${
                     msg.role === "user"
-                      ? "bg-spruce text-white rounded-tr-sm"
+                      ? "bg-royal text-white rounded-tr-sm"
                       : "bg-elevation1 text-[var(--text-primary)] rounded-tl-sm"
                   }`}
                 >
@@ -263,7 +263,7 @@ export default function ChatWindow({
         {isLoading && (
           <div className="flex justify-start">
             <div className="flex items-start gap-2">
-              <div className="p-1 rounded-full bg-spruce/10 text-spruce">
+              <div className="p-1 rounded-full bg-royal/10 text-royal">
                 <Bot className="w-3.5 h-3.5" />
               </div>
               <div className="px-3 py-2 rounded-xl rounded-tl-sm bg-elevation1">
@@ -289,7 +289,7 @@ export default function ChatWindow({
               <button
                 key={q}
                 onClick={() => handleSuggested(q)}
-                className="px-2.5 py-1 text-[11px] font-medium text-spruce bg-paper border border-spruce/20 rounded-full hover:bg-spruce/5 transition-colors whitespace-nowrap flex-shrink-0"
+                className="px-2.5 py-1 text-[11px] font-medium text-royal bg-paper border border-royal/20 rounded-full hover:bg-royal/5 transition-colors whitespace-nowrap flex-shrink-0"
               >
                 {q}
               </button>
@@ -299,7 +299,7 @@ export default function ChatWindow({
       )}
 
       {/* Input */}
-      <div className="p-3 border-t border-divider bg-paper">
+      <div className="p-3 border-t border-[var(--glass-border)] bg-transparent">
         <div className="flex items-end gap-2">
           <textarea
             value={input}
@@ -307,13 +307,13 @@ export default function ChatWindow({
             onKeyDown={handleKeyDown}
             placeholder="Ask about your documents..."
             rows={1}
-            className="flex-1 px-3 py-2 text-sm border border-divider rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
+            className="flex-1 px-3 py-2 text-sm border border-divider rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
             style={{ minHeight: "40px", maxHeight: "80px" }}
           />
           <button
             onClick={handleSend}
             disabled={!input.trim() || isLoading}
-            className="p-2.5 rounded-xl bg-spruce text-white disabled:opacity-40 hover:bg-spruce-700 transition-colors flex-shrink-0"
+            className="p-2.5 rounded-xl bg-royal text-white disabled:opacity-40 hover:bg-royal-700 transition-colors flex-shrink-0"
           >
             <Send className="w-4 h-4" />
           </button>

@@ -18,7 +18,7 @@ export default function Badge({
     "inline-flex items-center font-medium rounded-full whitespace-nowrap";
 
   const variants = {
-    default: "bg-spruce/10 text-spruce",
+    default: "bg-royal/10 text-royal",
     success: "bg-fern/10 text-fern",
     warning: "bg-amber/10 text-amber",
     error: "bg-signal-red/10 text-signal-red",

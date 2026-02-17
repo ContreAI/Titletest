@@ -44,14 +44,14 @@ export function TransactionTypeSelect({ value, onChange }: TransactionTypeSelect
                 transition-all duration-200
                 ${
                   isSelected
-                    ? "border-spruce bg-spruce/5"
-                    : "border-border hover:border-sea-glass hover:bg-mist/50"
+                    ? "border-royal bg-royal/5"
+                    : "border-border hover:border-sea-glass hover:bg-black/[0.04]"
                 }
               `}
             >
               {/* Selection Indicator */}
               {isSelected && (
-                <div className="absolute top-2 right-2 w-5 h-5 bg-spruce rounded-full flex items-center justify-center">
+                <div className="absolute top-2 right-2 w-5 h-5 bg-royal rounded-full flex items-center justify-center">
                   <Check className="w-3 h-3 text-white" />
                 </div>
               )}
@@ -60,11 +60,11 @@ export function TransactionTypeSelect({ value, onChange }: TransactionTypeSelect
               <div
                 className={`
                   w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0
-                  ${isSelected ? "bg-spruce/20" : "bg-mist"}
+                  ${isSelected ? "bg-royal/20" : "bg-black/[0.04]"}
                 `}
               >
                 <Icon
-                  className={`w-5 h-5 ${isSelected ? "text-spruce" : "text-river-stone"}`}
+                  className={`w-5 h-5 ${isSelected ? "text-royal" : "text-river-stone"}`}
                 />
               </div>
 
@@ -72,7 +72,7 @@ export function TransactionTypeSelect({ value, onChange }: TransactionTypeSelect
               <div className="flex-1 min-w-0">
                 <h3
                   className={`font-semibold ${
-                    isSelected ? "text-spruce" : "text-storm-gray"
+                    isSelected ? "text-royal" : "text-storm-gray"
                   }`}
                 >
                   {info.label}
@@ -98,7 +98,7 @@ export function TransactionTypeSelectCompact({
     <select
       value={value}
       onChange={(e) => onChange(e.target.value as TransactionType)}
-      className="w-full px-3 py-2 border border-border rounded-lg bg-paper text-storm-gray focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+      className="w-full px-3 py-2 border border-border rounded-lg bg-paper text-storm-gray focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
     >
       {(Object.entries(TRANSACTION_TYPES) as [TransactionType, { label: string; description: string }][]).map(
         ([type, info]) => (

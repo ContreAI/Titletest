@@ -59,7 +59,7 @@ export default function TitleTransactionsPage() {
               placeholder="Search by address, city, or ID..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 border border-divider rounded-lg bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] focus:outline-none focus:ring-2 focus:ring-spruce/20 focus:border-spruce"
+              className="w-full pl-10 pr-4 py-2 border border-divider rounded-lg bg-paper text-[var(--text-primary)] placeholder:text-[var(--text-disabled)] focus:outline-none focus:ring-2 focus:ring-royal/20 focus:border-royal"
             />
           </div>
           <div className="flex items-center gap-1 bg-[var(--bg-elevation1)] rounded-lg p-1">

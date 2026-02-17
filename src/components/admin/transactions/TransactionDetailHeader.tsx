@@ -218,8 +218,8 @@ export default function TransactionDetailHeader({
           <button
             type="button"
             onClick={() => setStageDropdownOpen(!stageDropdownOpen)}
-            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-spruce/10 text-spruce text-xs font-semibold
-              hover:bg-spruce/20 transition-colors"
+            className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-royal/10 text-royal text-xs font-semibold
+              hover:bg-royal/20 transition-colors"
           >
             {currentStageLabel}
             {onStageChange && <ChevronDown className="w-3 h-3" />}
@@ -241,7 +241,7 @@ export default function TransactionDetailHeader({
                       setStageDropdownOpen(false);
                     }}
                     className={`w-full text-left px-3 py-1.5 text-sm hover:bg-elevation1 transition-colors
-                      ${opt.key === transaction.pipelineStage ? "text-spruce font-semibold" : "text-[var(--text-primary)]"}`}
+                      ${opt.key === transaction.pipelineStage ? "text-royal font-semibold" : "text-[var(--text-primary)]"}`}
                   >
                     {opt.label}
                   </button>
@@ -262,7 +262,7 @@ export default function TransactionDetailHeader({
         {/* Assigned closer */}
         {transaction.assignedCloserName && (
           <div className="flex items-center gap-2 text-sm">
-            <div className="w-6 h-6 bg-gradient-to-br from-sea-glass to-spruce-200 rounded-full flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
+            <div className="w-6 h-6 bg-gradient-to-br from-sea-glass to-royal-200 rounded-full flex items-center justify-center shadow-[0_1px_3px_rgba(0,0,0,0.1)]">
               <span className="text-[10px] font-semibold text-storm-gray">
                 {getInitials(transaction.assignedCloserName)}
               </span>
@@ -284,7 +284,7 @@ export default function TransactionDetailHeader({
               isOverdue
                 ? "text-signal-red"
                 : isUrgent
-                  ? "text-amber-600"
+                  ? "text-amber-400"
                   : "text-[var(--text-primary)]"
             }`}
           >
@@ -293,9 +293,9 @@ export default function TransactionDetailHeader({
           <span
             className={`text-xs px-1.5 py-0.5 rounded-full font-semibold font-[family-name:var(--font-mono)] ${
               isOverdue
-                ? "bg-signal-red-50 text-signal-red-700 dark:bg-signal-red-950/30 dark:text-signal-red-400"
+                ? "bg-signal-red/10 text-signal-red-400"
                 : isUrgent
-                  ? "bg-amber-50 text-amber-700 dark:bg-amber-950/30 dark:text-amber-400"
+                  ? "bg-amber/10 text-amber-400"
                   : "bg-elevation2 text-[var(--text-tertiary)]"
             }`}
           >

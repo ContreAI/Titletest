@@ -254,8 +254,8 @@ export default function DashboardTab({ transaction, side, onTabChange }: Dashboa
             title="Days to Close"
             value={12}
             icon={<Calendar />}
-            iconColor="text-spruce"
-            iconBg="bg-spruce/10"
+            iconColor="text-royal"
+            iconBg="bg-royal/10"
             trend="down"
             percentage={25}
           />
@@ -264,7 +264,7 @@ export default function DashboardTab({ transaction, side, onTabChange }: Dashboa
             value="8/12"
             icon={<FileCheck />}
             iconColor="text-fern"
-            iconBg="bg-fern-50"
+            iconBg="bg-fern/10"
             trend="up"
             percentage={15}
           />
@@ -272,15 +272,15 @@ export default function DashboardTab({ transaction, side, onTabChange }: Dashboa
             title="Action Items"
             value={mockJourneyData.actionItems.length}
             icon={<AlertCircle />}
-            iconColor="text-amber-600"
-            iconBg="bg-amber-50"
+            iconColor="text-amber-400"
+            iconBg="bg-amber/10"
           />
           <MetricCard
             title="Phase Progress"
             value={`${mockJourneyData.percentComplete}%`}
             icon={<Activity />}
             iconColor="text-indigo-500"
-            iconBg="bg-indigo-50"
+            iconBg="bg-indigo-500/10"
             trend="up"
             percentage={8}
           />
@@ -307,7 +307,7 @@ export default function DashboardTab({ transaction, side, onTabChange }: Dashboa
 
         {/* AI Quick Question — accent indigo background */}
         <div className="lg:col-span-2">
-          <div className="bg-gradient-to-br from-indigo-50 to-indigo-100 border border-indigo-200 rounded-lg p-[var(--card-padding)] h-full flex flex-col">
+          <div className="bg-gradient-to-br from-indigo-500/10 to-indigo-500/15 border border-indigo-500/20 rounded-lg p-[var(--card-padding)] h-full flex flex-col">
             <div className="flex items-center gap-2 mb-3">
               <div className="w-8 h-8 rounded-lg bg-indigo-500 flex items-center justify-center">
                 <MessageCircle className="w-4 h-4 text-white" />
@@ -323,7 +323,7 @@ export default function DashboardTab({ transaction, side, onTabChange }: Dashboa
                 {["What's my closing cost?", "Insurance status?", "Next steps?"].map((q) => (
                   <button
                     key={q}
-                    className="px-2.5 py-1 text-xs font-medium text-indigo-700 bg-paper border border-indigo-200 rounded-full hover:bg-indigo-50 transition-colors"
+                    className="px-2.5 py-1 text-xs font-medium text-indigo-400 bg-paper border border-indigo-500/20 rounded-full hover:bg-indigo-500/10 transition-colors"
                   >
                     {q}
                   </button>
@@ -334,7 +334,7 @@ export default function DashboardTab({ transaction, side, onTabChange }: Dashboa
                 <input
                   type="text"
                   placeholder="Ask a question..."
-                  className="flex-1 px-3 py-2 text-sm border border-indigo-200 rounded-lg bg-paper focus:outline-none focus:ring-2 focus:ring-indigo-300 focus:border-indigo-400"
+                  className="flex-1 px-3 py-2 text-sm border border-indigo-500/20 rounded-lg bg-paper focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500/40"
                 />
                 <Button variant="primary" size="sm" className="!bg-indigo-500 hover:!bg-indigo-600">
                   Ask

@@ -136,7 +136,7 @@ export default function NetProceedsBreakdown({
                         className={`font-[family-name:var(--font-mono)] ${
                           category === "credit"
                             ? "text-fern"
-                            : "text-signal-red-600"
+                            : "text-signal-red-400"
                         }`}
                       >
                         {category === "credit" ? "+" : "-"}
@@ -156,7 +156,7 @@ export default function NetProceedsBreakdown({
             <span className="text-sm text-[var(--text-tertiary)]">
               Total Deductions
             </span>
-            <span className="text-sm font-[family-name:var(--font-mono)] text-signal-red-600">
+            <span className="text-sm font-[family-name:var(--font-mono)] text-signal-red-400">
               -{formatCurrency(Math.abs(estimate.totalDeductions))}
             </span>
           </div>

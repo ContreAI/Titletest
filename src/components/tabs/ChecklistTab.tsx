@@ -32,7 +32,7 @@ const categoryOrder: ChecklistCategory[] = [
 
 // Waiting on badge styles
 const waitingOnStyles: Record<WaitingOn, { bg: string; text: string; label: string }> = {
-  title: { bg: "bg-spruce/10", text: "text-spruce", label: "Title" },
+  title: { bg: "bg-royal/10", text: "text-royal", label: "Title" },
   lender: { bg: "bg-amber/10", text: "text-amber", label: "Lender" },
   agent: { bg: "bg-river-stone/10", text: "text-river-stone", label: "Agent" },
   buyer: { bg: "bg-fern/10", text: "text-fern", label: "Buyer" },
@@ -75,9 +75,9 @@ export default function ChecklistTab({ transaction, side }: ChecklistTabProps) {
               {completionPercentage}%
             </span>
           </div>
-          <div className="h-3 bg-mist rounded-full overflow-hidden">
+          <div className="h-3 bg-black/[0.04] rounded-full overflow-hidden">
             <div
-              className="h-full bg-spruce rounded-full transition-all duration-500"
+              className="h-full bg-royal rounded-full transition-all duration-500"
               style={{ width: `${completionPercentage}%` }}
             />
           </div>
@@ -102,7 +102,7 @@ export default function ChecklistTab({ transaction, side }: ChecklistTabProps) {
               {items.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-mist/50 transition-colors"
+                  className="flex items-center gap-3 py-2 px-2 rounded-lg hover:bg-black/[0.04] transition-colors"
                 >
                   {/* Checkbox Icon */}
                   {item.complete ? (

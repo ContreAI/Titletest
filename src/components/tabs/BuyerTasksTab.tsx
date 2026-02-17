@@ -91,12 +91,12 @@ function PhaseSection({
             {phaseName}
           </span>
           {hasOverdue && (
-            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-signal-red-50 text-signal-red">
+            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-signal-red/10 text-signal-red">
               Overdue
             </span>
           )}
           {!hasOverdue && hasActionRequired && (
-            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-spruce/10 text-spruce">
+            <span className="px-1.5 py-0.5 text-[10px] font-semibold rounded-full bg-royal/10 text-royal">
               Action Needed
             </span>
           )}
@@ -110,7 +110,7 @@ function PhaseSection({
           <div className="w-20 h-1.5 rounded-full bg-elevation2 overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-500 ${
-                pct === 100 ? "bg-fern" : hasOverdue ? "bg-signal-red" : "bg-spruce"
+                pct === 100 ? "bg-fern" : hasOverdue ? "bg-signal-red" : "bg-royal"
               }`}
               style={{ width: `${pct}%` }}
             />
@@ -186,9 +186,9 @@ export default function BuyerTasksTab({ tasks, onTaskAction }: BuyerTasksTabProp
     if (el) {
       el.scrollIntoView({ behavior: "smooth", block: "center" });
       // Flash highlight
-      el.classList.add("ring-2", "ring-spruce", "ring-offset-2");
+      el.classList.add("ring-2", "ring-royal", "ring-offset-2");
       setTimeout(() => {
-        el.classList.remove("ring-2", "ring-spruce", "ring-offset-2");
+        el.classList.remove("ring-2", "ring-royal", "ring-offset-2");
       }, 2000);
     }
   }, []);
@@ -246,7 +246,7 @@ export default function BuyerTasksTab({ tasks, onTaskAction }: BuyerTasksTabProp
             placeholder="Search tasks..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-spruce/30 focus:border-spruce text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
+            className="w-full pl-9 pr-3 py-2 text-sm bg-paper border border-divider rounded-lg focus:outline-none focus:ring-2 focus:ring-royal/30 focus:border-royal text-[var(--text-primary)] placeholder:text-[var(--text-disabled)]"
           />
         </div>
 
@@ -259,7 +259,7 @@ export default function BuyerTasksTab({ tasks, onTaskAction }: BuyerTasksTabProp
               onClick={() => setFilter(opt.value)}
               className={`px-2.5 py-1 text-xs font-medium rounded-full whitespace-nowrap transition-all ${
                 filter === opt.value
-                  ? "bg-spruce text-white"
+                  ? "bg-royal text-white"
                   : "bg-elevation1 text-[var(--text-tertiary)] hover:bg-elevation2 hover:text-[var(--text-primary)]"
               }`}
             >

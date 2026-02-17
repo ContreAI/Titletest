@@ -24,10 +24,10 @@ const STAGE_LABELS: Record<string, string> = {
 };
 
 const STAGE_COLORS: Record<string, string> = {
-  new_pending: "bg-sea-glass/20 text-sea-glass-700",
-  title_work: "bg-spruce/10 text-spruce",
-  clear_to_close: "bg-fern/10 text-fern-700",
-  scheduled: "bg-amber-50 text-amber-700",
+  new_pending: "bg-sea-glass/20 text-sea-glass-400",
+  title_work: "bg-royal/10 text-royal",
+  clear_to_close: "bg-fern/10 text-fern-400",
+  scheduled: "bg-amber/10 text-amber-400",
   closed: "bg-river-stone/10 text-river-stone",
   on_hold: "bg-signal-red/10 text-signal-red",
   cancelled: "bg-river-stone/10 text-river-stone",
@@ -76,9 +76,9 @@ export default function TitleDashboard() {
 
         {/* Quick Upload CTA */}
         <Link href="/title/upload" className="block group">
-          <Card className="border-2 border-dashed border-spruce/30 hover:border-spruce/60 bg-spruce/5 transition-all">
+          <Card className="border-2 border-dashed border-royal/30 hover:border-royal/60 bg-royal/5 transition-all">
             <div className="flex items-center gap-4 py-2">
-              <div className="p-3 rounded-xl bg-spruce/10 text-spruce group-hover:bg-spruce group-hover:text-white transition-colors">
+              <div className="p-3 rounded-xl bg-royal/10 text-royal group-hover:bg-royal group-hover:text-white transition-colors">
                 <Upload className="w-6 h-6" />
               </div>
               <div className="flex-1">
@@ -90,7 +90,7 @@ export default function TitleDashboard() {
                   portal invitations to the agents automatically.
                 </p>
               </div>
-              <ArrowRight className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-spruce transition-colors" />
+              <ArrowRight className="w-5 h-5 text-[var(--text-tertiary)] group-hover:text-royal transition-colors" />
             </div>
           </Card>
         </Link>
@@ -101,19 +101,19 @@ export default function TitleDashboard() {
             label="Active Transactions"
             value={stats.active}
             icon={FileText}
-            color="text-spruce"
+            color="text-royal"
           />
           <StatCard
             label="Pending Setup"
             value={stats.pendingActions}
             icon={Clock}
-            color="text-amber-600"
+            color="text-amber-400"
           />
           <StatCard
             label="Closing This Week"
             value={stats.closingThisWeek}
             icon={AlertTriangle}
-            color="text-sea-glass-700"
+            color="text-sea-glass-400"
           />
           <StatCard
             label="Recently Closed"
@@ -131,7 +131,7 @@ export default function TitleDashboard() {
             </h2>
             <Link
               href="/title/transactions"
-              className="text-sm text-spruce hover:underline"
+              className="text-sm text-royal hover:underline"
             >
               View all
             </Link>
@@ -165,12 +165,12 @@ export default function TitleDashboard() {
                 </div>
                 <span
                   className={`px-2.5 py-1 rounded-full text-xs font-medium flex-shrink-0 ${
-                    STAGE_COLORS[tx.pipelineStage] || "bg-mist text-river-stone"
+                    STAGE_COLORS[tx.pipelineStage] || "bg-black/[0.04] text-river-stone"
                   }`}
                 >
                   {STAGE_LABELS[tx.pipelineStage] || tx.pipelineStage}
                 </span>
-                <ArrowRight className="w-4 h-4 text-[var(--text-disabled)] group-hover:text-spruce transition-colors flex-shrink-0" />
+                <ArrowRight className="w-4 h-4 text-[var(--text-disabled)] group-hover:text-royal transition-colors flex-shrink-0" />
               </Link>
             ))}
           </div>

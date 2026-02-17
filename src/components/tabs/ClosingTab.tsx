@@ -148,7 +148,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
       {/* Header */}
       <div>
         <h1 className="text-xl font-semibold text-storm-gray flex items-center gap-2">
-          <PenTool className="w-5 h-5 text-spruce" />
+          <PenTool className="w-5 h-5 text-royal" />
           Closing
         </h1>
         <p className="text-sm text-river-stone mt-1">
@@ -211,16 +211,16 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
                       }}
                       className={`p-3 rounded-lg border-2 text-left transition-all ${
                         isSelected
-                          ? "border-spruce bg-spruce/5"
+                          ? "border-royal bg-royal/5"
                           : "border-border hover:border-sea-glass"
                       }`}
                     >
                       <div className="flex items-center gap-3">
-                        <div className={isSelected ? "text-spruce" : "text-river-stone"}>
+                        <div className={isSelected ? "text-royal" : "text-river-stone"}>
                           {config.icon}
                         </div>
                         <div>
-                          <h4 className={`font-medium ${isSelected ? "text-spruce" : "text-storm-gray"}`}>
+                          <h4 className={`font-medium ${isSelected ? "text-royal" : "text-storm-gray"}`}>
                             {config.label}
                           </h4>
                           <p className="text-xs text-river-stone">{config.description}</p>
@@ -246,7 +246,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
                       const { dayOfWeek, monthDay } = formatDateHeader(dateKey);
                       return (
                         <div key={dateKey} className="border border-border rounded-lg overflow-hidden">
-                          <div className="bg-mist px-3 py-2 border-b border-border">
+                          <div className="bg-black/[0.04] px-3 py-2 border-b border-border">
                             <span className="text-xs text-river-stone uppercase mr-2">{dayOfWeek}</span>
                             <span className="text-sm font-medium text-storm-gray">{monthDay}</span>
                           </div>
@@ -261,7 +261,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
                                     onClick={() => setSelectedSlot(slot.id)}
                                     className={`py-1.5 px-3 text-sm rounded-md border transition-all ${
                                       isSelected
-                                        ? "border-spruce bg-spruce text-white"
+                                        ? "border-royal bg-royal text-white"
                                         : "border-border hover:border-sea-glass text-storm-gray"
                                     }`}
                                   >
@@ -349,7 +349,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
         <CardHeader title="What to Bring" />
         <div className="mt-4 space-y-3">
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-spruce/10 text-spruce">
+            <div className="p-2 rounded-lg bg-royal/10 text-royal">
               <IdCard className="w-4 h-4" />
             </div>
             <div>
@@ -360,7 +360,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-spruce/10 text-spruce">
+            <div className="p-2 rounded-lg bg-royal/10 text-royal">
               <CreditCard className="w-4 h-4" />
             </div>
             <div>
@@ -371,7 +371,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
             </div>
           </div>
           <div className="flex items-start gap-3">
-            <div className="p-2 rounded-lg bg-spruce/10 text-spruce">
+            <div className="p-2 rounded-lg bg-royal/10 text-royal">
               <FileText className="w-4 h-4" />
             </div>
             <div>
@@ -390,20 +390,20 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
         <div className="mt-4 space-y-4">
           {/* Title Closer */}
           {titleCloser && (
-            <div className="flex items-start gap-3 p-3 rounded-lg bg-mist">
-              <div className="p-2 rounded-full bg-spruce/10 text-spruce">
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-black/[0.04]">
+              <div className="p-2 rounded-full bg-royal/10 text-royal">
                 <User className="w-4 h-4" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-medium text-storm-gray">{titleCloser.name}</p>
                 <p className="text-sm text-river-stone">{titleCloser.company}</p>
-                <p className="text-xs text-spruce mt-1">Closing Agent</p>
+                <p className="text-xs text-royal mt-1">Closing Agent</p>
               </div>
               <div className="flex gap-2">
                 {titleCloser.contact.phone && (
                   <a
                     href={`tel:${titleCloser.contact.phone}`}
-                    className="p-2 rounded-lg border border-border hover:border-spruce hover:bg-spruce/5 transition-colors"
+                    className="p-2 rounded-lg border border-border hover:border-royal hover:bg-royal/5 transition-colors"
                   >
                     <Phone className="w-4 h-4 text-river-stone" />
                   </a>
@@ -411,7 +411,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
                 {titleCloser.contact.email && (
                   <a
                     href={`mailto:${titleCloser.contact.email}`}
-                    className="p-2 rounded-lg border border-border hover:border-spruce hover:bg-spruce/5 transition-colors"
+                    className="p-2 rounded-lg border border-border hover:border-royal hover:bg-royal/5 transition-colors"
                   >
                     <Mail className="w-4 h-4 text-river-stone" />
                   </a>
@@ -422,20 +422,20 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
 
           {/* Lender */}
           {lender && (
-            <div className="flex items-start gap-3 p-3 rounded-lg bg-mist">
-              <div className="p-2 rounded-full bg-blue-100 text-blue-700">
+            <div className="flex items-start gap-3 p-3 rounded-lg bg-black/[0.04]">
+              <div className="p-2 rounded-full bg-royal/15 text-royal-300">
                 <User className="w-4 h-4" />
               </div>
               <div className="flex-1 min-w-0">
                 <p className="font-medium text-storm-gray">{lender.name}</p>
                 <p className="text-sm text-river-stone">{lender.company}</p>
-                <p className="text-xs text-blue-700 mt-1">Lender</p>
+                <p className="text-xs text-royal-300 mt-1">Lender</p>
               </div>
               <div className="flex gap-2">
                 {lender.contact.phone && (
                   <a
                     href={`tel:${lender.contact.phone}`}
-                    className="p-2 rounded-lg border border-border hover:border-spruce hover:bg-spruce/5 transition-colors"
+                    className="p-2 rounded-lg border border-border hover:border-royal hover:bg-royal/5 transition-colors"
                   >
                     <Phone className="w-4 h-4 text-river-stone" />
                   </a>
@@ -443,7 +443,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
                 {lender.contact.email && (
                   <a
                     href={`mailto:${lender.contact.email}`}
-                    className="p-2 rounded-lg border border-border hover:border-spruce hover:bg-spruce/5 transition-colors"
+                    className="p-2 rounded-lg border border-border hover:border-royal hover:bg-royal/5 transition-colors"
                   >
                     <Mail className="w-4 h-4 text-river-stone" />
                   </a>
@@ -453,7 +453,7 @@ export default function ClosingTab({ transaction, side }: ClosingTabProps) {
           )}
 
           {/* Title Office */}
-          <div className="flex items-start gap-3 p-3 rounded-lg bg-mist">
+          <div className="flex items-start gap-3 p-3 rounded-lg bg-black/[0.04]">
             <div className="p-2 rounded-full bg-sea-glass/20 text-river-stone">
               <MapPin className="w-4 h-4" />
             </div>

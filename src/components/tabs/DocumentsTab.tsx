@@ -71,12 +71,12 @@ export default function DocumentsTab({ transaction, side }: DocumentsTabProps) {
     <div className="space-y-8">
       {/* SkySlope Sync Bar - Show at top when connected */}
       {isSkySlopeConnected && (
-        <Card className="bg-spruce/5 border-spruce/20">
+        <Card className="bg-royal/5 border-royal/20">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
             {/* Left side - Connection status and auto-sync */}
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
-                <Link2 className="w-5 h-5 text-spruce" />
+                <Link2 className="w-5 h-5 text-royal" />
                 <span className="font-medium text-storm-gray">SkySlope</span>
                 <span className="inline-flex items-center gap-1 text-xs text-fern">
                   <CheckCircle className="w-3 h-3" />
@@ -127,7 +127,7 @@ export default function DocumentsTab({ transaction, side }: DocumentsTabProps) {
 
       {/* Connect SkySlope prompt - Show when not connected */}
       {!isSkySlopeConnected && (
-        <Card className="bg-mist border-dashed">
+        <Card className="bg-black/[0.04] border-dashed">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <div className="p-2 rounded-full bg-river-stone/10 text-river-stone">
