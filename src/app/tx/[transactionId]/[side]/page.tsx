@@ -398,7 +398,7 @@ export default function PortalPage() {
           />
         );
       case "tasks":
-        return <BuyerTasksTab tasks={tasks} onTaskAction={handleTaskAction} />;
+        return <BuyerTasksTab tasks={tasks} documents={mockDocuments} onTaskAction={handleTaskAction} />;
       case "documents":
         return <BuyerDocumentsTab documents={mockDocuments} side={side} />;
       case "closing":

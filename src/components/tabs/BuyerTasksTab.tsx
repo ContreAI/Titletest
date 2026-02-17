@@ -12,13 +12,15 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Card, Button } from "@/components/common";
 import BuyerTaskRow from "@/components/buyer/BuyerTaskRow";
-import { TransactionTask, TaskStatus } from "@/types";
+import { TransactionTask, TaskStatus, Document } from "@/types";
 import { getTasksByPhase, getTaskCounts, getCompletionPercentage } from "@/stores/taskStore";
+import ReportModal from "@/components/documents/ReportModal";
 
 gsap.registerPlugin(useGSAP);
 
 export interface BuyerTasksTabProps {
   tasks: TransactionTask[];
+  documents?: Document[];
   onTaskAction?: (task: TransactionTask) => void;
 }
 
@@ -38,16 +40,20 @@ function PhaseSection({
   phaseName,
   tasks,
   allTasks,
+  documents,
   onTaskAction,
   onDependencyClick,
+  onViewReport,
   defaultOpen,
 }: {
   phaseNum: number;
   phaseName: string;
   tasks: TransactionTask[];
   allTasks: TransactionTask[];
+  documents?: Document[];
   onTaskAction?: (task: TransactionTask) => void;
   onDependencyClick?: (taskId: string) => void;
+  onViewReport?: (doc: Document) => void;
   defaultOpen: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -121,25 +127,39 @@ function PhaseSection({
       {/* Task rows */}
       {open && (
         <div ref={contentRef} className="border-t border-divider divide-y divide-divider/50">
-          {tasks.map((task) => (
-            <BuyerTaskRow
-              key={task.id}
-              task={task}
-              onAction={onTaskAction}
-              onDependencyClick={onDependencyClick}
-              dependencyLabels={dependencyLabels}
-            />
-          ))}
+          {tasks.map((task) => {
+            const linkedDoc = task.linkedDocumentType
+              ? documents?.find((d) => d.type === task.linkedDocumentType) ?? null
+              : null;
+            return (
+              <BuyerTaskRow
+                key={task.id}
+                task={task}
+                linkedDocument={linkedDoc}
+                onAction={onTaskAction}
+                onDependencyClick={onDependencyClick}
+                onViewReport={onViewReport}
+                dependencyLabels={dependencyLabels}
+              />
+            );
+          })}
         </div>
       )}
     </Card>
   );
 }
 
-export default function BuyerTasksTab({ tasks, onTaskAction }: BuyerTasksTabProps) {
+export default function BuyerTasksTab({ tasks, documents, onTaskAction }: BuyerTasksTabProps) {
   const [filter, setFilter] = useState<FilterOption>("all");
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  const handleViewReport = useCallback((doc: Document) => {
+    setSelectedDocument(doc);
+    setIsReportModalOpen(true);
+  }, []);
 
   useGSAP(() => {
     if (!containerRef.current) return;
@@ -305,13 +325,25 @@ export default function BuyerTasksTab({ tasks, onTaskAction }: BuyerTasksTabProp
                 phaseName={phaseTasks[0]?.phaseName || `Phase ${phaseNum}`}
                 tasks={phaseTasks}
                 allTasks={tasks}
+                documents={documents}
                 onTaskAction={onTaskAction}
                 onDependencyClick={handleDependencyClick}
+                onViewReport={handleViewReport}
                 defaultOpen={phasesWithActions.has(phaseNum)}
               />
             ))}
         </div>
       )}
+
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => {
+          setIsReportModalOpen(false);
+          setSelectedDocument(null);
+        }}
+        document={selectedDocument}
+        persona="client"
+      />
     </div>
   );
 }

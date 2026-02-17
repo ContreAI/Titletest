@@ -15,15 +15,20 @@ import {
   Edit3,
   ChevronRight,
   Info,
+  Eye,
+  Sparkles,
 } from "lucide-react";
-import { TransactionTask, PortalActionType } from "@/types";
+import { TransactionTask, PortalActionType, Document } from "@/types";
 import { getActionLabel, getActionButtonVariant } from "@/stores/taskStore";
 import { Button, Badge } from "@/components/common";
+import { hasReport } from "@/lib/mockReportData";
 
 interface BuyerTaskRowProps {
   task: TransactionTask;
+  linkedDocument?: Document | null;
   onAction?: (task: TransactionTask) => void;
   onDependencyClick?: (taskId: string) => void;
+  onViewReport?: (doc: Document) => void;
   dependencyLabels?: Record<string, string>; // taskId -> task title for tooltip
 }
 
@@ -78,8 +83,10 @@ function getRowStyles(status: TransactionTask["status"]): string {
 
 export default function BuyerTaskRow({
   task,
+  linkedDocument,
   onAction,
   onDependencyClick,
+  onViewReport,
   dependencyLabels = {},
 }: BuyerTaskRowProps) {
   const ActionIcon = ACTION_ICONS[task.portalAction];
@@ -142,6 +149,36 @@ export default function BuyerTaskRow({
           <span className="text-xs text-[var(--text-disabled)]">
             Completed {new Date(task.completedDate).toLocaleDateString()}
           </span>
+        )}
+
+        {/* Document actions — shown when a linked document exists in the portal */}
+        {linkedDocument && !isLocked && (
+          <div className="flex items-center gap-1 mt-1.5">
+            <button
+              className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-[var(--text-secondary)] hover:text-royal hover:bg-royal/5 rounded-md transition-colors"
+              title="View document"
+            >
+              <Eye className="w-3.5 h-3.5" />
+              View
+            </button>
+            {hasReport(linkedDocument.type) && (
+              <button
+                onClick={() => onViewReport?.(linkedDocument)}
+                className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-royal/70 hover:text-royal hover:bg-royal/5 rounded-md transition-colors"
+                title="View AI Summary"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                AI Summary
+              </button>
+            )}
+            <button
+              className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-[var(--text-secondary)] hover:text-royal hover:bg-royal/5 rounded-md transition-colors"
+              title="Download document"
+            >
+              <Download className="w-3.5 h-3.5" />
+              Download
+            </button>
+          </div>
         )}
       </div>
 

@@ -11,10 +11,15 @@ import {
   Eye,
   FileSignature,
   ThumbsUp,
+  Sparkles,
 } from "lucide-react";
 import { Card } from "@/components/common";
+import { Document } from "@/types";
 import { BUYER_TASKS } from "@/data/buyerTasksMockData";
 import { sellerTasks } from "@/data/sellerTasksMockData";
+import { mockDocuments } from "@/data/mockData";
+import ReportModal from "@/components/documents/ReportModal";
+import { hasReport } from "@/lib/mockReportData";
 
 const ACTION_ICONS: Record<string, React.ComponentType<{ className?: string }>> = {
   upload: Upload,
@@ -42,6 +47,13 @@ export interface AgentTaskTrackerProps {
 export default function AgentTaskTracker({ side }: AgentTaskTrackerProps) {
   const tasks = side === "buyer" ? BUYER_TASKS : sellerTasks;
   const [filter, setFilter] = useState<string>("all");
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+
+  const handleViewReport = (doc: Document) => {
+    setSelectedDocument(doc);
+    setIsReportModalOpen(true);
+  };
 
   const filtered = filter === "all"
     ? tasks
@@ -89,37 +101,73 @@ export default function AgentTaskTracker({ side }: AgentTaskTrackerProps) {
               {phaseTasks.map((task) => {
                 const ActionIcon = ACTION_ICONS[task.portalAction] || Clock;
                 const statusStyle = STATUS_STYLES[task.status] || STATUS_STYLES.not_started;
+                const linkedDoc = task.linkedDocumentType
+                  ? mockDocuments.find((d) => d.type === task.linkedDocumentType) ?? null
+                  : null;
+                const isLocked = task.status === "locked";
 
                 return (
                   <div
                     key={task.id}
-                    className={`flex items-center gap-3 p-3 rounded-lg ${statusStyle.bg} transition-colors`}
+                    className={`p-3 rounded-lg ${statusStyle.bg} transition-colors`}
                   >
-                    {/* Status icon */}
-                    {task.status === "completed" ? (
-                      <CheckCircle2 className="w-5 h-5 text-fern flex-shrink-0" />
-                    ) : task.status === "locked" ? (
-                      <Lock className="w-5 h-5 text-[var(--text-disabled)] flex-shrink-0" />
-                    ) : task.status === "overdue" ? (
-                      <AlertTriangle className="w-5 h-5 text-signal-red flex-shrink-0" />
-                    ) : (
-                      <ActionIcon className={`w-5 h-5 flex-shrink-0 ${statusStyle.text}`} />
-                    )}
+                    <div className="flex items-center gap-3">
+                      {/* Status icon */}
+                      {task.status === "completed" ? (
+                        <CheckCircle2 className="w-5 h-5 text-fern flex-shrink-0" />
+                      ) : task.status === "locked" ? (
+                        <Lock className="w-5 h-5 text-[var(--text-disabled)] flex-shrink-0" />
+                      ) : task.status === "overdue" ? (
+                        <AlertTriangle className="w-5 h-5 text-signal-red flex-shrink-0" />
+                      ) : (
+                        <ActionIcon className={`w-5 h-5 flex-shrink-0 ${statusStyle.text}`} />
+                      )}
 
-                    {/* Task info */}
-                    <div className="flex-1 min-w-0">
-                      <p className={`text-sm font-medium ${task.status === "completed" ? "line-through text-[var(--text-tertiary)]" : "text-[var(--text-primary)]"}`}>
-                        {task.title}
-                      </p>
-                      <p className="text-xs text-[var(--text-tertiary)]">
-                        {task.whoActs} &middot; Due: {task.dueExpression}
-                      </p>
+                      {/* Task info */}
+                      <div className="flex-1 min-w-0">
+                        <p className={`text-sm font-medium ${task.status === "completed" ? "line-through text-[var(--text-tertiary)]" : "text-[var(--text-primary)]"}`}>
+                          {task.title}
+                        </p>
+                        <p className="text-xs text-[var(--text-tertiary)]">
+                          {task.whoActs} &middot; Due: {task.dueExpression}
+                        </p>
+                      </div>
+
+                      {/* Status badge */}
+                      <span className={`text-xs font-medium px-2 py-0.5 rounded ${statusStyle.bg} ${statusStyle.text}`}>
+                        {statusStyle.label}
+                      </span>
                     </div>
 
-                    {/* Status badge */}
-                    <span className={`text-xs font-medium px-2 py-0.5 rounded ${statusStyle.bg} ${statusStyle.text}`}>
-                      {statusStyle.label}
-                    </span>
+                    {/* Document actions */}
+                    {linkedDoc && !isLocked && (
+                      <div className="flex items-center gap-1 mt-2 ml-8">
+                        <button
+                          className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-[var(--text-secondary)] hover:text-royal hover:bg-royal/5 rounded-md transition-colors"
+                          title="View document"
+                        >
+                          <Eye className="w-3.5 h-3.5" />
+                          View
+                        </button>
+                        {hasReport(linkedDoc.type) && (
+                          <button
+                            onClick={() => handleViewReport(linkedDoc)}
+                            className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-royal/70 hover:text-royal hover:bg-royal/5 rounded-md transition-colors"
+                            title="View AI Summary"
+                          >
+                            <Sparkles className="w-3.5 h-3.5" />
+                            AI Summary
+                          </button>
+                        )}
+                        <button
+                          className="flex items-center gap-1 px-2 py-1 text-xs font-medium text-[var(--text-secondary)] hover:text-royal hover:bg-royal/5 rounded-md transition-colors"
+                          title="Download document"
+                        >
+                          <Download className="w-3.5 h-3.5" />
+                          Download
+                        </button>
+                      </div>
+                    )}
                   </div>
                 );
               })}
@@ -127,6 +175,16 @@ export default function AgentTaskTracker({ side }: AgentTaskTrackerProps) {
           </Card>
         );
       })}
+
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => {
+          setIsReportModalOpen(false);
+          setSelectedDocument(null);
+        }}
+        document={selectedDocument}
+        persona="agent"
+      />
     </div>
   );
 }
