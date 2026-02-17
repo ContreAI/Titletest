@@ -51,36 +51,37 @@ export default function Home() {
           {/* Three Persona Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
             {/* Title Company */}
-            <Link href="/title" className="group block">
-              <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6 transition-all glass-card-hover">
-                <div className="flex flex-col items-center text-center">
-                  <div className="p-3 rounded-full bg-royal/10 text-royal mb-4 group-hover:bg-royal group-hover:text-white transition-colors">
-                    <Building2 className="w-7 h-7" />
-                  </div>
-                  <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-1">
-                    Title Company
-                  </h2>
-                  <p className="text-sm text-[var(--text-secondary)] mb-4">
-                    Upload contracts, trigger automations, monitor transactions
-                  </p>
-                  <div className="flex items-center gap-3 text-xs text-[var(--text-tertiary)]">
-                    <span className="flex items-center gap-1">
-                      <Upload className="w-3 h-3" /> Upload
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Zap className="w-3 h-3" /> Automate
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-1 text-royal text-sm font-medium mt-4 group-hover:gap-2 transition-all">
-                    <span>Open Dashboard</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
+            <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="p-3 rounded-full bg-royal/10 text-royal mb-4">
+                  <Building2 className="w-7 h-7" />
                 </div>
+                <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-1">
+                  Title Company
+                </h2>
+                <p className="text-sm text-[var(--text-secondary)] mb-4">
+                  Upload contracts, trigger automations, monitor transactions
+                </p>
+                <div className="flex items-center gap-3 text-xs text-[var(--text-tertiary)] mb-4">
+                  <span className="flex items-center gap-1">
+                    <Upload className="w-3 h-3" /> Upload
+                  </span>
+                  <span className="flex items-center gap-1">
+                    <Zap className="w-3 h-3" /> Automate
+                  </span>
+                </div>
+                <Link
+                  href="/title"
+                  className="w-full flex items-center justify-center gap-2 text-sm font-semibold text-white bg-royal hover:bg-royal/90 rounded-lg py-2.5 px-4 transition-colors shadow-sm"
+                >
+                  Open Dashboard
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
               </div>
-            </Link>
+            </div>
 
             {/* Agent Portal */}
-            <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6 transition-all glass-card-hover">
+            <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6">
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-full bg-sea-glass/20 text-sea-glass-400 mb-4">
                   <UserCircle className="w-7 h-7" />
@@ -102,22 +103,24 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-2 w-full">
                   <Link
                     href={`/tx/${transaction.id}/agent/buyer`}
-                    className="text-xs font-medium text-royal bg-royal/5 hover:bg-royal/10 rounded-lg py-2 px-3 transition-colors text-center"
+                    className="flex items-center justify-center gap-1.5 text-sm font-semibold text-white bg-royal hover:bg-royal/90 rounded-lg py-2.5 px-3 transition-colors shadow-sm"
                   >
-                    Buyer's Agent
+                    Buyer&apos;s Agent
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                   <Link
                     href={`/tx/${transaction.id}/agent/seller`}
-                    className="text-xs font-medium text-royal bg-royal/5 hover:bg-royal/10 rounded-lg py-2 px-3 transition-colors text-center"
+                    className="flex items-center justify-center gap-1.5 text-sm font-semibold text-royal bg-royal/10 hover:bg-royal/20 border border-royal/20 rounded-lg py-2.5 px-3 transition-colors"
                   >
-                    Seller's Agent
+                    Seller&apos;s Agent
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>
             </div>
 
             {/* Client Portal */}
-            <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6 transition-all glass-card-hover">
+            <div className="h-full glass rounded-xl border border-[var(--glass-border)] p-6">
               <div className="flex flex-col items-center text-center">
                 <div className="p-3 rounded-full bg-fern/10 text-fern mb-4">
                   <Users className="w-7 h-7" />
@@ -140,15 +143,17 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-2 w-full">
                   <Link
                     href={`/tx/${transaction.id}/buyer/login`}
-                    className="text-xs font-medium text-fern bg-fern/5 hover:bg-fern/10 rounded-lg py-2 px-3 transition-colors text-center"
+                    className="flex items-center justify-center gap-1.5 text-sm font-semibold text-white bg-fern hover:bg-fern/90 rounded-lg py-2.5 px-3 transition-colors shadow-sm"
                   >
                     Buyer
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                   <Link
                     href={`/tx/${transaction.id}/seller/login`}
-                    className="text-xs font-medium text-fern bg-fern/5 hover:bg-fern/10 rounded-lg py-2 px-3 transition-colors text-center"
+                    className="flex items-center justify-center gap-1.5 text-sm font-semibold text-fern bg-fern/10 hover:bg-fern/20 border border-fern/20 rounded-lg py-2.5 px-3 transition-colors"
                   >
                     Seller
+                    <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
                 </div>
               </div>

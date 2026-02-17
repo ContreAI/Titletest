@@ -10,11 +10,14 @@ import {
   ChevronDown,
   ChevronRight,
   File,
+  Sparkles,
 } from "lucide-react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { Card, Button, EmptyState } from "@/components/common";
 import { VaultFolder, Document, BuyerVaultFolder } from "@/types";
+import ReportModal from "@/components/documents/ReportModal";
+import { hasReport } from "@/lib/mockReportData";
 
 gsap.registerPlugin(useGSAP);
 
@@ -128,11 +131,13 @@ function FolderCard({
   folder,
   documents,
   onDownload,
+  onViewReport,
   defaultOpen,
 }: {
   folder: VaultFolder;
   documents: Document[];
   onDownload?: (doc: Document) => void;
+  onViewReport?: (doc: Document) => void;
   defaultOpen: boolean;
 }) {
   const [open, setOpen] = useState(defaultOpen);
@@ -207,13 +212,25 @@ function FolderCard({
                       )}
                     </p>
                   </div>
-                  <button
-                    onClick={() => onDownload?.(doc)}
-                    className="p-1.5 rounded-md hover:bg-elevation2 transition-colors"
-                    aria-label={`Download ${doc.name}`}
-                  >
-                    <Download className="w-4 h-4 text-[var(--text-tertiary)]" />
-                  </button>
+                  <div className="flex items-center gap-1 flex-shrink-0">
+                    {hasReport(doc.type) && (
+                      <button
+                        onClick={() => onViewReport?.(doc)}
+                        className="p-1.5 rounded-md hover:bg-royal/10 text-royal/70 hover:text-royal transition-colors"
+                        aria-label={`View AI report for ${doc.name}`}
+                        title="View AI Report"
+                      >
+                        <Sparkles className="w-4 h-4" />
+                      </button>
+                    )}
+                    <button
+                      onClick={() => onDownload?.(doc)}
+                      className="p-1.5 rounded-md hover:bg-elevation2 transition-colors"
+                      aria-label={`Download ${doc.name}`}
+                    >
+                      <Download className="w-4 h-4 text-[var(--text-tertiary)]" />
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>
@@ -231,6 +248,13 @@ export default function BuyerDocumentsTab({
   onDownload,
 }: BuyerDocumentsTabProps) {
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+
+  const handleViewReport = (doc: Document) => {
+    setSelectedDocument(doc);
+    setIsReportModalOpen(true);
+  };
   const containerRef = useRef<HTMLDivElement>(null);
   const vaultFolders = side === "seller" ? SELLER_VAULT_FOLDERS : BUYER_VAULT_FOLDERS;
 
@@ -312,10 +336,21 @@ export default function BuyerDocumentsTab({
             folder={folder}
             documents={folderDocs}
             onDownload={onDownload}
+            onViewReport={handleViewReport}
             defaultOpen={folderDocs.length > 0}
           />
         ))}
       </div>
+
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => {
+          setIsReportModalOpen(false);
+          setSelectedDocument(null);
+        }}
+        document={selectedDocument}
+        persona="client"
+      />
     </div>
   );
 }

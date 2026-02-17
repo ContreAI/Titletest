@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
-import { FolderOpen, FileText, Download, Eye, ChevronDown, ChevronRight } from "lucide-react";
+import { FolderOpen, FileText, Download, Eye, ChevronDown, ChevronRight, Sparkles } from "lucide-react";
 import { Card } from "@/components/common";
 import { Document } from "@/types";
+import ReportModal from "@/components/documents/ReportModal";
+import { hasReport } from "@/lib/mockReportData";
 
 // Vault folder structure from PDF spec Section 6
 const BUYER_FOLDERS = [
@@ -35,6 +37,13 @@ export default function AgentDocumentVault({ side, documents }: AgentDocumentVau
   const [expandedFolders, setExpandedFolders] = useState<Set<string>>(
     new Set(folders.slice(0, 2).map((f) => f.id))
   );
+  const [selectedDocument, setSelectedDocument] = useState<Document | null>(null);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+
+  const handleViewReport = (doc: Document) => {
+    setSelectedDocument(doc);
+    setIsReportModalOpen(true);
+  };
 
   const toggleFolder = (id: string) => {
     setExpandedFolders((prev) => {
@@ -93,6 +102,16 @@ export default function AgentDocumentVault({ side, documents }: AgentDocumentVau
                           </p>
                         </div>
                         <div className="flex items-center gap-2 flex-shrink-0">
+                          {hasReport(doc.type) && (
+                            <button
+                              onClick={() => handleViewReport(doc)}
+                              className="p-1.5 rounded-md hover:bg-royal/10 text-royal/70 hover:text-royal transition-colors"
+                              aria-label={`View AI report for ${doc.name}`}
+                              title="View AI Report"
+                            >
+                              <Sparkles className="w-4 h-4" />
+                            </button>
+                          )}
                           <button className="p-1.5 rounded-md hover:bg-[var(--bg-elevation2)] text-[var(--text-secondary)] hover:text-royal transition-colors">
                             <Eye className="w-4 h-4" />
                           </button>
@@ -113,6 +132,16 @@ export default function AgentDocumentVault({ side, documents }: AgentDocumentVau
           </Card>
         );
       })}
+
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => {
+          setIsReportModalOpen(false);
+          setSelectedDocument(null);
+        }}
+        document={selectedDocument}
+        persona="agent"
+      />
     </div>
   );
 }
